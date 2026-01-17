@@ -34,6 +34,26 @@
         "name": "Part-7",
         "url": "https://archive.org/download/part5_202601/sweet_narrator.mp3" 
       }
+      ,
+      { 
+        "name": "Part-8",
+        "url": "https://archive.org/download/part-8_202601/Part8.mp3" 
+      }
+      ,
+      { 
+        "name": "Part-9",
+        "url": "https://archive.org/download/part-9_202601/Part9.mp3" 
+      }
+      ,
+      { 
+        "name": "Part-10",
+        "url": "https://archive.org/download/part-10_202601/Part10.mp3" 
+      }
+      ,
+      { 
+        "name": "Part-11",
+        "url": "https://archive.org/download/part11_202601/part11.mp3" 
+      }
     ]
   },
   {
@@ -44,12 +64,22 @@
     "cover": "https://m.media-amazon.com/images/I/912ReSUDwiL._SL1500_.jpg",
     "chapters": [
       { 
-        "name": "Ch1.The Bounds of Reason", 
+        "name": "1.The Bounds of Reason", 
         "url": "https://archive.org/download/the-bounds-of-reason-1-3/The%20Bounds%20of%20Reason%201-3.mp3" 
       },
       { 
-        "name": "4-6.The Bounds of Reason", 
-        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+        "name": "4-5.The Bounds of Reason", 
+        "url": "https://archive.org/download/6-7-the-bounds-of/4-5The%20Bounds%20of%20Reason%20.mp3" 
+      }
+      ,
+      { 
+        "name": "6-7.The Bounds of Reason", 
+        "url": "https://archive.org/download/6-7-the-bounds-of/6-7The%20Bounds%20of.mp3" 
+      }
+      ,
+      { 
+        "name": "8.The Bounds of Reason", 
+        "url": "https://archive.org/download/6-7-the-bounds-of/8%20the%20bounds%20of%20r%20.mp3" 
       }
     ]
   },
