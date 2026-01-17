@@ -360,3 +360,4 @@ function setSleepTimer() {
     
     alert(`Music will stop in ${mins} minutes. Good Night! 😴`);
 }
+
