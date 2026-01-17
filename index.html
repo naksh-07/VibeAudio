@@ -8,27 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f0c29">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 
 <body>
-
     <div class="bg-gradient"></div>
-
     <div class="glass-container">
 
         <header>
-            <div class="logo">
-                <i class="fas fa-wave-square"></i> VibeBooks
-            </div>
-
+            <div class="logo"><i class="fas fa-wave-square"></i> VibeBooks</div>
             <div class="nav-tabs">
                 <button id="tab-library" class="active-tab" onclick="switchTab('library')">Library</button>
                 <button id="tab-history" onclick="switchTab('history')">History</button>
             </div>
-
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" id="search-input" placeholder="Search...">
@@ -37,24 +29,30 @@
 
         <main id="library-view" class="fade-in">
             <h2 class="section-title">Trending Now 🔥</h2>
+            <div id="category-filters" class="filter-container"></div>
             <div id="book-grid" class="grid"></div>
         </main>
 
         <section id="history-view" class="hidden fade-in">
             <h2 class="section-title">Recently Played 🕒</h2>
             <div id="history-grid" class="grid">
-                <p style="color:#aaa; width:100%;">No history yet. Play something!</p>
+                <p style="color:#aaa;">No history yet.</p>
             </div>
         </section>
 
         <section id="chapter-view" class="hidden fade-in">
-
             <button id="back-btn" class="glass-back-btn">
                 <i class="fas fa-arrow-left"></i> <span>Back</span>
             </button>
 
             <div class="player-header-card">
-                <div class="blur-bg" id="blur-bg"></div> <img id="detail-cover" src="" alt="Cover">
+                <div class="blur-bg" id="blur-bg"></div> 
+                
+                <div class="visualizer-container">
+                    <canvas id="visualizer"></canvas>
+                </div>
+
+                <img id="detail-cover" src="" alt="Cover">
                 <div class="info">
                     <span class="badge">NOW PLAYING</span>
                     <h1 id="detail-title">Title</h1>
@@ -65,31 +63,35 @@
                 </div>
             </div>
 
+            <div class="bookmarks-section">
+                <div class="bm-header">
+                    <h3>🔖 Bookmarks</h3>
+                    <button onclick="addBookmark()" class="bm-add-btn">+ Add Note</button>
+                </div>
+                <ul id="bookmarks-list"></ul>
+            </div>
+
             <div class="chapter-list-container">
                 <h3>Chapters</h3>
                 <ul id="chapter-list"></ul>
             </div>
         </section>
-
     </div>
 
     <div id="mini-player" class="player-bar hidden">
-
         <div class="track-info">
             <img id="mini-cover" src="" alt="">
             <div>
-                <h4 id="mini-title">Select a Book</h4>
+                <h4 id="mini-title">Select Book</h4>
                 <p id="mini-chapter">...</p>
             </div>
         </div>
-
         <div class="controls-wrapper">
             <div class="controls">
                 <button id="prev-btn"><i class="fas fa-step-backward"></i></button>
                 <button id="play-btn" class="play-circle"><i class="fas fa-play"></i></button>
                 <button id="next-btn"><i class="fas fa-step-forward"></i></button>
             </div>
-
             <div class="progress-container">
                 <span id="current-time">00:00</span>
                 <input type="range" id="progress-bar" value="0" step="0.1">
@@ -100,11 +102,9 @@
                 <button id="timer-btn" onclick="setSleepTimer()">🌙</button>
             </div>
         </div>
-
     </div>
 
-    <audio id="audio-element"></audio>
+    <audio id="audio-element" crossorigin="anonymous"></audio>
     <script src="script.js"></script>
 </body>
-
 </html>
