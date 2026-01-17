@@ -2,8 +2,10 @@
 
 A premium, glassmorphism-styled audiobook web app that remembers where you left off. Built for personal libraries hosted on Google Drive or Internet Archive.
 
-![Project Preview](https://via.placeholder.com/800x400?text=Vibe+Audio+Preview) 
-*(Bhai yahan apne final app ka screenshot leke replace kar dena)*
+![Project Preview](<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/74344f7d-c201-4fe5-aa13-fa83fda2aad4" />
+) 
+
+https://naksh-07.github.io/VibeAudio/
 
 ## ✨ Features
 
