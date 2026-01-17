@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "title": "The Last Wish",
+    "author": "Andrzej Sapkowski",
+    "cover": "https://m.media-amazon.com/images/I/71sZSQ6WS4L._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "Part-1",
+        "url": "https://archive.org/download/start-1_202601/start-1.mp3" 
+      },
+      { 
+        "name": "Part-2",
+        "url": "https://archive.org/download/part5_202601/part2.mp3" 
+      },
+      { 
+        "name": "Part-3",
+        "url": "https://archive.org/download/part5_202601/part3.mp3" 
+      },
+      { 
+        "name": "Part-4",
+        "url": "https://archive.org/download/part4_202601/part4.mp3" 
+      },
+      { 
+        "name": "Part-5",
+        "url": "https://archive.org/download/part5_202601/part5.mp3" 
+      },
+      { 
+        "name": "Part-6",
+        "url": "https://archive.org/download/part5_202601/part6.mp3" 
+      },
+      { 
+        "name": "Part-7",
+        "url": "https://archive.org/download/part5_202601/sweet_narrator.mp3" 
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Sword of Destiny",
+    "author": "Andrzej Sapkowski",
+    "cover": "https://m.media-amazon.com/images/I/912ReSUDwiL._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "Ch1.The Bounds of Reason", 
+        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+      },
+      { 
+        "name": "4-6.The Bounds of Reason", 
+        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "cover": "https://m.media-amazon.com/images/I/81iLCTUEboL._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "Testing Audio", 
+        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+      }
+    ]
+  }
+]
