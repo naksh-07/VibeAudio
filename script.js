@@ -307,3 +307,56 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 });
 
 init();
+
+// --- PWA REGISTRATION ---
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('App Ready!', reg.scope))
+            .catch(err => console.log('App Fail:', err));
+    });
+}
+
+// --- 🏃‍♂️ SPEED CONTROL ---
+function changeSpeed() {
+    const speeds = [1, 1.25, 1.5, 2];
+    let currentSpeed = audio.playbackRate;
+    // Find next speed
+    let nextIndex = (speeds.indexOf(currentSpeed) + 1) % speeds.length;
+    let newSpeed = speeds[nextIndex];
+    
+    audio.playbackRate = newSpeed;
+    document.getElementById('speed-btn').innerText = newSpeed + 'x';
+}
+
+// --- 🌙 SLEEP TIMER ---
+let sleepTimer = null;
+function setSleepTimer() {
+    const btn = document.getElementById('timer-btn');
+    
+    // Agar timer chal raha hai to band karo
+    if (sleepTimer) {
+        clearTimeout(sleepTimer);
+        sleepTimer = null;
+        btn.classList.remove('active-timer');
+        btn.innerText = '🌙';
+        alert("Sleep Timer Cancelled");
+        return;
+    }
+    
+    // Set 30 Mins Timer (Demo ke liye)
+    // Tu chaho to user se prompt le sakta hai: prompt("Minutes?")
+    let mins = 30; 
+    btn.classList.add('active-timer');
+    btn.innerText = '30m';
+    
+    sleepTimer = setTimeout(() => {
+        audio.pause();
+        isPlaying = false;
+        updatePlayBtn();
+        btn.classList.remove('active-timer');
+        btn.innerText = '🌙';
+    }, mins * 60 * 1000);
+    
+    alert(`Music will stop in ${mins} minutes. Good Night! 😴`);
+}

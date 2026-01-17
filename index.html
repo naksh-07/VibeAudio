@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f0c29">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
+
 <body>
 
     <div class="bg-gradient"></div>
 
     <div class="glass-container">
-        
+
         <header>
             <div class="logo">
                 <i class="fas fa-wave-square"></i> VibeBooks
             </div>
-            
+
             <div class="nav-tabs">
                 <button id="tab-library" class="active-tab" onclick="switchTab('library')">Library</button>
                 <button id="tab-history" onclick="switchTab('history')">History</button>
@@ -43,7 +48,7 @@
         </section>
 
         <section id="chapter-view" class="hidden fade-in">
-            
+
             <button id="back-btn" class="glass-back-btn">
                 <i class="fas fa-arrow-left"></i> <span>Back</span>
             </button>
@@ -69,7 +74,7 @@
     </div>
 
     <div id="mini-player" class="player-bar hidden">
-        
+
         <div class="track-info">
             <img id="mini-cover" src="" alt="">
             <div>
@@ -77,7 +82,7 @@
                 <p id="mini-chapter">...</p>
             </div>
         </div>
-        
+
         <div class="controls-wrapper">
             <div class="controls">
                 <button id="prev-btn"><i class="fas fa-step-backward"></i></button>
@@ -90,6 +95,10 @@
                 <input type="range" id="progress-bar" value="0" step="0.1">
                 <span id="total-duration">00:00</span>
             </div>
+            <div class="extra-controls">
+                <button id="speed-btn" onclick="changeSpeed()">1x</button>
+                <button id="timer-btn" onclick="setSleepTimer()">🌙</button>
+            </div>
         </div>
 
     </div>
@@ -97,4 +106,5 @@
     <audio id="audio-element"></audio>
     <script src="script.js"></script>
 </body>
+
 </html>

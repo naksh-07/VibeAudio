@@ -240,3 +240,14 @@ header {
     .controls-wrapper { width: 100%; }
     .play-circle { width: 45px; height: 45px; font-size: 1.8rem !important; }
 }
+
+.extra-controls {
+    display: flex; gap: 15px; margin-top: 10px; justify-content: center;
+}
+.extra-controls button {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #ccc; padding: 5px 12px; border-radius: 20px;
+    font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+}
+.extra-controls button:hover { background: var(--secondary); color: black; }
+.active-timer { color: #ff4b1f !important; border-color: #ff4b1f !important; }

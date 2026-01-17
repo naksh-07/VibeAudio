@@ -1,0 +1,16 @@
+{
+  "name": "Vibe Audio",
+  "short_name": "VibeAudio",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f0c29",
+  "theme_color": "#ff4b1f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3075/3075977.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
