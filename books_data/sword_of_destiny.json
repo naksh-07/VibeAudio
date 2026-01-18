@@ -1,0 +1,27 @@
+{
+    "id": 2,
+    "title": "Sword of Destiny",
+    "author": "Andrzej Sapkowski",
+    "category": "Fiction",
+    "cover": "https://m.media-amazon.com/images/I/912ReSUDwiL._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "1.The Bounds of Reason", 
+        "url": "https://archive.org/download/the-bounds-of-reason-1-3/The%20Bounds%20of%20Reason%201-3.mp3" 
+      },
+      { 
+        "name": "4-5.The Bounds of Reason", 
+        "url": "https://archive.org/download/6-7-the-bounds-of/4-5The%20Bounds%20of%20Reason%20.mp3" 
+      }
+      ,
+      { 
+        "name": "6-7.The Bounds of Reason", 
+        "url": "https://archive.org/download/6-7-the-bounds-of/6-7The%20Bounds%20of.mp3" 
+      }
+      ,
+      { 
+        "name": "8.The Bounds of Reason", 
+        "url": "https://archive.org/download/6-7-the-bounds-of/8%20the%20bounds%20of%20r%20.mp3" 
+      }
+    ]
+  }

@@ -11,7 +11,9 @@ let playHistory = JSON.parse(localStorage.getItem('vibe_history')) || [];
 let audioContext, analyser, dataArray, canvas, ctx;
 
 // --- ELEMENTS ---
-const audio = document.getElementById('audio-element');
+// ⚠️ DHYAN DE: Isko 'let' kiya hai taaki player replace kar sakein
+let audio = document.getElementById('audio-element');
+
 const views = {
     library: document.getElementById('library-view'),
     history: document.getElementById('history-view'),
@@ -31,22 +33,18 @@ async function init() {
         const res = await fetch(booksUrl);
         allBooks = await res.json();
         
-        renderBooks(allBooks); // Pehle sab books dikhao
-        setupCategories();     // 🔥 Categories buttons banao
+        renderBooks(allBooks);
+        setupCategories();
         renderHistory();
         
-        // ✨ AUTO RESUME (Refresh Fix)
+        // ✨ AUTO RESUME
         const savedState = JSON.parse(localStorage.getItem('vibe_last_played'));
-        
         if (savedState) {
             const book = allBooks.find(b => b.id === savedState.bookId);
             if (book) {
                 currentBook = book;
                 currentChapterIndex = savedState.chapterIndex;
-                
-                // Audio load without playing
                 loadAudioSource(currentChapterIndex, false, savedState.time);
-                
                 openPlayerPage(book);
                 updateMiniPlayerUI();
                 console.log(`Resumed: ${book.title}`);
@@ -88,7 +86,6 @@ function setupCategories() {
         btn.onclick = () => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             if (cat === 'All') renderBooks(allBooks);
             else renderBooks(allBooks.filter(b => (b.category || 'Others') === cat));
         };
@@ -154,7 +151,7 @@ function openPlayerPage(book) {
     document.getElementById('total-chapters').innerText = `${book.chapters.length} Chapters`;
 
     renderChapters();
-    renderBookmarksList(); // 🔥 Bookmarks bhi load karo
+    renderBookmarksList();
 }
 
 document.getElementById('back-btn').onclick = () => switchTab('library');
@@ -174,7 +171,7 @@ function renderChapters() {
     });
 }
 
-// --- 🎧 AUDIO LOGIC ---
+// --- 🎧 AUDIO LOGIC (FINAL & ROBUST) ---
 
 function getDirectLink(url) {
     if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
@@ -196,29 +193,87 @@ function playAudio(index) {
 
 function loadAudioSource(index, autoPlay = true, resumeTime = 0) {
     const chapter = currentBook.chapters[index];
-    const src = getDirectLink(chapter.url);
-    
+    // Encode spaces for safer URLs
+    const src = getDirectLink(chapter.url).replace(/ /g, '%20'); 
+
+    // Step 1: Default Visualizer Permission On karo
+    audio.crossOrigin = "anonymous"; 
+
+    if (src.endsWith('.m4a')) console.log("ℹ️ Playing M4A:", src);
+
+    // Agar gana badal raha hai
     if(audio.src !== src) {
         audio.src = src;
-        audio.addEventListener('loadedmetadata', function onLoaded() {
+        
+        // 🔥 ERROR HANDLING (The Fix for Silent Playback)
+        audio.onerror = function() {
+            console.warn("⚠️ Audio Error Detected. Retrying with SAFE MODE...");
+
+            // Agar Visualizer permission (CORS) ki wajah se error hai
+            if (audio.crossOrigin === "anonymous") {
+                // 1. Naya Clone banao (Puraana corrupted ho sakta hai)
+                const oldAudio = audio;
+                const newAudio = oldAudio.cloneNode(true);
+
+                // 2. Permission Hatao (Visualizer OFF, Audio ON)
+                newAudio.removeAttribute('crossorigin');
+                
+                // 3. Link Cache Buster (Browser ko force karo naya link lene ko)
+                const safeSrc = src + (src.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+                newAudio.src = safeSrc;
+
+                // 4. Player Replace karo
+                oldAudio.parentNode.replaceChild(newAudio, oldAudio);
+                audio = newAudio; // Global variable update
+                
+                // 5. Listeners wapas lagao
+                attachGlobalListeners();
+
+                // 6. Play karo
+                if(autoPlay) {
+                    audio.play().then(() => {
+                        console.log("✅ Audio Recovered in Safe Mode!");
+                        isPlaying = true;
+                        updatePlayBtn();
+                        alert("Note: Visualizer disabled for this file to ensure audio plays.");
+                    }).catch(e => alert("Link Dead hai: " + e));
+                }
+            } else {
+                alert("🚫 Link kaam nahi kar raha. Check internet or file URL.");
+                isPlaying = false;
+                updatePlayBtn();
+            }
+        };
+
+        // Agar Sab Sahi Chala
+        audio.onloadedmetadata = function() {
             totalDurationEl.innerText = formatTime(audio.duration);
             if (resumeTime > 0) audio.currentTime = resumeTime;
             
             if (autoPlay) {
-                initVisualizer(); // 🔥 Start Visualizer
-                audio.play().catch(e => console.log("Autoplay blocked:", e));
-                isPlaying = true;
-            } else {
-                isPlaying = false;
+                // Visualizer tabhi init karo agar permission abhi bhi hai
+                if (audio.getAttribute('crossorigin') === "anonymous") {
+                    initVisualizer(); 
+                }
+                
+                audio.play().then(() => {
+                    isPlaying = true;
+                    updatePlayBtn();
+                }).catch(e => {
+                    console.log("Autoplay blocked:", e);
+                    isPlaying = false;
+                    updatePlayBtn();
+                });
             }
-            updatePlayBtn();
             renderChapters();
-        }, { once: true });
+        };
     } else {
+        // Resume Case
         if(autoPlay) { 
-            initVisualizer(); 
+            if (audio.getAttribute('crossorigin') === "anonymous") initVisualizer(); 
             audio.play(); 
             isPlaying = true; 
+            updatePlayBtn();
         }
     }
     updateMiniPlayerUI();
@@ -233,7 +288,9 @@ function updateMiniPlayerUI() {
 }
 
 function togglePlay() {
-    initVisualizer(); // 🔥 Ensure context is ready
+    // Agar visualizer enabled hai to init karo
+    if (audio.getAttribute('crossorigin') === "anonymous") initVisualizer();
+    
     if (audio.paused) {
         audio.play();
         isPlaying = true;
@@ -258,7 +315,7 @@ document.getElementById('prev-btn').onclick = () => {
     if (currentChapterIndex > 0) playAudio(currentChapterIndex - 1);
 };
 
-// --- PROGRESS & UPDATES ---
+// --- PROGRESS & LISTENERS ---
 function formatTime(seconds) {
     if (isNaN(seconds)) return "00:00";
     const min = Math.floor(seconds / 60);
@@ -266,40 +323,38 @@ function formatTime(seconds) {
     return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
 }
 
-audio.addEventListener('timeupdate', () => {
-    currentTimeEl.innerText = formatTime(audio.currentTime);
-    if (audio.duration) {
-        const percent = (audio.currentTime / audio.duration) * 100;
-        progressBar.value = percent;
-        progressBar.style.backgroundSize = `${percent}% 100%`;
-    }
-    
-    // Save State
-    if(currentBook && isPlaying && Math.floor(audio.currentTime) % 2 === 0) {
-        localStorage.setItem('vibe_last_played', JSON.stringify({
-            bookId: currentBook.id,
-            chapterIndex: currentChapterIndex,
-            time: audio.currentTime
-        }));
-        
-        const historyIndex = playHistory.findIndex(b => b.id === currentBook.id);
-        if(historyIndex > -1) {
-            playHistory[historyIndex].lastTime = audio.currentTime;
-            playHistory[historyIndex].lastChapter = currentChapterIndex;
-            localStorage.setItem('vibe_history', JSON.stringify(playHistory));
+// 🔥 GLOBAL LISTENER FUNCTION (Zaroori hai jab player replace hota hai)
+function attachGlobalListeners() {
+    audio.ontimeupdate = () => {
+        currentTimeEl.innerText = formatTime(audio.currentTime);
+        if (audio.duration) {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBar.value = percent;
+            progressBar.style.backgroundSize = `${percent}% 100%`;
         }
-    }
-});
+        
+        // Save State
+        if(currentBook && isPlaying && Math.floor(audio.currentTime) % 2 === 0) {
+            localStorage.setItem('vibe_last_played', JSON.stringify({
+                bookId: currentBook.id,
+                chapterIndex: currentChapterIndex,
+                time: audio.currentTime
+            }));
+        }
+    };
+
+    audio.onended = () => {
+        if (currentChapterIndex < currentBook.chapters.length - 1) playAudio(currentChapterIndex + 1);
+        else { isPlaying = false; updatePlayBtn(); }
+    };
+}
+// Init Listeners
+attachGlobalListeners();
 
 progressBar.addEventListener('input', (e) => {
     const time = (e.target.value / 100) * audio.duration;
     audio.currentTime = time;
     e.target.style.backgroundSize = `${e.target.value}% 100%`;
-});
-
-audio.addEventListener('ended', () => {
-    if (currentChapterIndex < currentBook.chapters.length - 1) playAudio(currentChapterIndex + 1);
-    else { isPlaying = false; updatePlayBtn(); }
 });
 
 // Search
@@ -396,14 +451,19 @@ function deleteBookmark(index) {
 // --- 📊 MIRRORED VISUALIZER LOGIC ---
 
 function initVisualizer() {
-    if (!audioContext) {
+    // Agar AudioContext pehle se hai aur running hai to naya mat banao
+    if (audioContext) {
+        if(audioContext.state === 'suspended') audioContext.resume();
+        return;
+    }
+
+    try {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
         analyser = audioContext.createAnalyser();
         const source = audioContext.createMediaElementSource(audio);
         source.connect(analyser);
         analyser.connect(audioContext.destination);
         
-        // FFT Size 64 rakha hai taaki bars mote aur clean dikhein
         analyser.fftSize = 64; 
         const bufferLength = analyser.frequencyBinCount;
         dataArray = new Uint8Array(bufferLength);
@@ -411,21 +471,20 @@ function initVisualizer() {
         canvas = document.getElementById('visualizer');
         ctx = canvas.getContext('2d');
         
-        // Resolution fix
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
         
         animateVisualizer();
+    } catch(e) {
+        console.log("Visualizer failed to start (Likely CORS):", e);
     }
-    if (audioContext.state === 'suspended') audioContext.resume();
 }
 
 function animateVisualizer() {
     requestAnimationFrame(animateVisualizer);
 
     if (!isPlaying) {
-        // Pause hone par bars dheere dheere neeche aayein (Optional cleanup)
-         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         return;
     }
 
@@ -433,34 +492,28 @@ function animateVisualizer() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const bufferLength = analyser.frequencyBinCount;
-    // Calculate bar width with some gap
     const barWidth = (canvas.width / bufferLength) * 0.8; 
     const gap = (canvas.width / bufferLength) * 0.2;
-    let x = gap / 2; // Start with half gap
+    let x = gap / 2; 
 
     for (let i = 0; i < bufferLength; i++) {
-        let barHeight = dataArray[i] / 1.5; // Height adjust kar le
+        let barHeight = dataArray[i] / 1.5; 
         
-        // 🔥 NEON GRADIENT (Pink to Purple)
         const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, '#ff00cc'); // Neon Pink
-        gradient.addColorStop(1, '#333399'); // Deep Purple
+        gradient.addColorStop(0, '#ff00cc'); 
+        gradient.addColorStop(1, '#333399'); 
 
         ctx.fillStyle = gradient;
-
-        // Center Point Calculation (Jahan se mirror hoga)
         const centerY = canvas.height / 1.5; 
 
-        // 1. Upper Bar (Upar ja raha hai)
-        // roundRect(x, y, width, height, radius)
+        // Upper Bar
         ctx.beginPath();
         ctx.roundRect(x, centerY - barHeight, barWidth, barHeight, [5, 5, 0, 0]);
         ctx.fill();
 
-        // 2. Lower Bar (Reflection - Thoda transparent)
-        ctx.fillStyle = 'rgba(255, 0, 204, 0.3)'; // Halka Pink Reflection
+        // Lower Bar (Reflection)
+        ctx.fillStyle = 'rgba(255, 0, 204, 0.3)'; 
         ctx.beginPath();
-        // Height thodi kam reflection ki (realism ke liye)
         ctx.roundRect(x, centerY + 2, barWidth, barHeight * 0.5, [0, 0, 5, 5]); 
         ctx.fill();
 

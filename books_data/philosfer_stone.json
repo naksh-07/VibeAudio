@@ -1,0 +1,93 @@
+{
+    "id": 4,
+    "title": "Harry Potter and the Philosophers Stone",
+    "author": "J.K. Rowling",
+    "category": "Fiction",
+    "cover": "https://m.media-amazon.com/images/I/71FlgBehs4L._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "वह लड़का जो ज़िंदा बच गया", 
+        "url": "https://archive.org/download/4-h-0j-3-l-dp-0f-i-251/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_1_%E0%A4%B5%E0%A4%B9_%E0%A4%B2%E0%A4%A1%E0%A4%BC%E0%A4%95%E0%A4%BE_%E0%A4%9C%E0%A5%8B_%E0%A4%9C%E0%A4%BC%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A4%BE_%E0%A4%AC%E0%A4%9A_DTc4ICldsjk%20%281%29.m4a"
+      },
+      { 
+        "name": "गायब होने वाला कांच", 
+        "url": "https://archive.org/download/4-h-0j-3-l-dp-0f-i-251/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_2_%E0%A4%97%E0%A4%BE%E0%A4%AF%E0%A4%AC_%E0%A4%B9%E0%A5%8B%E0%A4%A8%E0%A5%87_%E0%A4%B5%E0%A4%BE%E0%A4%B2%E0%A4%BE_%E0%A4%95%E0%A4%BE%E0%A4%82%E0%A4%9A_BCWG_rKj75o.mp3" 
+      }
+      ,
+      { 
+        "name": "गुमनाम चिट्ठियां", 
+        "url": "https://archive.org/download/4-h-0j-3-l-dp-0f-i-251/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_3_%E0%A4%97%E0%A5%81%E0%A4%AE%E0%A4%A8%E0%A4%BE%E0%A4%AE_%E0%A4%9A%E0%A4%BF%E0%A4%9F%E0%A5%8D%E0%A4%A0%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%82_rDauRSkp2lw_250.mp3" 
+      }
+      ,
+      { 
+        "name": "चाभियों का रखवाला", 
+        "url": "https://archive.org/download/4-h-0j-3-l-dp-0f-i-251/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_4_%E0%A4%9A%E0%A4%BE%E0%A4%AD%E0%A4%BF%E0%A4%AF%E0%A5%8B%E0%A4%82_%E0%A4%95%E0%A4%BE_%E0%A4%B0%E0%A4%96%E0%A4%B5%E0%A4%BE%E0%A4%B2%E0%A4%BE_h0j3L_dp0fI_251.mp3" 
+      }
+      ,
+      { 
+        "name": "छूमंतर गली", 
+        "url": "https://archive.org/download/4-h-0j-3-l-dp-0f-i-251/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_5_%E0%A4%9B%E0%A5%82%E0%A4%AE%E0%A4%82%E0%A4%A4%E0%A4%B0_%E0%A4%97%E0%A4%B2%E0%A5%80_gbRP6IV3Oqw_139.m4a" 
+      }
+      ,
+      { 
+        "name": "प्लेटफार्म नंबर पौने दस से यात्रा", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_6_%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%87%E0%A4%9F%E0%A4%AB%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%AE_%E0%A4%A8%E0%A4%82%E0%A4%AC%E0%A4%B0_%E0%A4%AA%E0%A5%8C%E0%A4%A8%E0%A5%87_%E0%A4%A6_2fxyvdUREY.mp3.mp3" 
+      }
+      ,
+      { 
+        "name": "बोलती टोपी", 
+        "url": "https://archive.org/download/4-h-0j-3-l-dp-0f-i-251/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_7_%E0%A4%AC%E0%A5%8B%E0%A4%B2%E0%A4%A4%E0%A5%80_%E0%A4%9F%E0%A5%8B%E0%A4%AA%E0%A5%80_Yn_jg_K24r8_250.mp3" 
+      }
+      ,
+      { 
+        "name": "जादुई काढ़े  के टीचर", 
+        "url": "https://archive.org/download/4-h-0j-3-l-dp-0f-i-251/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_7_%E0%A4%AC%E0%A5%8B%E0%A4%B2%E0%A4%A4%E0%A5%80_%E0%A4%9F%E0%A5%8B%E0%A4%AA%E0%A5%80_Yn_jg_K24r8_250.mp3" 
+      }
+      ,
+      { 
+        "name": " आधी रात की लड़ाई", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_9_%E0%A4%86%E0%A4%A7%E0%A5%80_%E0%A4%B0%E0%A4%BE%E0%A4%A4_%E0%A4%95%E0%A5%80_%E0%A4%B2%E0%A4%A1%E0%A4%BC%E0%A4%BE%E0%A4%88_tFgNx6htADQ_139.mp3.mp3" 
+      }
+      ,
+      { 
+        "name": " हेलोवीन", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_10_%E0%A4%B9%E0%A5%87%E0%A4%B2%E0%A5%8B%E0%A4%B5%E0%A5%80%E0%A4%A8_GxYl5QGmP18_139%20%281%29.mp3" 
+      }
+      ,
+      { 
+        "name": " क्विडिच", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_11_%E0%A4%95%E0%A5%8D%E0%A4%B5%E0%A4%BF%E0%A4%A1%E0%A4%BF%E0%A4%9A_9GbyzicWrcg_139.mp3.mp3" 
+      }
+      ,
+      { 
+        "name": "शईवाख् का दर्पण", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_12_%E0%A4%B6%E0%A4%88%E0%A4%B5%E0%A4%BE%E0%A4%96%E0%A5%8D_%E0%A4%95%E0%A4%BE_%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%AA%E0%A4%A3_MZ5oASnV7yg_139.mp3.mp3" 
+      }
+      ,
+      { 
+        "name": "निकोलस  फ्लामेल", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_13_%E0%A4%A8%E0%A4%BF%E0%A4%95%E0%A5%8B%E0%A4%B2%E0%A4%B8_%E0%A4%AB%E0%A5%8D%E0%A4%B2%E0%A4%BE%E0%A4%AE%E0%A5%87%E0%A4%B2_8iyg5WzoD7I_139.mp3" 
+      }
+      ,
+      { 
+        "name": "नॉर्वे का सीढ़ीदार ड्रैगन नॉर्बर्ट", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_14_%E0%A4%A8%E0%A5%89%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A5%87_%E0%A4%95%E0%A4%BE_%E0%A4%B8%E0%A5%80%E0%A4%A2%E0%A4%BC%E0%A5%80%E0%A4%A6%E0%A4%BE%E0%A4%B0_%E0%A4%A1%E0%A5%8D_jASqO6bscBI.mp3.mp3" 
+      }
+      ,
+      { 
+        "name": "अँधेरा जंगल", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_15_%E0%A4%85%E0%A4%81%E0%A4%A7%E0%A5%87%E0%A4%B0%E0%A4%BE_%E0%A4%9C%E0%A4%82%E0%A4%97%E0%A4%B2_K_S_U9UMG7g_139.mp3.mp3" 
+      }
+      ,
+      { 
+        "name": "चोर दरवाज़े के पार", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_16_%E0%A4%9A%E0%A5%8B%E0%A4%B0_%E0%A4%A6%E0%A4%B0%E0%A4%B5%E0%A4%BE%E0%A4%9C%E0%A4%BC%E0%A5%87_%E0%A4%95%E0%A5%87_%E0%A4%AA%E0%A4%BE%E0%A4%B0_xNTvNmFKPqE.mp3" 
+      }
+      ,
+      { 
+        "name": "दो चेहरे वाला आदमी", 
+        "url": "https://archive.org/download/16-x-ntv-nm-fkpq-e/%E0%A4%B9%E0%A5%88%E0%A4%B0%E0%A5%80_%E0%A4%AA%E0%A5%89%E0%A4%9F%E0%A4%B0_%E0%A4%94%E0%A4%B0_%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%B8_%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A5%E0%A4%B0_%E0%A4%85%E0%A4%A7%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_17_%E0%A4%A6%E0%A5%8B_%E0%A4%9A%E0%A5%87%E0%A4%B9%E0%A4%B0%E0%A5%87_%E0%A4%B5%E0%A4%BE%E0%A4%B2%E0%A4%BE_%E0%A4%86%E0%A4%A6%E0%A4%AE%E0%A5%80_inB8DtEQlMo.mp3.mp3" 
+      }
+    ]
+    
+  }

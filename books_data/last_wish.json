@@ -1,0 +1,57 @@
+{
+    "id": 1,
+    "title": "The Last Wish",
+    "author": "Andrzej Sapkowski",
+    "category": "Fiction",
+    "cover": "https://m.media-amazon.com/images/I/71sZSQ6WS4L._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "Chapter1",
+        "url": "https://archive.org/download/start-1_202601/start-1.mp3" 
+      },
+      { 
+        "name": "Chapter2",
+        "url": "https://archive.org/download/part5_202601/part2.mp3" 
+      },
+      { 
+        "name": "Chapter3",
+        "url": "https://archive.org/download/part5_202601/part3.mp3" 
+      },
+      { 
+        "name": "Chapter4",
+        "url": "https://archive.org/download/part4_202601/part4.mp3" 
+      },
+      { 
+        "name": "Chapter5",
+        "url": "https://archive.org/download/part5_202601/part5.mp3" 
+      },
+      { 
+        "name": "Chapter6",
+        "url": "https://archive.org/download/part5_202601/part6.mp3" 
+      },
+      { 
+        "name": "Chapter7",
+        "url": "https://archive.org/download/part5_202601/sweet_narrator.mp3" 
+      }
+      ,
+      { 
+        "name": "Chapter8",
+        "url": "https://archive.org/download/part-8_202601/Part8.mp3" 
+      }
+      ,
+      { 
+        "name": "Chapter9",
+        "url": "https://archive.org/download/part-9_202601/Part9.mp3" 
+      }
+      ,
+      { 
+        "name": "Chapter10",
+        "url": "https://archive.org/download/part-10_202601/Part10.mp3" 
+      }
+      ,
+      { 
+        "name": "Chapter11",
+        "url": "https://archive.org/download/part11_202601/part11.mp3" 
+      }
+    ]
+  }

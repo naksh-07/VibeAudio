@@ -1,0 +1,95 @@
+{
+    "id": 10,
+    "title": "Harry Potter and the Deathly Hallows",
+    "author": "J.K. Rowling",
+    "category": "Fiction",
+    "cover": "https://m.media-amazon.com/images/I/81aCMT1zKtL._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "Chapter1", 
+        "url": "https://archive.org/download/hp-2-ch-1/hp2%20ch1.m4a" 
+      },
+      { 
+        "name": "Chapter2", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      },
+      { 
+        "name": "Chapter3", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter4", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter5", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter6", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter7", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter8", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter9", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter10", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter11", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter12", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter13", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter14", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      },
+      { 
+        "name": "Chapter15", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter16", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter17", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+      ,
+      { 
+        "name": "Chapter18", 
+        "url": "https://archive.org/download/hp-2-ch-2/hp2%20ch2.m4a" 
+      }
+    ]
+  }

@@ -1,0 +1,18 @@
+{
+    "id": 15,
+    "title": "Rich Dad Poor Dad",
+    "author": "Robert T. Kiyosaki",
+    "category": "Finance",
+    "cover": "https://m.media-amazon.com/images/I/81bsw6fnUiL._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "Testing Audio", 
+        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+      },
+      { 
+        "name": "Testing Audio 2", 
+        "url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+      }
+    ]
+  }
+  

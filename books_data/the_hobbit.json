@@ -1,0 +1,27 @@
+{
+    "id": 3,
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "category": "Fiction",
+    "cover": "https://m.media-amazon.com/images/I/81iLCTUEboL._SL1500_.jpg",
+    "chapters": [
+      { 
+        "name": "Into", 
+        "url": "https://archive.org/download/chapter-1_202601/Intro.mp3" 
+      },
+      { 
+        "name": "Chapter1", 
+        "url": "https://archive.org/download/chapter-1_202601/Chapter1.mp3" 
+      }
+      ,
+      { 
+        "name": "Chapter2", 
+        "url": "https://archive.org/download/chapter-1_202601/Chapter2.mp3" 
+      }
+      ,
+      { 
+        "name": "Chapter3", 
+        "url": "https://archive.org/download/chapter-1_202601/Chapter3.mp3" 
+      }
+    ]
+  }
