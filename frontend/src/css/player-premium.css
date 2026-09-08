@@ -1,0 +1,28 @@
+/* ==========================================================================
+   VibeAudio Player Layout Refinements — Stage B
+   Tactile Editorial Listening Sanctuary
+   ========================================================================== */
+
+/* Subtle ambient depth */
+.player-hero-stage {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+/* Scrubber focus and active enhancement */
+.player-scrubber-container input[type=range]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-accent-border);
+}
+
+/* Chapter item active indicator */
+.chapter-list-container li.chapter-item.active {
+    box-shadow: inset 3px 0 0 var(--color-accent);
+}
+
+/* Mini player touch accessibility */
+.mini-dock .mini-transport-btn:focus-visible,
+.mini-dock .mini-play-circle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}

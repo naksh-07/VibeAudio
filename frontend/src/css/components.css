@@ -1,0 +1,1110 @@
+/* ==========================================================================
+   VibeAudio Component Foundation — Stage A
+   Tactile Editorial Listening Sanctuary
+   ========================================================================== */
+
+/* --- 1. BOOK CARDS (SANCTUARY SHELF) --- */
+.book-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: var(--shadow-subtle);
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.book-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-card);
+    background: var(--color-surface-2);
+}
+
+.book-card:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+.book-card.has-progress {
+    border-color: var(--color-border-strong);
+}
+
+.book-card.is-finished {
+    border-color: rgba(229, 169, 60, 0.18);
+}
+
+/* Book Cover Media with authentic 2:3 aspect ratio */
+.book-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: var(--color-surface-2);
+}
+
+.book-card-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(12, 13, 17, 0) 60%, rgba(12, 13, 17, 0.55) 100%);
+    pointer-events: none;
+}
+
+.book-card img,
+.book-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+    transition: transform var(--transition-smooth);
+}
+
+.book-card:hover img,
+.book-card:hover .book-card-media img {
+    transform: scale(1.03);
+}
+
+/* Card Content / Typography */
+.card-content {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+.card-kicker-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+.card-kicker {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+}
+
+.book-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.card-author {
+    font-size: 0.82rem;
+    color: var(--color-text-dim);
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Card Progress Block */
+.card-progress-block {
+    margin-top: 8px;
+}
+
+.card-progress-track {
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: rgba(245, 246, 250, 0.08);
+    overflow: hidden;
+}
+
+.card-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-accent);
+}
+
+.card-progress-text {
+    margin-top: 6px;
+    color: var(--color-text-dim);
+    font-size: 0.74rem;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.3;
+}
+
+/* --- 2. BADGES & STATUS CHIPS --- */
+.book-badge,
+.card-activity-badge,
+.card-offline-badge {
+    position: absolute;
+    z-index: 2;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--radius-pill);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 8px;
+    line-height: 1.3;
+}
+
+.book-badge {
+    top: 8px;
+    right: 8px;
+    background: rgba(12, 13, 17, 0.78);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-soft);
+}
+
+.card-activity-badge {
+    top: 8px;
+    left: 8px;
+    border: 1px solid var(--color-border);
+    background: rgba(12, 13, 17, 0.78);
+    color: var(--color-text-primary);
+}
+
+.card-activity-badge.continue {
+    background: rgba(229, 169, 60, 0.18);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
+}
+
+.card-activity-badge.finished {
+    background: rgba(78, 186, 135, 0.16);
+    border-color: var(--color-success-border);
+    color: var(--color-success);
+}
+
+.card-offline-badge {
+    bottom: 8px;
+    left: 8px;
+    border: 1px solid var(--color-border);
+    background: rgba(12, 13, 17, 0.82);
+    color: var(--color-text-soft);
+}
+
+.card-offline-badge[data-status="downloaded"] {
+    background: rgba(78, 186, 135, 0.18);
+    border-color: var(--color-success-border);
+    color: var(--color-success);
+}
+
+.card-offline-badge[data-status="queued"],
+.card-offline-badge[data-status="downloading"] {
+    background: rgba(229, 169, 60, 0.18);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
+}
+
+.card-offline-badge[data-status="update_available"] {
+    background: rgba(229, 169, 60, 0.18);
+    border-color: var(--color-warning-border);
+    color: var(--color-warning);
+}
+
+.card-offline-badge[data-status="failed"] {
+    background: rgba(224, 93, 93, 0.18);
+    border-color: var(--color-danger-border);
+    color: var(--color-danger);
+}
+
+/* Source Badges */
+.source-type-badge {
+    font-size: 0.64rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.source-type-badge.offline-badge {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+    border: 1px solid var(--color-success-border);
+}
+
+.source-type-badge.audio-badge {
+    background: rgba(245, 246, 250, 0.06);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+}
+
+.source-type-badge.yt-badge {
+    background: rgba(229, 169, 60, 0.1);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent-border);
+}
+
+/* Mood & Category Tags */
+.mood-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+.mood-tag {
+    font-size: 0.68rem;
+    background: var(--color-surface-2);
+    padding: 2px 7px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-dim);
+    border: 1px solid var(--color-border);
+}
+
+/* --- 3. CATEGORY FILTERS --- */
+.filter-container {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 4px 0 14px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.filter-container::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+    color: var(--color-text-secondary);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-btn:hover {
+    background: var(--color-surface-2);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: var(--color-accent);
+    color: #0C0D11;
+    border-color: var(--color-accent);
+    font-weight: 600;
+    box-shadow: var(--shadow-subtle);
+}
+
+.filter-btn:active {
+    transform: scale(0.96);
+}
+
+/* --- 4. ONE-TAP RESUME HERO (HOME) --- */
+.home-resume-hero {
+    margin-bottom: 28px;
+}
+
+.resume-hero-card {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 22px;
+    align-items: center;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-panel);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+}
+
+.resume-hero-card::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 50%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(229, 169, 60, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.resume-hero-art-wrap {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 2 / 3;
+    box-shadow: var(--shadow-card);
+    background: var(--color-surface-2);
+}
+
+.resume-hero-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.resume-offline-tag {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    background: rgba(12, 13, 17, 0.88);
+    border: 1px solid var(--color-success-border);
+    color: var(--color-success);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+
+.resume-hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1;
+}
+
+.resume-hero-badges {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.personalized-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.spotlight-sync-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    color: var(--color-text-dim);
+    font-size: 0.68rem;
+    font-weight: 600;
+}
+
+.spotlight-sync-pill[data-status="synced"] {
+    border-color: var(--color-success-border);
+    color: var(--color-success);
+    background: var(--color-success-soft);
+}
+
+.spotlight-sync-pill[data-status="pending"] {
+    border-color: var(--color-warning-border);
+    color: var(--color-warning);
+    background: var(--color-warning-soft);
+}
+
+.spotlight-sync-pill[data-status="offline"] {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-soft);
+    background: var(--color-surface-2);
+}
+
+.resume-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.resume-hero-author {
+    color: var(--color-text-secondary);
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+.resume-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2px;
+}
+
+.resume-chapter-pill {
+    background: var(--color-surface-2);
+    color: var(--color-text-primary);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--color-border);
+}
+
+.resume-pct-label {
+    color: var(--color-text-dim);
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.resume-track {
+    margin: 4px 0 8px;
+    height: 5px;
+    background: rgba(245, 246, 250, 0.08);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.resume-track-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-accent);
+}
+
+.resume-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.resume-main-btn {
+    min-height: 44px;
+    padding: 10px 22px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: #0C0D11;
+    border: none;
+    box-shadow: var(--shadow-subtle);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.resume-main-btn:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+}
+
+.resume-main-btn:active {
+    transform: scale(0.97);
+}
+
+.resume-chapters-btn {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.86rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-2);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.resume-chapters-btn:hover {
+    background: var(--color-surface-3);
+    color: var(--color-text-primary);
+}
+
+/* --- 5. HORIZONTAL OFFLINE SHELF --- */
+.home-shelf-section {
+    margin-bottom: 28px;
+}
+
+.section-head-compact {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.shelf-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 2px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.shelf-title i,
+.shelf-title .vibe-icon {
+    color: var(--color-success);
+}
+
+.home-horizontal-shelf {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+}
+
+.home-horizontal-shelf::-webkit-scrollbar {
+    height: 4px;
+}
+
+.home-horizontal-shelf::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: var(--radius-pill);
+}
+
+.horizontal-shelf-card {
+    flex: 0 0 150px;
+    scroll-snap-align: start;
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 10px;
+    cursor: pointer;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.horizontal-shelf-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-2);
+}
+
+.shelf-card-cover-wrap {
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 8px;
+    aspect-ratio: 2 / 3;
+    background: var(--color-surface-2);
+}
+
+.shelf-card-cover-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.shelf-offline-badge {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    background: rgba(12, 13, 17, 0.88);
+    border: 1px solid var(--color-success-border);
+    color: var(--color-success);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.shelf-card-info h4 {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.shelf-card-info p {
+    font-size: 0.74rem;
+    color: var(--color-text-dim);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- 6. INSIGHTS & STATS CARDS --- */
+.library-insights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.insight-card {
+    padding: 16px 18px;
+    border-radius: var(--radius-panel);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+    box-shadow: var(--shadow-subtle);
+}
+
+.insight-card strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--color-text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.insight-card span {
+    color: var(--color-text-dim);
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+/* --- 7. HISTORY CARDS --- */
+.history-card {
+    background: var(--color-surface-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    box-shadow: var(--shadow-subtle);
+}
+
+.history-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-2);
+}
+
+.history-layout {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.history-cover {
+    width: 64px !important;
+    height: 86px !important;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    box-shadow: var(--shadow-subtle);
+    background: var(--color-surface-2);
+}
+
+.history-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.chapter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.history-play-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.history-card:hover .history-play-btn {
+    background: var(--color-accent);
+    color: #0C0D11;
+    transform: scale(1.05);
+}
+
+.mini-progress-track {
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: rgba(245, 246, 250, 0.08);
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.mini-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-accent);
+}
+
+.progress-text {
+    font-size: 0.74rem;
+    color: var(--color-text-dim);
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- 8. POPOVER MENUS (SPEED & SLEEP) --- */
+.popover-menu {
+    position: absolute;
+    bottom: 84px;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-panel);
+    padding: 8px;
+    box-shadow: var(--shadow-sheet);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 2500;
+    display: grid;
+    gap: 4px;
+    min-width: 160px;
+    animation: popUp 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.popover-menu.hidden {
+    display: none;
+}
+
+.popover-title {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-dim);
+    padding: 6px 10px 2px;
+    font-weight: 700;
+}
+
+.popover-item-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    padding: 10px 14px;
+    min-height: 44px;
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.popover-item-btn:hover {
+    background: var(--color-surface-3);
+    color: var(--color-text-primary);
+}
+
+.popover-item-btn.active {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* --- 9. SCRUBBER & PROGRESS CONTROLS --- */
+.progress-container input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(245, 246, 250, 0.1);
+    border-radius: var(--radius-pill);
+    outline: none;
+    padding: 16px 0;
+    cursor: pointer;
+    touch-action: none;
+}
+
+.progress-container input[type=range]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: rgba(245, 246, 250, 0.1);
+    border-radius: var(--radius-pill);
+}
+
+.progress-container input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: var(--color-text-primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    margin-top: -5px;
+    transition: transform var(--transition-fast);
+}
+
+.progress-container input[type=range]:hover::-webkit-slider-thumb {
+    transform: scale(1.2);
+    background: var(--color-accent);
+}
+
+.progress-container input[type=range]::-moz-range-track {
+    height: 4px;
+    background: rgba(245, 246, 250, 0.1);
+    border-radius: var(--radius-pill);
+}
+
+.progress-container input[type=range]::-moz-range-thumb {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: var(--color-text-primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    border: none;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    /* Mobile Library Card refinements */
+    .card-content {
+        padding: 9px 10px 11px;
+        gap: 3px;
+    }
+
+    .card-kicker-row {
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 1px;
+    }
+
+    .card-kicker {
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+    }
+
+    .source-type-badge {
+        font-size: 0.58rem;
+        padding: 1px 5px;
+    }
+
+    .book-card h3 {
+        font-size: 0.98rem;
+        line-height: 1.22;
+    }
+
+    .card-author {
+        font-size: 0.76rem;
+    }
+
+    .card-progress-block {
+        margin-top: 5px;
+    }
+
+    .card-progress-track {
+        height: 3px;
+    }
+
+    .card-progress-text {
+        font-size: 0.68rem;
+        margin-top: 3px;
+    }
+
+    /* Cover badges */
+    .book-badge,
+    .card-activity-badge,
+    .card-offline-badge {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+
+    .book-badge {
+        top: 6px;
+        right: 6px;
+    }
+
+    .card-activity-badge {
+        top: 6px;
+        left: 6px;
+    }
+
+    .card-offline-badge {
+        bottom: 6px;
+        left: 6px;
+    }
+
+    /* Resume Hero Card */
+    .resume-hero-card {
+        grid-template-columns: 100px 1fr;
+        gap: 14px;
+        padding: 14px;
+        align-items: center;
+    }
+
+    .resume-hero-art-wrap {
+        width: 100%;
+        max-width: 100px;
+    }
+
+    .resume-hero-title {
+        font-size: clamp(1.15rem, 4vw, 1.35rem);
+        line-height: 1.18;
+    }
+
+    .resume-hero-author {
+        font-size: 0.8rem;
+    }
+
+    .resume-chapter-pill {
+        font-size: 0.72rem;
+        padding: 2px 8px;
+    }
+
+    .resume-pct-label {
+        font-size: 0.74rem;
+    }
+
+    .resume-hero-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    .resume-main-btn {
+        min-height: 40px;
+        padding: 8px 16px;
+        font-size: 0.86rem;
+    }
+
+    .resume-chapters-btn {
+        min-height: 40px;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    /* Filter Toolbar */
+    .filter-container {
+        padding: 2px 0 10px;
+        margin-bottom: 14px;
+        gap: 6px;
+    }
+
+    .filter-btn {
+        min-height: 34px;
+        padding: 6px 13px;
+        font-size: 0.78rem;
+    }
+
+    /* History Cards */
+    .history-card {
+        padding: 10px 12px;
+    }
+
+    .history-layout {
+        gap: 12px;
+    }
+
+    .history-cover {
+        width: 52px !important;
+        height: 72px !important;
+    }
+
+    .history-info h3 {
+        font-size: 0.95rem;
+    }
+
+    .history-play-btn {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        min-height: 38px;
+        font-size: 0.85rem;
+    }
+
+    /* Insights & Popovers */
+    .library-insights {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .popover-menu {
+        bottom: 110px;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 220px;
+        max-width: calc(100vw - 32px);
+    }
+}
+
+@media (max-width: 360px) {
+    .resume-hero-card {
+        grid-template-columns: 80px 1fr;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .resume-hero-art-wrap {
+        max-width: 80px;
+    }
+
+    .card-content {
+        padding: 8px 8px 10px;
+    }
+
+    .book-card h3 {
+        font-size: 0.92rem;
+    }
+}

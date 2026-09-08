@@ -1,0 +1,107 @@
+{
+  "name": "VibeAudio",
+  "short_name": "VibeAudio",
+  "description": "A calm, personal audiobook listening sanctuary with offline playback, chapter controls, and continuous progress.",
+  "start_url": "./src/pages/app.html#home",
+  "id": "./src/pages/app.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "background_color": "#0C0D11",
+  "theme_color": "#0C0D11",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./public/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./public/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./public/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home Shelf",
+      "short_name": "Home",
+      "description": "Resume your active audiobook",
+      "url": "./src/pages/app.html#home",
+      "icons": [
+        {
+          "src": "./public/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "On This Device",
+      "short_name": "Offline",
+      "description": "Listen to audiobooks saved for offline",
+      "url": "./src/pages/app.html#offline",
+      "icons": [
+        {
+          "src": "./public/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Audiobook Library",
+      "short_name": "Library",
+      "description": "Browse the unabridged audiobook collection",
+      "url": "./src/pages/app.html#library",
+      "icons": [
+        {
+          "src": "./public/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "./src/pages/app.html#offline",
+      "name": "Audiobook",
+      "accept": {
+        "audio/mp4": [".m4b"],
+        "audio/mpeg": [".mp3"]
+      },
+      "icons": [
+        {
+          "src": "./public/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ],
+      "launch_type": "single-client"
+    }
+  ],
+  "share_target": {
+    "action": "./src/pages/app.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "launch_handler": {
+    "client_mode": [
+      "focus-existing",
+      "auto"
+    ]
+  }
+}

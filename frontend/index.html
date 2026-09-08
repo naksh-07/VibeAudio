@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeAudio | Personal Audiobook Sanctuary</title>
+    <meta name="description" content="A personal audiobook listening shelf with offline playback, chapter controls, saved moments, and continuous progress in your browser.">
+
+    <script>
+        if (!Array.prototype.at) {
+            Array.prototype.at = function (n) {
+                n = Math.trunc(n) || 0;
+                if (n < 0) n += this.length;
+                if (n < 0 || n >= this.length) return undefined;
+                return this[n];
+            };
+        }
+        if (!String.prototype.at) {
+            String.prototype.at = function (n) {
+                n = Math.trunc(n) || 0;
+                if (n < 0) n += this.length;
+                if (n < 0 || n >= this.length) return undefined;
+                return this[n];
+            };
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="./app.webmanifest">
+    <meta name="theme-color" content="#0C0D11">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="VibeAudio">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/svg+xml" href="./src/icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/icons/favicon-16.png">
+    <link rel="apple-touch-icon" href="./public/icons/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="./src/css/base.css">
+    <link rel="stylesheet" href="./src/css/landing.css">
+    <link rel="stylesheet" href="./src/css/cover-media.css">
+</head>
+
+<body class="landing-page">
+    <!-- SVG Icon Sprite -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 4.5 Q5.5 12.5 12 20.5 Q18.5 12.5 20.5 4.5" /><path d="M7.5 4.5 Q9 9.5 12 13.5 Q15 9.5 16.5 4.5" /><path d="M12 13.5 L12 17.5" /><path d="M9.8 20.5 H14.2" />
+        </symbol>
+        <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5 L12 3.5 L21 10.5 V20 C21 20.6 20.6 21 20 21 H14.5 V15.5 C14.5 14.7 13.8 14 13 14 H11 C10.2 14 9.5 14.7 9.5 15.5 V21 H4 C3.4 21 3 20.6 3 20 V10.5 Z" />
+        </symbol>
+        <symbol id="icon-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5 V5 C4 4.2 4.7 3.5 5.5 3.5 H8.5 C9.3 3.5 10 4.2 10 5 V19.5" /><path d="M10 19.5 V7 C10 6.2 10.7 5.5 11.5 5.5 H14.5 C15.3 5.5 16 6.2 16 7 V19.5" /><path d="M16 19.5 L19.2 6.5 C19.4 5.7 20.2 5.2 21 5.4 C21.8 5.6 22.3 6.4 22.1 7.2 L19.8 19.5" /><path d="M2 20.5 H22" />
+        </symbol>
+        <symbol id="icon-offline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" /><path d="M12 8 V14" /><path d="M9 11 L12 14 L15 11" /><path d="M8 17 H16" />
+        </symbol>
+        <symbol id="icon-device" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" /><path d="M12 8 V14" /><path d="M9 11 L12 14 L15 11" /><path d="M8 17 H16" />
+        </symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10.5" cy="10.5" r="7" /><path d="M15.5 15.5 L21 21" />
+        </symbol>
+        <symbol id="icon-clear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 6 L18 18 M18 6 L6 18" />
+        </symbol>
+        <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="8,5 19,12 8,19" fill="currentColor" stroke="currentColor" />
+        </symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="5.5" x2="8" y2="18.5" stroke-width="2.5" /><line x1="16" y1="5.5" x2="16" y2="18.5" stroke-width="2.5" />
+        </symbol>
+        <symbol id="icon-speed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4 A8 8 0 1 0 20 12" /><path d="M12 12 L16.5 8.5" /><circle cx="12" cy="12" r="1.8" />
+        </symbol>
+        <symbol id="icon-sleep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19.5 14.2 C18.5 18.2 14.5 20.8 10.5 20 C6.5 19.2 3.5 15.2 4.2 11 C4.8 7.2 8.5 4.2 12.5 4.8 C11.5 7.2 12 10 14 12 C16 14 18.8 14.2 19.5 14.2 Z" />
+        </symbol>
+        <symbol id="icon-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 4.5 C6 3.7 6.7 3 7.5 3 H16.5 C17.3 3 18 3.7 18 4.5 V21 L12 17.5 L6 21 V4.5 Z" />
+        </symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3.5 V14.5 M7.5 10.5 L12 15 L16.5 10.5 M4 19.5 H20" />
+        </symbol>
+        <symbol id="icon-downloaded" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" /><path d="M8 12 L11 15 L16.5 9" />
+        </symbol>
+        <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" /><path d="M8 12 L11 15 L16.5 9" />
+        </symbol>
+        <symbol id="icon-cloud-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 17 C4 17 2.5 15.2 2.5 13 C2.5 10.8 4.2 9 6.4 9 C7 6.5 9.3 4.5 12 4.5 C15.3 4.5 18 7.2 18 10.5 C19.7 10.8 21 12.2 21 14 C21 16 19.5 17 17.5 17 M12 17 V10 M9.5 12.5 L12 10 L14.5 12.5" />
+        </symbol>
+        <symbol id="icon-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 17 C4 17 2.5 15.2 2.5 13 C2.5 10.8 4.2 9 6.4 9 C7 6.5 9.3 4.5 12 4.5 C15.3 4.5 18 7.2 18 10.5 C19.7 10.8 21 12.2 21 14 C21 16 19.5 17 17.5 17" />
+        </symbol>
+        <symbol id="icon-storage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="2" /><line x1="3" y1="13" x2="21" y2="13" /><circle cx="17" cy="16" r="1" /><circle cx="14" cy="16" r="1" />
+        </symbol>
+        <symbol id="icon-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 12 A8 8 0 0 1 5.5 17.5 M4 12 A8 8 0 0 1 18.5 6.5" /><path d="M20 4 V9 H15 M4 20 V15 H9" />
+        </symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13,6 19,12 13,18" />
+        </symbol>
+        <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9,6 15,12 9,18" />
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="5,12.5 9.5,17 19,7" />
+        </symbol>
+        <symbol id="icon-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 13 V11 C3 6 7 2 12 2 C17 2 21 6 21 11 V13" /><rect x="3" y="11.5" width="5" height="8" rx="2" /><rect x="16" y="11.5" width="5" height="8" rx="2" />
+        </symbol>
+        <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.5 L14 8.5 L20 10.5 L14 12.5 L12 18.5 L10 12.5 L4 10.5 L10 8.5 Z" /><path d="M18.5 16.5 L19.5 19.5 L22.5 20.5 L19.5 21.5 L18.5 24.5 L17.5 21.5 L14.5 20.5 L17.5 19.5 Z" />
+        </symbol>
+        <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 19 C5.5 18 8.5 18 12 19.5 C15.5 18 18.5 18 21 19 V5.5 C18.5 4.5 15.5 4.5 12 6 C8.5 4.5 5.5 4.5 3 5.5 V19 Z" /><line x1="12" y1="6" x2="12" y2="19.5" />
+        </symbol>
+        <symbol id="icon-user-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="7.5" r="3.5" /><path d="M3.5 19.5 C3.5 16.2 6.5 14.5 10 14.5 C11.5 14.5 12.8 14.8 13.9 15.4" /><path d="M15.5 17 L18 19.5 L22.5 14" />
+        </symbol>
+        <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3 L4 6.5 V12 C4 17 7.5 20.5 12 21.5 C16.5 20.5 20 17 20 12 V6.5 L12 3 Z" />
+        </symbol>
+        <symbol id="icon-lanes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3,8 12,4 21,8 12,12" /><polyline points="3,13 12,17 21,13" /><polyline points="3,17.5 12,21.5 21,17.5" />
+        </symbol>
+        <symbol id="icon-install" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="3" width="14" height="18" rx="2" /><line x1="12" y1="8" x2="12" y2="14" /><polyline points="9,11 12,14 15,11" /><circle cx="12" cy="17.5" r="0.6" fill="currentColor" />
+        </symbol>
+    </svg>
+
+    <div class="landing-shell">
+        <header class="landing-topbar">
+            <div class="brand-lockup">
+                <img src="./public/icons/brand-mark.svg" alt="VibeAudio Brand Mark" class="brand-mark">
+                <div class="brand-copy">
+                    <strong>VibeAudio</strong>
+                    <span>Personal listening sanctuary</span>
+                </div>
+            </div>
+
+            <div class="topbar-actions">
+                <span class="topbar-reassurance-chip"><svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check-circle"></use></svg> Guest &amp; Offline Ready</span>
+                <button class="ghost-btn topbar-browse-btn" type="button" data-scroll-target="#library-preview-panel">Browse library</button>
+                <a href="./src/pages/app.html#home" class="solid-btn topbar-start-btn" role="button">Start listening</a>
+            </div>
+        </header>
+
+        <section class="landing-hero" aria-label="Personal Audiobook Sanctuary Welcome">
+            <div class="hero-main-panel">
+                <div class="eyebrow"><svg class="vibe-icon vibe-icon-accent" aria-hidden="true"><use href="#icon-headphones"></use></svg> Personal Audiobook Sanctuary</div>
+                <h1 class="hero-title">A calmer way to <span>listen.</span></h1>
+                <p class="hero-copy" id="landing-greeting">Step into your personal listening shelf. Enjoy unabridged audiobooks directly in your browser, save stories to your device for offline playback, and pick up right where you left off.</p>
+
+                <div class="hero-actions">
+                    <a href="./src/pages/app.html#home" class="solid-btn hero-primary-btn" role="button">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-play"></use></svg> Start listening
+                    </a>
+                    <button class="ghost-btn hero-secondary-btn" type="button" data-scroll-target="#library-preview-panel">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-book-open"></use></svg> Browse library
+                    </button>
+                </div>
+
+                <div class="hero-trust-row" aria-label="Product assurances">
+                    <span class="trust-badge"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-user-check"></use></svg> Works as a guest</span>
+                    <span class="trust-badge"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-storage"></use></svg> Saved on this device</span>
+                    <span class="trust-badge"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud-sync"></use></svg> Cloud sync optional</span>
+                </div>
+
+                <div id="hero-stats" class="hero-metrics"></div>
+            </div>
+
+            <div class="hero-anchor-stage">
+                <div class="hero-spotlight-card">
+                    <div class="spotlight-header-badge"><svg class="vibe-icon vibe-icon-accent" aria-hidden="true"><use href="#icon-sparkles"></use></svg> Featured Story</div>
+                    <div class="spotlight-media-wrap">
+                        <img id="featured-cover" class="featured-cover" src="./public/icons/icon-512.png" alt="Featured audiobook cover">
+                    </div>
+                    <div id="featured-spotlight" class="spotlight-details"></div>
+                </div>
+            </div>
+        </section>
+
+        <main class="section-grid">
+            <!-- Curated Preview Section -->
+            <section class="section-panel" id="library-preview-panel">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-library"></use></svg> Curated preview</span>
+                        <h2>Browse the shelf or listen right away</h2>
+                        <p>Every story is unabridged, chaptered, and ready to play in your browser as a guest or synced account.</p>
+                    </div>
+                    <a href="./src/pages/app.html#library" class="ghost-btn" role="button">
+                        Open full library <svg class="vibe-icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                    </a>
+                </div>
+                <div id="library-preview" class="preview-grid"></div>
+            </section>
+
+            <!-- Sanctuary Features Row -->
+            <div class="feature-row" aria-label="Core features">
+                <article class="feature-panel">
+                    <div class="feature-icon"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-headphones"></use></svg></div>
+                    <h3>Listening sanctuary</h3>
+                    <p>Clean, tactile player designed for long uninterrupted listening sessions with speed control, sleep timer, and saved moments.</p>
+                </article>
+                <article class="feature-panel">
+                    <div class="feature-icon"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-download"></use></svg></div>
+                    <h3>Private offline shelf</h3>
+                    <p>Save full audiobooks directly to your device via OPFS for instant offline playback anywhere without network dependency.</p>
+                </article>
+                <article class="feature-panel">
+                    <div class="feature-icon"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-bookmark"></use></svg></div>
+                    <h3>Saved moments &amp; notes</h3>
+                    <p>Pin favorite scenes, memorable lines, and timestamped thoughts without ever losing your exact listening place.</p>
+                </article>
+                <article class="feature-panel">
+                    <div class="feature-icon"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud-sync"></use></svg></div>
+                    <h3>Optional cloud sync</h3>
+                    <p>Listen freely as a guest with full local storage, or sign in whenever you want to sync progress across all your devices.</p>
+                </article>
+            </div>
+
+            <!-- Authentication Continuation Path -->
+            <section class="section-panel auth-panel" id="auth-panel">
+                <div class="auth-panel-copy">
+                    <span class="eyebrow"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-sync"></use></svg> Cloud sync (optional)</span>
+                    <h2>Keep your shelf in sync</h2>
+                    <p>Sign in to continue your listening position across devices. Your listening progress and downloads still work completely without an account.</p>
+
+                    <div class="auth-chip-row">
+                        <span class="auth-chip"><svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check-circle"></use></svg> Instant guest listening</span>
+                        <span class="auth-chip"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud"></use></svg> Optional cloud backup</span>
+                        <span class="auth-chip"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-shield"></use></svg> Private device storage</span>
+                    </div>
+
+                    <div class="auth-guest-callout">
+                        <span>Prefer to start immediately?</span>
+                        <a href="./src/pages/app.html#home" class="ghost-btn guest-btn" role="button">
+                            Continue as guest <svg class="vibe-icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="auth-widget-stage">
+                    <div class="landing-status" id="auth-status">Preparing sign-in panel...</div>
+                    <div class="sign-in-shell">
+                        <div id="sign-in-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Listening Lanes / Mood Exploration -->
+            <section class="section-panel">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-lanes"></use></svg> Listening lanes</span>
+                        <h2>Built for mood, momentum, and return visits</h2>
+                        <p>The shelf adapts to genre, atmosphere, and the stories you keep coming back to.</p>
+                    </div>
+                </div>
+                <div id="category-spotlight" class="tag-cluster"></div>
+            </section>
+
+            <!-- Footer Return Callout -->
+            <section class="section-panel">
+                <div class="footer-callout">
+                    <div class="footer-callout-text">
+                        <strong>Ready to return to your story?</strong>
+                        <p>Step straight into your personal shelf. No sign-up required to start listening.</p>
+                    </div>
+                    <div class="footer-callout-actions">
+                        <button id="install-app-btn" class="ghost-btn" type="button" hidden>
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-install"></use></svg> Install app
+                        </button>
+                        <a href="./src/pages/app.html#home" class="solid-btn" role="button">
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-headphones"></use></svg> Open your shelf
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="landing-footer">
+            <div class="footer-brand">
+                <img src="./public/icons/brand-mark.svg" alt="VibeAudio" class="footer-brand-mark">
+                <div>
+                    <strong>VibeAudio</strong>
+                    <span>A private, offline-first personal audiobook sanctuary.</span>
+                </div>
+            </div>
+            <div class="footer-meta">
+                <span>Guest-first · Offline storage · Unabridged</span>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module" src="./src/js/pwa.js"></script>
+    <script type="module" src="./src/js/landing.js"></script>
+</body>
+
+</html>

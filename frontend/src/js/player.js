@@ -1,0 +1,1424 @@
+import { saveUserProgress } from './api.js';
+import { STORAGE_KEYS } from './config.js';
+import {
+    getOfflineChapterStatus,
+    OFFLINE_STATES,
+    queueBookDownload,
+    queueChapterDownload,
+    removeOfflineBook,
+    removeOfflineChapter,
+    resolveOfflinePlaybackSource
+} from './offline-shelf.js';
+import { setLastPlayerSession } from './user-data.js';
+
+console.log("Player Module Loading...");
+
+const audio = document.getElementById('audio-element') || new Audio();
+audio.crossOrigin = "anonymous";
+
+let currentBook = null;
+let currentChapterIndex = 0;
+let progressInterval = null;
+let stallPauseTimeout = null;
+let currentLoadToken = 0;
+
+const STALL_AUTO_PAUSE_MS = 4000;
+const PROGRESS_TICK_MS = 1000;
+const PROGRESS_SAVE_EVERY_TICKS = 5;
+
+let currentLang = localStorage.getItem(STORAGE_KEYS.preferredLanguage) || 'hi';
+
+let audioCtx;
+let source;
+let vocalPeakingFilter;
+let bassCutFilter;
+let trebleBoostFilter;
+let compressor;
+
+let currentSourceType = 'audio';
+let currentPlaybackOrigin = 'stream';
+let currentOfflinePlaybackSource = null;
+let ytPlayer = null;
+let ytPlayerPromise = null;
+let ytApiPromise = null;
+let wakeLockSentinel = null;
+let wakeLockLifecycleBound = false;
+let youtubeViewportBound = false;
+let youtubeResizeObserver = null;
+
+let activeSleepTimerTimeout = null;
+let activeSleepFadeInterval = null;
+let preFadeAudioVolume = 1;
+let lastPersistTime = 0;
+const PERSIST_THROTTLE_MS = 2500;
+
+let mediaSessionHandlersBound = false;
+let lastPositionUpdateState = { position: -1, duration: -1, playbackRate: -1 };
+
+function getStoredPlaybackSpeed() {
+    const speed = Number(localStorage.getItem(STORAGE_KEYS.playbackSpeed) || 1);
+    return Number.isFinite(speed) && speed > 0 ? speed : 1;
+}
+
+function getBookProgressOptions(overrides = {}) {
+    return {
+        totalChapters: currentBook?.activeChapters?.length || currentBook?.chapters?.length || 0,
+        ...overrides
+    };
+}
+
+audio.addEventListener('ended', () => {
+    if (currentSourceType === 'youtube') return;
+
+    console.log("Chapter ended. Moving to the next one...");
+    clearStallPauseTimeout();
+    stopProgressTracker();
+    if (!nextChapter()) {
+        handlePausedState(true);
+    }
+});
+
+audio.addEventListener('waiting', () => {
+    if (currentSourceType === 'youtube') return;
+
+    console.log("Audio buffering...");
+    scheduleAutoPauseForStall();
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+    }
+});
+
+audio.addEventListener('stalled', () => {
+    if (currentSourceType !== 'youtube') scheduleAutoPauseForStall();
+});
+audio.addEventListener('canplay', clearStallPauseTimeout);
+audio.addEventListener('playing', () => {
+    if (currentSourceType !== 'youtube') {
+        clearStallPauseTimeout();
+        startProgressTracker();
+        updateUIState(true);
+        sendToAndroid(true);
+        releasePlaybackWakeLock();
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing";
+        updateMediaSessionPositionState(true);
+    }
+});
+audio.addEventListener('pause', () => {
+    if (currentSourceType !== 'youtube' && currentBook) {
+        handlePausedState(true);
+    }
+});
+audio.addEventListener('seeking', () => {
+    clearStallPauseTimeout();
+    dispatchPlayerTimeUpdate();
+});
+audio.addEventListener('seeked', dispatchPlayerTimeUpdate);
+audio.addEventListener('loadedmetadata', dispatchPlayerTimeUpdate);
+audio.addEventListener('timeupdate', dispatchPlayerTimeUpdate);
+
+audio.addEventListener('error', () => {
+    if (currentSourceType === 'youtube') return;
+
+    console.warn("Audio element error encountered:", audio.error);
+    clearStallPauseTimeout();
+    stopProgressTracker();
+    releasePlaybackWakeLock();
+
+    const isOfflineSource = currentPlaybackOrigin === 'offline';
+    if (isOfflineSource && currentBook) {
+        console.warn("Offline audio source failed. Invalidating local record.");
+        removeOfflineChapter(currentBook.bookId, currentLang, currentChapterIndex).catch(() => {});
+    }
+
+    handlePausedState(false);
+    updateUIState(false);
+
+    window.dispatchEvent(new CustomEvent('player-playback-error', {
+        detail: {
+            book: currentBook,
+            chapterIndex: currentChapterIndex,
+            error: audio.error ? { code: audio.error.code, message: audio.error.message } : null,
+            playbackOrigin: currentPlaybackOrigin
+        }
+    }));
+});
+
+bindWakeLockLifecycle();
+setupMediaHandlers();
+
+function clearStallPauseTimeout() {
+    if (stallPauseTimeout) {
+        clearTimeout(stallPauseTimeout);
+        stallPauseTimeout = null;
+    }
+}
+
+function canUseScreenWakeLock() {
+    return Boolean(navigator.wakeLock?.request);
+}
+
+async function requestPlaybackWakeLock() {
+    if (!canUseScreenWakeLock() || document.visibilityState !== 'visible') return false;
+    if (wakeLockSentinel) return true;
+
+    try {
+        wakeLockSentinel = await navigator.wakeLock.request('screen');
+        wakeLockSentinel.addEventListener('release', () => {
+            wakeLockSentinel = null;
+        });
+        return true;
+    } catch (error) {
+        console.warn("Screen wake lock request failed.", error);
+        wakeLockSentinel = null;
+        return false;
+    }
+}
+
+async function releasePlaybackWakeLock() {
+    if (!wakeLockSentinel) return false;
+
+    try {
+        await wakeLockSentinel.release();
+    } catch (error) {
+        console.warn("Screen wake lock release failed.", error);
+    } finally {
+        wakeLockSentinel = null;
+    }
+
+    return true;
+}
+
+function bindWakeLockLifecycle() {
+    if (wakeLockLifecycleBound) return;
+    wakeLockLifecycleBound = true;
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            if (currentSourceType === 'youtube' && isPlaybackActive()) {
+                requestPlaybackWakeLock();
+            }
+            return;
+        }
+
+        releasePlaybackWakeLock();
+    });
+
+    window.addEventListener('pagehide', () => {
+        releasePlaybackWakeLock();
+    });
+}
+
+function getCurrentPlaybackValues() {
+    if (currentSourceType === 'youtube' && ytPlayer && window.YT?.PlayerState) {
+        let currentTime = 0;
+        let duration = 0;
+
+        try {
+            currentTime = Number(ytPlayer.getCurrentTime?.() || 0);
+            duration = Number(ytPlayer.getDuration?.() || 0);
+        } catch (error) {
+            console.warn("Unable to read YouTube playback state.", error);
+        }
+
+        return { currentTime, duration };
+    }
+
+    return {
+        currentTime: Number(audio.currentTime || 0),
+        duration: Number(audio.duration || 0)
+    };
+}
+
+function persistCurrentSession() {
+    if (!currentBook) return;
+    setLastPlayerSession(getCurrentState());
+}
+
+function persistCurrentSessionThrottled() {
+    const now = Date.now();
+    if (now - lastPersistTime >= PERSIST_THROTTLE_MS) {
+        lastPersistTime = now;
+        persistCurrentSession();
+    }
+}
+
+function getCurrentChapter() {
+    if (!currentBook?.activeChapters) return null;
+    return currentBook.activeChapters[currentChapterIndex] || null;
+}
+
+function getCurrentSourceUrl() {
+    return getCurrentChapter()?.url || "";
+}
+
+function releaseOfflinePlaybackSource(immediate = false) {
+    if (currentOfflinePlaybackSource?.revoke) {
+        const revokeFn = currentOfflinePlaybackSource.revoke;
+        if (immediate) {
+            try {
+                revokeFn();
+            } catch (error) {
+                console.warn("Object URL cleanup error:", error);
+            }
+        } else {
+            setTimeout(() => {
+                try {
+                    revokeFn();
+                } catch (error) {
+                    console.warn("Object URL cleanup error:", error);
+                }
+            }, 1200);
+        }
+    }
+    currentOfflinePlaybackSource = null;
+}
+
+function isYouTubeUrl(url) {
+    if (!url) return false;
+
+    try {
+        const parsed = new URL(url, window.location.href);
+        const host = parsed.hostname.replace(/^www\./, '');
+        return host === 'youtube.com' || host === 'm.youtube.com' || host === 'youtu.be' || host === 'youtube-nocookie.com';
+    } catch (error) {
+        return /(?:youtube\.com|youtu\.be)/i.test(String(url));
+    }
+}
+
+function extractYouTubeVideoId(url) {
+    if (!url) return null;
+
+    try {
+        const parsed = new URL(url, window.location.href);
+        const host = parsed.hostname.replace(/^www\./, '');
+
+        if (host === 'youtu.be') {
+            const id = parsed.pathname.replace(/^\//, '').split('/')[0];
+            return id || null;
+        }
+
+        if (host === 'youtube.com' || host === 'm.youtube.com' || host === 'youtube-nocookie.com') {
+            if (parsed.pathname === '/watch') {
+                return parsed.searchParams.get('v');
+            }
+
+            const segments = parsed.pathname.split('/').filter(Boolean);
+            if (segments[0] === 'embed' || segments[0] === 'shorts' || segments[0] === 'live') {
+                return segments[1] || null;
+            }
+        }
+    } catch (error) {
+        const match = String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{11})/);
+        return match ? match[1] : null;
+    }
+
+    return null;
+}
+
+function loadYouTubeApi() {
+    if (window.YT?.Player) return Promise.resolve(window.YT);
+    if (ytApiPromise) return ytApiPromise;
+
+    ytApiPromise = new Promise((resolve, reject) => {
+        const existing = document.querySelector('script[data-vibe-youtube-api]');
+        const previousReady = window.onYouTubeIframeAPIReady;
+
+        window.onYouTubeIframeAPIReady = () => {
+            if (typeof previousReady === 'function') previousReady();
+            resolve(window.YT);
+        };
+
+        if (!existing) {
+            const script = document.createElement('script');
+            script.src = "https://www.youtube.com/iframe_api";
+            script.async = true;
+            script.dataset.vibeYoutubeApi = "true";
+            script.onerror = () => reject(new Error("YouTube API failed to load."));
+            document.head.appendChild(script);
+        }
+    });
+
+    return ytApiPromise;
+}
+
+function getYouTubeHost() {
+    let host = document.getElementById('yt-player-shell');
+    if (!host) {
+        host = document.createElement('div');
+        host.id = 'yt-player-shell';
+        host.className = 'youtube-audio-host';
+        host.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(host);
+    } else {
+        host.classList.add('youtube-audio-host');
+        host.setAttribute('aria-hidden', 'true');
+    }
+
+    return host;
+}
+
+function syncYouTubePlayerViewport() {
+    const host = getYouTubeHost();
+    const container = document.getElementById('yt-ninja-container');
+    if (!host || !container) return;
+
+    const hostRect = host.getBoundingClientRect();
+    const width = Math.max(200, Math.round(hostRect.width || host.clientWidth || 356));
+    const height = Math.max(200, Math.round(hostRect.height || host.clientHeight || 200));
+
+    container.style.width = `${width}px`;
+    container.style.height = `${height}px`;
+    container.style.maxWidth = '100%';
+    container.style.maxHeight = '100%';
+
+    if (ytPlayer?.setSize) {
+        try {
+            ytPlayer.setSize(width, height);
+        } catch (error) {
+            console.warn("Unable to sync YouTube viewport.", error);
+        }
+    }
+}
+
+function bindYouTubeViewportLifecycle() {
+    if (youtubeViewportBound) return;
+    youtubeViewportBound = true;
+
+    window.addEventListener('resize', () => {
+        if (currentSourceType === 'youtube') {
+            syncYouTubePlayerViewport();
+        }
+    });
+
+    const host = getYouTubeHost();
+    if ('ResizeObserver' in window && host) {
+        youtubeResizeObserver = new ResizeObserver(() => {
+            if (currentSourceType === 'youtube') {
+                syncYouTubePlayerViewport();
+            }
+        });
+        youtubeResizeObserver.observe(host);
+    }
+}
+
+function ensureYouTubeContainer() {
+    let container = document.getElementById('yt-ninja-container');
+    const host = getYouTubeHost();
+    if (container) {
+        if (container.parentElement !== host) {
+            host.appendChild(container);
+        }
+        container.setAttribute('aria-hidden', 'true');
+        container.style.pointerEvents = 'none';
+        bindYouTubeViewportLifecycle();
+        requestAnimationFrame(syncYouTubePlayerViewport);
+        return container;
+    }
+
+    container = document.createElement('div');
+    container.id = 'yt-ninja-container';
+    container.setAttribute('aria-hidden', 'true');
+    container.style.position = 'relative';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    container.style.minWidth = '200px';
+    container.style.minHeight = '200px';
+    container.style.pointerEvents = 'none';
+    host.appendChild(container);
+    bindYouTubeViewportLifecycle();
+    requestAnimationFrame(syncYouTubePlayerViewport);
+
+    return container;
+}
+
+function applyYouTubeIframePreferences(player) {
+    const iframe = player?.getIframe?.();
+    if (!iframe) return;
+
+    iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+    iframe.setAttribute('tabindex', '-1');
+    iframe.setAttribute('referrerpolicy', 'origin');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('title', 'VibeAudio YouTube player');
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = '0';
+    iframe.style.pointerEvents = 'none';
+}
+
+async function ensureYouTubePlayer() {
+    if (ytPlayer) return ytPlayer;
+    if (ytPlayerPromise) return ytPlayerPromise;
+
+    ytPlayerPromise = (async () => {
+        await loadYouTubeApi();
+        const container = ensureYouTubeContainer();
+
+        return await new Promise((resolve) => {
+            ytPlayer = new window.YT.Player(container, {
+                height: '200',
+                width: '356',
+                playerVars: {
+                    autoplay: 1,
+                    playsinline: 1,
+                    controls: 0,
+                    disablekb: 1,
+                    fs: 1,
+                    rel: 0,
+                    modestbranding: 1,
+                    origin: window.location.origin,
+                    widget_referrer: window.location.href
+                },
+                events: {
+                    onReady: () => {
+                        applyYouTubeIframePreferences(ytPlayer);
+                        bindYouTubeViewportLifecycle();
+                        requestAnimationFrame(syncYouTubePlayerViewport);
+                        resolve(ytPlayer);
+                    },
+                    onStateChange: handleYouTubeStateChange,
+                    onError: (event) => {
+                        console.warn("YouTube playback error.", event?.data);
+                        handlePausedState(true);
+                    }
+                }
+            });
+        });
+    })();
+
+    return ytPlayerPromise;
+}
+
+function handleYouTubeStateChange(event) {
+    if (currentSourceType !== 'youtube' || !window.YT?.PlayerState) return;
+
+    clearStallPauseTimeout();
+    dispatchPlayerTimeUpdate();
+
+    switch (event.data) {
+        case window.YT.PlayerState.PLAYING:
+            startProgressTracker();
+            updateUIState(true);
+            sendToAndroid(true);
+            requestPlaybackWakeLock();
+            requestAnimationFrame(syncYouTubePlayerViewport);
+            if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing";
+            updateMediaSessionPositionState(true);
+            break;
+        case window.YT.PlayerState.PAUSED:
+            handlePausedState(true);
+            break;
+        case window.YT.PlayerState.BUFFERING:
+            scheduleAutoPauseForStall();
+            break;
+        case window.YT.PlayerState.ENDED:
+            stopProgressTracker();
+            if (!nextChapter()) {
+                handlePausedState(true);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+function handlePausedState(saveProgress = true) {
+    clearStallPauseTimeout();
+    stopProgressTracker();
+    releasePlaybackWakeLock();
+
+    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "paused";
+    updateMediaSessionPositionState(true);
+    updateUIState(false);
+    sendToAndroid(false);
+
+    if (saveProgress && currentBook) {
+        const { currentTime, duration } = getCurrentPlaybackValues();
+        saveUserProgress(
+            currentBook.bookId,
+            currentChapterIndex,
+            currentTime,
+            duration,
+            getBookProgressOptions()
+        );
+    }
+
+    persistCurrentSession();
+}
+
+function scheduleAutoPauseForStall() {
+    clearStallPauseTimeout();
+    if (!isPlaybackActive()) return;
+
+    stallPauseTimeout = setTimeout(() => {
+        stallPauseTimeout = null;
+
+        if (!isPlaybackActive()) return;
+
+        console.warn("Playback stalled. Waiting for manual play.");
+
+        if (currentSourceType === 'youtube' && ytPlayer?.pauseVideo) {
+            ytPlayer.pauseVideo();
+        } else {
+            if (audio.readyState >= 3) return;
+            audio.pause();
+        }
+
+        handlePausedState(true);
+    }, STALL_AUTO_PAUSE_MS);
+}
+
+function initAudioContext() {
+    if (currentSourceType === 'youtube') return;
+    if (audioCtx) return;
+
+    const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextCtor) return;
+
+    audioCtx = new AudioContextCtor();
+
+    if (!source) {
+        source = audioCtx.createMediaElementSource(audio);
+    }
+
+    bassCutFilter = audioCtx.createBiquadFilter();
+    bassCutFilter.type = "highpass";
+    bassCutFilter.frequency.value = 0;
+    bassCutFilter.Q.value = 0.7;
+
+    vocalPeakingFilter = audioCtx.createBiquadFilter();
+    vocalPeakingFilter.type = "peaking";
+    vocalPeakingFilter.frequency.value = 2500;
+    vocalPeakingFilter.Q.value = 1.0;
+    vocalPeakingFilter.gain.value = 0;
+
+    trebleBoostFilter = audioCtx.createBiquadFilter();
+    trebleBoostFilter.type = "highshelf";
+    trebleBoostFilter.frequency.value = 5000;
+    trebleBoostFilter.gain.value = 0;
+
+    compressor = audioCtx.createDynamicsCompressor();
+    compressor.threshold.value = -50;
+    compressor.knee.value = 40;
+    compressor.ratio.value = 1;
+    compressor.attack.value = 0;
+    compressor.release.value = 0.25;
+
+    source.connect(bassCutFilter);
+    bassCutFilter.connect(vocalPeakingFilter);
+    vocalPeakingFilter.connect(trebleBoostFilter);
+    trebleBoostFilter.connect(compressor);
+    compressor.connect(audioCtx.destination);
+}
+
+export function toggleVocalBoost(enable) {
+    if (currentSourceType === 'youtube') return false;
+
+    initAudioContext();
+    if (!audioCtx) return false;
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+
+    const t = audioCtx.currentTime;
+
+    if (enable) {
+        bassCutFilter.frequency.setTargetAtTime(150, t, 0.2);
+        vocalPeakingFilter.gain.setTargetAtTime(8, t, 0.2);
+        trebleBoostFilter.gain.setTargetAtTime(6, t, 0.2);
+
+        compressor.threshold.setTargetAtTime(-24, t, 0.2);
+        compressor.ratio.setTargetAtTime(12, t, 0.2);
+        compressor.attack.setTargetAtTime(0.003, t, 0.2);
+    } else {
+        bassCutFilter.frequency.setTargetAtTime(0, t, 0.2);
+        vocalPeakingFilter.gain.setTargetAtTime(0, t, 0.2);
+        trebleBoostFilter.gain.setTargetAtTime(0, t, 0.2);
+
+        compressor.threshold.setTargetAtTime(-50, t, 0.2);
+        compressor.ratio.setTargetAtTime(1, t, 0.2);
+    }
+
+    return enable;
+}
+
+export function getAudioElement() {
+    return audio;
+}
+
+export function getCurrentLang() {
+    return currentLang;
+}
+
+export function isPlaybackActive() {
+    if (currentSourceType === 'youtube' && ytPlayer && window.YT?.PlayerState) {
+        const state = ytPlayer.getPlayerState();
+        return state === window.YT.PlayerState.PLAYING || state === window.YT.PlayerState.BUFFERING;
+    }
+
+    return Boolean(audio.src) && !audio.paused;
+}
+
+export function getCurrentState() {
+    const { currentTime, duration } = getCurrentPlaybackValues();
+
+    return {
+        book: currentBook,
+        currentChapterIndex,
+        currentTime,
+        duration,
+        lang: currentLang,
+        sourceType: currentSourceType,
+        playbackOrigin: currentPlaybackOrigin,
+        sourceUrl: getCurrentSourceUrl(),
+        isPlaying: isPlaybackActive()
+    };
+}
+
+export function setLanguage(lang) {
+    if (!currentBook) return;
+    if (lang === 'en' && !currentBook.chapters_en) return;
+
+    currentLang = lang;
+    localStorage.setItem(STORAGE_KEYS.preferredLanguage, lang);
+    currentBook.activeChapters = lang === 'en' ? currentBook.chapters_en : currentBook.chapters;
+    const { currentTime } = getCurrentPlaybackValues();
+
+    console.log(`Language switched to ${lang.toUpperCase()}`);
+    loadBook(currentBook, currentChapterIndex, currentTime);
+}
+
+function stopCurrentPlayback() {
+    releasePlaybackWakeLock();
+    audio.pause();
+    audio.onloadedmetadata = null;
+    releaseOfflinePlaybackSource();
+
+    if (ytPlayer?.pauseVideo) {
+        try {
+            ytPlayer.pauseVideo();
+        } catch (error) {
+            console.warn("Unable to pause YouTube player.", error);
+        }
+    }
+}
+
+async function loadYouTubeChapter(videoId, startTime = 0) {
+    currentSourceType = 'youtube';
+    currentPlaybackOrigin = 'youtube';
+    audio.removeAttribute('src');
+    audio.load();
+
+    const player = await ensureYouTubePlayer();
+    requestAnimationFrame(syncYouTubePlayerViewport);
+
+    player.loadVideoById({
+        videoId,
+        startSeconds: Math.max(0, Number(startTime) || 0)
+    });
+
+    window.setTimeout(() => {
+        const preferredSpeed = getStoredPlaybackSpeed();
+        if (preferredSpeed !== 1) {
+            setPlaybackSpeed(preferredSpeed);
+        }
+    }, 450);
+}
+
+function loadAudioChapter(url, startTime = 0, options = {}) {
+    currentSourceType = 'audio';
+    currentPlaybackOrigin = options.playbackOrigin || 'stream';
+
+    if (options.removeCrossOrigin) {
+        audio.removeAttribute('crossorigin');
+    } else {
+        audio.crossOrigin = "anonymous";
+    }
+
+    audio.src = url;
+    audio.playbackRate = getStoredPlaybackSpeed();
+    audio.onloadedmetadata = () => {
+        if (startTime > 0) {
+            audio.currentTime = startTime;
+        }
+        playAudioSafe();
+    };
+    audio.load();
+}
+
+async function getBrowserOfflineStateForChapter(book, chapterIndex, lang, chapter = null) {
+    if (!book) {
+        return {
+            status: OFFLINE_STATES.notDownloaded,
+            downloadable: false,
+            reason: 'No active book',
+            record: null
+        };
+    }
+
+    const resolvedChapter = chapter || book.activeChapters?.[chapterIndex] || null;
+    if (!resolvedChapter) {
+        return {
+            status: OFFLINE_STATES.notDownloaded,
+            downloadable: false,
+            reason: 'Chapter unavailable',
+            record: null
+        };
+    }
+
+    return getOfflineChapterStatus(book.bookId, lang, chapterIndex, resolvedChapter);
+}
+
+export async function getCurrentChapterOfflineState() {
+    if (!currentBook) {
+        return {
+            status: OFFLINE_STATES.notDownloaded,
+            downloadable: false,
+            isDownloaded: false,
+            reason: 'No active book',
+            record: null,
+            storage: 'none'
+        };
+    }
+
+    const chapter = currentBook.activeChapters?.[currentChapterIndex] || null;
+    const browserState = await getBrowserOfflineStateForChapter(currentBook, currentChapterIndex, currentLang, chapter);
+    const fileName = `${currentBook.bookId}_${currentChapterIndex}_${currentLang}.mp3`;
+    const androidDownloaded = Boolean(window.AndroidInterface && chapter?.url && !isYouTubeUrl(chapter.url) && window.AndroidInterface.checkFile(fileName) !== "");
+
+    if (androidDownloaded) {
+        return {
+            status: OFFLINE_STATES.downloaded,
+            downloadable: true,
+            isDownloaded: true,
+            reason: '',
+            record: browserState.record,
+            storage: 'android'
+        };
+    }
+
+    return {
+        ...browserState,
+        isDownloaded: [OFFLINE_STATES.downloaded, OFFLINE_STATES.updateAvailable].includes(browserState.status),
+        storage: browserState.record ? 'browser' : 'none'
+    };
+}
+
+export async function queueCurrentBookForOffline() {
+    if (!currentBook) {
+        return {
+            queued: false,
+            queuedCount: 0,
+            reason: 'No active book'
+        };
+    }
+
+    return queueBookDownload(currentBook, currentLang, currentChapterIndex);
+}
+
+export async function removeCurrentBookOffline() {
+    if (!currentBook) return false;
+    return removeOfflineBook(currentBook.bookId, currentLang);
+}
+
+export async function loadBook(book, chapterIndex = 0, startTime = 0) {
+    if (!book) return;
+
+    if (!book.activeChapters) {
+        book.activeChapters = currentLang === 'en' && book.chapters_en ? book.chapters_en : book.chapters;
+    }
+
+    if (!book.activeChapters || !book.activeChapters[chapterIndex]) return;
+
+    if (currentBook && currentBook.bookId === book.bookId && currentChapterIndex === chapterIndex) {
+        const isSameLang = (currentLang === 'en' && book.activeChapters === book.chapters_en) ||
+            (currentLang === 'hi' && book.activeChapters === book.chapters);
+
+        if (isSameLang && getCurrentSourceUrl()) {
+            console.log("Chapter already loaded. Resuming...");
+            const currentState = getCurrentState();
+            saveUserProgress(
+                book.bookId,
+                chapterIndex,
+                currentState.currentTime,
+                currentState.duration,
+                getBookProgressOptions({ allowServer: false })
+            );
+            persistCurrentSession();
+            if (!isPlaybackActive()) togglePlay();
+            return;
+        }
+    }
+
+    const loadToken = ++currentLoadToken;
+
+    stopProgressTracker();
+    clearStallPauseTimeout();
+    stopCurrentPlayback();
+
+    currentBook = book;
+    currentChapterIndex = chapterIndex;
+    persistCurrentSession();
+    saveUserProgress(
+        currentBook.bookId,
+        currentChapterIndex,
+        Number(startTime || 0),
+        0,
+        getBookProgressOptions({
+            allowServer: false,
+            bookFinished: false
+        })
+    );
+
+    const chapter = currentBook.activeChapters[chapterIndex];
+    const fileName = `${book.bookId}_${chapterIndex}_${currentLang}.mp3`;
+    currentSourceType = isYouTubeUrl(chapter.url) ? 'youtube' : 'audio';
+
+    console.log(`Loading ${chapter.name} (${currentLang.toUpperCase()})`);
+
+    if ('mediaSession' in navigator) {
+        updateMediaSession(book, chapter);
+        setupMediaHandlers();
+    }
+
+    sendToAndroid(false);
+    updateUIState(false);
+    dispatchPlayerTimeUpdate();
+
+    try {
+        if (isYouTubeUrl(chapter.url)) {
+            const videoId = extractYouTubeVideoId(chapter.url);
+            if (!videoId) {
+                throw new Error("Unsupported YouTube URL.");
+            }
+
+            if (loadToken !== currentLoadToken) return;
+            await loadYouTubeChapter(videoId, startTime);
+            return;
+        }
+
+        const browserOfflineSource = await resolveOfflinePlaybackSource(currentBook, chapterIndex, currentLang);
+        if (loadToken !== currentLoadToken) {
+            if (browserOfflineSource?.revoke) {
+                try { browserOfflineSource.revoke(); } catch (e) {}
+            }
+            return;
+        }
+
+        if (browserOfflineSource?.url) {
+            currentOfflinePlaybackSource = browserOfflineSource;
+            loadAudioChapter(browserOfflineSource.url, startTime, {
+                playbackOrigin: 'offline',
+                removeCrossOrigin: true
+            });
+            return;
+        }
+
+        let offlinePath = "";
+        if (window.AndroidInterface) {
+            offlinePath = window.AndroidInterface.checkFile(fileName);
+        }
+
+        if (offlinePath) {
+            loadAudioChapter(offlinePath, startTime, {
+                playbackOrigin: 'android',
+                removeCrossOrigin: true
+            });
+            return;
+        }
+
+        loadAudioChapter(chapter.url, startTime, {
+            playbackOrigin: 'stream'
+        });
+    } catch (error) {
+        if (loadToken !== currentLoadToken) return;
+        console.error("Failed to load chapter source.", error);
+        currentSourceType = 'audio';
+        currentPlaybackOrigin = 'stream';
+        updateUIState(false);
+    }
+}
+
+export async function downloadCurrentChapter(onProgress) {
+    if (!currentBook || currentSourceType === 'youtube') {
+        if (onProgress) onProgress(false);
+        return {
+            queued: false,
+            reason: 'This source cannot be downloaded'
+        };
+    }
+
+    const chapter = currentBook.activeChapters[currentChapterIndex];
+
+    if (window.AndroidInterface) {
+        const fileName = `${currentBook.bookId}_${currentChapterIndex}_${currentLang}.mp3`;
+
+        window.onDownloadComplete = (success) => {
+            if (onProgress) onProgress(Boolean(success));
+            updateUIState(isPlaybackActive());
+            delete window.onDownloadComplete;
+        };
+
+        window.AndroidInterface.downloadFile(chapter.url, fileName, "onDownloadComplete");
+        return { queued: true, storage: 'android' };
+    }
+
+    const result = await queueChapterDownload(currentBook, chapter, currentLang, {
+        chapterIndex: currentChapterIndex
+    });
+
+    if (onProgress) onProgress(Boolean(result.queued));
+    updateUIState(isPlaybackActive());
+    return result;
+}
+
+export async function isChapterDownloaded() {
+    const offlineState = await getCurrentChapterOfflineState();
+    return offlineState.isDownloaded;
+}
+
+export async function deleteChapter() {
+    if (!currentBook || currentSourceType === 'youtube') return;
+
+    if (window.AndroidInterface) {
+        const fileName = `${currentBook.bookId}_${currentChapterIndex}_${currentLang}.mp3`;
+        window.AndroidInterface.deleteFile(fileName);
+    } else {
+        await removeOfflineChapter(currentBook.bookId, currentLang, currentChapterIndex);
+    }
+
+    updateUIState(isPlaybackActive());
+}
+
+function buildMediaSessionArtwork(imageUrl) {
+    let resolvedUrl = imageUrl || 'public/icons/logo.png';
+    try {
+        resolvedUrl = new URL(resolvedUrl, window.location.href).href;
+    } catch (error) {
+        console.warn("Media artwork URL fallback used.", error);
+        try {
+            resolvedUrl = new URL('public/icons/logo.png', window.location.href).href;
+        } catch (_) {
+            return [];
+        }
+    }
+
+    return [
+        { src: resolvedUrl, sizes: '96x96', type: 'image/png' },
+        { src: resolvedUrl, sizes: '128x128', type: 'image/png' },
+        { src: resolvedUrl, sizes: '192x192', type: 'image/png' },
+        { src: resolvedUrl, sizes: '256x256', type: 'image/png' },
+        { src: resolvedUrl, sizes: '384x384', type: 'image/png' },
+        { src: resolvedUrl, sizes: '512x512', type: 'image/png' }
+    ];
+}
+
+function formatChapterTitle(chapter, chapterIndex = 0) {
+    if (!chapter) return `Chapter ${chapterIndex + 1}`;
+    const rawName = String(chapter.name || '').trim();
+    if (!rawName) return `Chapter ${chapterIndex + 1}`;
+    return rawName;
+}
+
+function updateMediaSession(book, chapter) {
+    if (!('mediaSession' in navigator) || typeof window.MediaMetadata === 'undefined') return;
+    if (!book) return;
+
+    try {
+        const coverSrc = book.coverImage || book.cover || 'public/icons/logo.png';
+        const artwork = buildMediaSessionArtwork(coverSrc);
+        const title = formatChapterTitle(chapter, currentChapterIndex);
+        const artist = book.author ? String(book.author).trim() : "Vibe Audio";
+        const album = book.title ? String(book.title).trim() : "VibeAudio Audiobook";
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title,
+            artist,
+            album,
+            artwork
+        });
+
+        updateMediaSessionPositionState(true);
+    } catch (error) {
+        console.warn("Failed to update MediaSession metadata.", error);
+    }
+}
+
+export function updateMediaSessionPositionState(force = false) {
+    if (!('mediaSession' in navigator) || typeof navigator.mediaSession.setPositionState !== 'function') {
+        return;
+    }
+
+    try {
+        const { currentTime, duration } = getCurrentPlaybackValues();
+        const playbackRate = getStoredPlaybackSpeed();
+
+        if (
+            Number.isFinite(duration) &&
+            duration > 0 &&
+            Number.isFinite(currentTime) &&
+            currentTime >= 0 &&
+            Number.isFinite(playbackRate) &&
+            playbackRate > 0
+        ) {
+            const safePosition = Math.min(currentTime, duration);
+
+            if (
+                !force &&
+                Math.abs(lastPositionUpdateState.position - safePosition) < 0.75 &&
+                lastPositionUpdateState.duration === duration &&
+                lastPositionUpdateState.playbackRate === playbackRate
+            ) {
+                return;
+            }
+
+            lastPositionUpdateState = {
+                position: safePosition,
+                duration,
+                playbackRate
+            };
+
+            navigator.mediaSession.setPositionState({
+                duration,
+                playbackRate,
+                position: safePosition
+            });
+        }
+    } catch (error) {
+        console.warn("MediaSession setPositionState failed gracefully.", error);
+    }
+}
+
+function setupMediaHandlers() {
+    if (!('mediaSession' in navigator)) return;
+    if (mediaSessionHandlersBound) return;
+    mediaSessionHandlersBound = true;
+
+    const actionHandlers = [
+        ['play', () => {
+            if (!isPlaybackActive()) togglePlay();
+            else updateUIState(true);
+        }],
+        ['pause', () => {
+            if (isPlaybackActive()) {
+                togglePlay();
+            } else {
+                updateUIState(false);
+            }
+        }],
+        ['stop', () => {
+            if (isPlaybackActive()) {
+                togglePlay();
+            } else {
+                updateUIState(false);
+            }
+        }],
+        ['previoustrack', () => {
+            prevChapter();
+        }],
+        ['nexttrack', () => {
+            nextChapter();
+        }],
+        ['seekbackward', (details) => {
+            const offset = (details && typeof details.seekOffset === 'number' && details.seekOffset > 0)
+                ? details.seekOffset
+                : 15;
+            skip(-offset);
+        }],
+        ['seekforward', (details) => {
+            const offset = (details && typeof details.seekOffset === 'number' && details.seekOffset > 0)
+                ? details.seekOffset
+                : 30;
+            skip(offset);
+        }],
+        ['seekto', (details) => {
+            if (details && typeof details.seekTime === 'number') {
+                seekToSeconds(details.seekTime, Boolean(details.fastSeek));
+            }
+        }]
+    ];
+
+    for (const [action, handler] of actionHandlers) {
+        try {
+            navigator.mediaSession.setActionHandler(action, handler);
+        } catch (error) {
+            console.warn(`Media action '${action}' is not supported.`, error);
+        }
+    }
+}
+
+async function playAudioSafe() {
+    try {
+        await audio.play();
+        clearStallPauseTimeout();
+        startProgressTracker();
+        if ('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing";
+        updateMediaSessionPositionState(true);
+        updateUIState(true);
+        sendToAndroid(true);
+        return true;
+    } catch (error) {
+        if (error.name !== 'AbortError') {
+            updateUIState(false);
+        }
+        return false;
+    }
+}
+
+export function togglePlay() {
+    if (currentSourceType === 'youtube') {
+        if (!ytPlayer || !window.YT?.PlayerState) return false;
+
+        const playerState = ytPlayer.getPlayerState();
+        if (playerState === window.YT.PlayerState.PLAYING || playerState === window.YT.PlayerState.BUFFERING) {
+            ytPlayer.pauseVideo();
+            return false;
+        }
+
+        ytPlayer.playVideo();
+        return true;
+    }
+
+    if (audio.paused) {
+        playAudioSafe();
+        return true;
+    }
+
+    audio.pause();
+    return false;
+}
+
+export function seekToSeconds(seconds, fastSeek = false) {
+    const safeTime = Math.max(0, Number(seconds) || 0);
+
+    if (currentSourceType === 'youtube') {
+        if (!ytPlayer) return;
+        const duration = Number(ytPlayer.getDuration?.() || 0);
+        const clamped = duration > 0 ? Math.min(duration, safeTime) : safeTime;
+        ytPlayer.seekTo(clamped, true);
+        dispatchPlayerTimeUpdate();
+        updateMediaSessionPositionState(true);
+        return;
+    }
+
+    if (Number.isFinite(audio.duration) && audio.duration > 0) {
+        if (fastSeek && typeof audio.fastSeek === 'function') {
+            try {
+                audio.fastSeek(Math.min(audio.duration, safeTime));
+            } catch (_) {
+                audio.currentTime = Math.min(audio.duration, safeTime);
+            }
+        } else {
+            audio.currentTime = Math.min(audio.duration, safeTime);
+        }
+    } else {
+        audio.currentTime = safeTime;
+    }
+
+    dispatchPlayerTimeUpdate();
+    updateMediaSessionPositionState(true);
+}
+
+export function skip(seconds) {
+    const delta = Number(seconds) || 0;
+    if (currentSourceType === 'youtube') {
+        if (!ytPlayer) return;
+        const nextTime = Math.max(0, (ytPlayer.getCurrentTime?.() || 0) + delta);
+        ytPlayer.seekTo(nextTime, true);
+        dispatchPlayerTimeUpdate();
+        updateMediaSessionPositionState(true);
+        return;
+    }
+
+    audio.currentTime += delta;
+    dispatchPlayerTimeUpdate();
+    updateMediaSessionPositionState(true);
+}
+
+export function seekTo(percent) {
+    const safePct = Math.max(0, Math.min(100, Number(percent) || 0));
+
+    if (currentSourceType === 'youtube') {
+        if (!ytPlayer) return;
+        const duration = Number(ytPlayer.getDuration?.() || 0);
+        if (duration > 0) {
+            ytPlayer.seekTo((safePct / 100) * duration, true);
+            dispatchPlayerTimeUpdate();
+            updateMediaSessionPositionState(true);
+        }
+        return;
+    }
+
+    if (Number.isFinite(audio.duration) && audio.duration > 0) {
+        audio.currentTime = (safePct / 100) * audio.duration;
+        dispatchPlayerTimeUpdate();
+        updateMediaSessionPositionState(true);
+    }
+}
+
+export function setPlaybackSpeed(speed) {
+    const numSpeed = Number(speed) || 1;
+    localStorage.setItem(STORAGE_KEYS.playbackSpeed, String(numSpeed));
+
+    if (currentSourceType === 'youtube') {
+        if (!ytPlayer) return 1;
+        const availableRates = ytPlayer.getAvailablePlaybackRates?.() || [];
+        const targetRate = availableRates.includes(numSpeed) ? numSpeed : (availableRates.includes(1) ? 1 : availableRates[0]);
+
+        if (targetRate) {
+            ytPlayer.setPlaybackRate(targetRate);
+        }
+
+        updateMediaSessionPositionState(true);
+        return ytPlayer.getPlaybackRate?.() || targetRate || 1;
+    }
+
+    audio.playbackRate = numSpeed;
+    updateMediaSessionPositionState(true);
+    return audio.playbackRate;
+}
+
+export function clearSleepTimer() {
+    if (activeSleepTimerTimeout) {
+        clearTimeout(activeSleepTimerTimeout);
+        activeSleepTimerTimeout = null;
+    }
+    if (activeSleepFadeInterval) {
+        clearInterval(activeSleepFadeInterval);
+        activeSleepFadeInterval = null;
+        audio.volume = preFadeAudioVolume;
+    }
+    if (window.sleepTimer) {
+        clearTimeout(window.sleepTimer);
+        window.sleepTimer = null;
+    }
+}
+
+export function setSleepTimer(minutes, callback) {
+    clearSleepTimer();
+
+    if (minutes > 0) {
+        activeSleepTimerTimeout = setTimeout(() => {
+            activeSleepTimerTimeout = null;
+            if (isPlaybackActive()) {
+                if (currentSourceType === 'audio') {
+                    preFadeAudioVolume = audio.volume;
+                    const startVol = audio.volume;
+                    const steps = 15;
+                    let currentStep = 0;
+                    activeSleepFadeInterval = setInterval(() => {
+                        currentStep++;
+                        if (currentStep >= steps || audio.paused) {
+                            clearInterval(activeSleepFadeInterval);
+                            activeSleepFadeInterval = null;
+                            if (isPlaybackActive()) togglePlay();
+                            audio.volume = startVol;
+                            if (callback) callback();
+                        } else {
+                            audio.volume = Math.max(0, startVol * (1 - currentStep / steps));
+                        }
+                    }, 200);
+                } else {
+                    togglePlay();
+                    if (callback) callback();
+                }
+            } else {
+                if (callback) callback();
+            }
+        }, minutes * 60 * 1000);
+    }
+}
+
+export function nextChapter() {
+    if (currentBook && currentChapterIndex < currentBook.activeChapters.length - 1) {
+        loadBook(currentBook, currentChapterIndex + 1, 0);
+        return true;
+    }
+    return false;
+}
+
+export function prevChapter() {
+    if (currentChapterIndex > 0) {
+        loadBook(currentBook, currentChapterIndex - 1, 0);
+        return true;
+    }
+    return false;
+}
+
+function sendToAndroid(isPlaying) {
+    if (!window.AndroidInterface || !currentBook) return;
+
+    const chapter = currentBook.activeChapters[currentChapterIndex];
+    let imageUrl = currentBook.coverImage || currentBook.cover || 'https://vibeaudio.pages.dev/frontend/public/icons/logo.png';
+
+    try {
+        imageUrl = new URL(imageUrl, window.location.href).href;
+    } catch (error) {
+        console.warn("Android notification artwork URL fallback used.", error);
+    }
+
+    try {
+        window.AndroidInterface.updateMediaNotification(chapter.name, currentBook.title, imageUrl, isPlaying);
+    } catch (error) {
+        console.warn("Android media notification update failed.", error);
+    }
+}
+
+function dispatchPlayerTimeUpdate() {
+    persistCurrentSession();
+    updateMediaSessionPositionState();
+    window.dispatchEvent(new CustomEvent('player-time-update', {
+        detail: getCurrentState()
+    }));
+}
+
+function startProgressTracker() {
+    stopProgressTracker();
+
+    let tickCount = 0;
+    progressInterval = setInterval(() => {
+        const state = getCurrentState();
+
+        dispatchPlayerTimeUpdate();
+
+        if (!state.book || !state.isPlaying || state.currentTime <= 0) return;
+
+        tickCount += 1;
+        if (tickCount % PROGRESS_SAVE_EVERY_TICKS === 0) {
+            saveUserProgress(
+                state.book.bookId,
+                state.currentChapterIndex,
+                state.currentTime,
+                state.duration,
+                getBookProgressOptions()
+            );
+        }
+    }, PROGRESS_TICK_MS);
+}
+
+function stopProgressTracker() {
+    if (progressInterval) {
+        clearInterval(progressInterval);
+        progressInterval = null;
+    }
+}
+
+async function updateUIState(isPlaying) {
+    const offlineState = await getCurrentChapterOfflineState();
+    const state = getCurrentState();
+    const event = new CustomEvent('player-state-change', {
+        detail: {
+            isPlaying,
+            book: currentBook,
+            chapter: currentBook ? currentBook.activeChapters[currentChapterIndex] : null,
+            isDownloaded: offlineState.isDownloaded,
+            offlineState,
+            sourceType: state.sourceType,
+            playbackOrigin: state.playbackOrigin
+        }
+    });
+
+    window.dispatchEvent(event);
+}

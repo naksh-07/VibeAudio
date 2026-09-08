@@ -1,0 +1,18 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Cloudflare Wrangler cache & build artifacts
+.wrangler/
+
+# AWS & Cloud keys/deploy files
+aws/
+
+# OS metadata & logs
+.DS_Store
+Thumbs.db
+*.log

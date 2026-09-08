@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeAudio | Your Listening Shelf</title>
+    <meta name="description" content="A minimal, listening-first audiobook sanctuary with synced progress, chapter playback, and offline listening.">
+
+    <script>
+        if (!Array.prototype.at) {
+            Array.prototype.at = function (n) {
+                n = Math.trunc(n) || 0;
+                if (n < 0) n += this.length;
+                if (n < 0 || n >= this.length) return undefined;
+                return this[n];
+            };
+        }
+        if (!String.prototype.at) {
+            String.prototype.at = function (n) {
+                n = Math.trunc(n) || 0;
+                if (n < 0) n += this.length;
+                if (n < 0 || n >= this.length) return undefined;
+                return this[n];
+            };
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/app-sections.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/player.css">
+    <link rel="stylesheet" href="../css/player-premium.css">
+    <link rel="stylesheet" href="../css/cover-media.css">
+    <link rel="manifest" href="../../app.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16.png">
+    <meta name="theme-color" content="#0C0D11">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="VibeAudio">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="../../public/icons/apple-touch-icon.png">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+
+    <!-- SVG Icon Sprite -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 4.5 Q5.5 12.5 12 20.5 Q18.5 12.5 20.5 4.5" /><path d="M7.5 4.5 Q9 9.5 12 13.5 Q15 9.5 16.5 4.5" /><path d="M12 13.5 L12 17.5" /><path d="M9.8 20.5 H14.2" />
+        </symbol>
+        <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5 L12 3.5 L21 10.5 V20 C21 20.6 20.6 21 20 21 H14.5 V15.5 C14.5 14.7 13.8 14 13 14 H11 C10.2 14 9.5 14.7 9.5 15.5 V21 H4 C3.4 21 3 20.6 3 20 V10.5 Z" />
+        </symbol>
+        <symbol id="icon-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5 V5 C4 4.2 4.7 3.5 5.5 3.5 H8.5 C9.3 3.5 10 4.2 10 5 V19.5" /><path d="M10 19.5 V7 C10 6.2 10.7 5.5 11.5 5.5 H14.5 C15.3 5.5 16 6.2 16 7 V19.5" /><path d="M16 19.5 L19.2 6.5 C19.4 5.7 20.2 5.2 21 5.4 C21.8 5.6 22.3 6.4 22.1 7.2 L19.8 19.5" /><path d="M2 20.5 H22" />
+        </symbol>
+        <symbol id="icon-offline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" /><path d="M12 8 V14" /><path d="M9 11 L12 14 L15 11" /><path d="M8 17 H16" />
+        </symbol>
+        <symbol id="icon-device" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" /><path d="M12 8 V14" /><path d="M9 11 L12 14 L15 11" /><path d="M8 17 H16" />
+        </symbol>
+        <symbol id="icon-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 12 A8.5 8.5 0 1 0 6 6 M3.5 4 V8.5 H8" /><path d="M12 7.5 V12 L15.5 14" />
+        </symbol>
+        <symbol id="icon-account" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="7.5" r="4" /><path d="M4.5 20.5 C4.5 16.5 8 14.5 12 14.5 C16 14.5 19.5 16.5 19.5 20.5" />
+        </symbol>
+        <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="7.5" r="4" /><path d="M4.5 20.5 C4.5 16.5 8 14.5 12 14.5 C16 14.5 19.5 16.5 19.5 20.5" />
+        </symbol>
+        <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6.5 H20 M4 12 H20 M4 17.5 H20" />
+        </symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10.5" cy="10.5" r="7" /><path d="M15.5 15.5 L21 21" />
+        </symbol>
+        <symbol id="icon-clear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 6 L18 18 M18 6 L6 18" />
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 6 L18 18 M18 6 L6 18" />
+        </symbol>
+        <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="8,5 19,12 8,19" fill="currentColor" stroke="currentColor" />
+        </symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="5.5" x2="8" y2="18.5" stroke-width="2.5" /><line x1="16" y1="5.5" x2="16" y2="18.5" stroke-width="2.5" />
+        </symbol>
+        <symbol id="icon-seek-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 10 A7.5 7.5 0 1 1 5.2 15 M4.5 4.5 V10 H10" />
+        </symbol>
+        <symbol id="icon-seek-forward" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19.5 10 A7.5 7.5 0 1 0 18.8 15 M19.5 4.5 V10 H14" />
+        </symbol>
+        <symbol id="icon-speed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4 A8 8 0 1 0 20 12" /><path d="M12 12 L16.5 8.5" /><circle cx="12" cy="12" r="1.8" />
+        </symbol>
+        <symbol id="icon-sleep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19.5 14.2 C18.5 18.2 14.5 20.8 10.5 20 C6.5 19.2 3.5 15.2 4.2 11 C4.8 7.2 8.5 4.2 12.5 4.8 C11.5 7.2 12 10 14 12 C16 14 18.8 14.2 19.5 14.2 Z" />
+        </symbol>
+        <symbol id="icon-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 4.5 C6 3.7 6.7 3 7.5 3 H16.5 C17.3 3 18 3.7 18 4.5 V21 L12 17.5 L6 21 V4.5 Z" />
+        </symbol>
+        <symbol id="icon-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3.5 L20.5 10 L8.5 22 H2 V15.5 L14 3.5 Z" /><path d="M12.5 5 L19 11.5" /><path d="M6 18 H9" />
+        </symbol>
+        <symbol id="icon-vocal-clarity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12 H5 M7 8 V16 M11 4 V20 M15 7 V17 M17 10 V14 M19 12 H21" />
+        </symbol>
+        <symbol id="icon-waveform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12 H5 M7 8 V16 M11 4 V20 M15 7 V17 M17 10 V14 M19 12 H21" />
+        </symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3.5 V14.5 M7.5 10.5 L12 15 L16.5 10.5 M4 19.5 H20" />
+        </symbol>
+        <symbol id="icon-cloud-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 17.5 C4 17.5 2.5 15.5 2.5 13 C2.5 10.8 4.2 9 6.4 9 C7 6.5 9.3 4.5 12 4.5 C15.3 4.5 18 7.2 18 10.5 C19.7 10.8 21 12.2 21 14 C21 16 19.5 17.5 17.5 17.5 M12 10.5 V19.5 M9 16.5 L12 19.5 L15 16.5" />
+        </symbol>
+        <symbol id="icon-downloaded" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" /><path d="M8 12 L11 15 L16.5 9" />
+        </symbol>
+        <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" /><path d="M8 12 L11 15 L16.5 9" />
+        </symbol>
+        <symbol id="icon-cloud-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 17 C4 17 2.5 15.2 2.5 13 C2.5 10.8 4.2 9 6.4 9 C7 6.5 9.3 4.5 12 4.5 C15.3 4.5 18 7.2 18 10.5 C19.7 10.8 21 12.2 21 14 C21 16 19.5 17 17.5 17 M12 17 V10 M9.5 12.5 L12 10 L14.5 12.5" />
+        </symbol>
+        <symbol id="icon-import" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3.5 H6 C4.9 3.5 4 4.4 4 5.5 V18.5 C4 19.6 4.9 20.5 6 20.5 H18 C19.1 20.5 20 19.6 20 18.5 V9.5 L14 3.5 Z" /><path d="M14 3.5 V9.5 H20 M12 12.5 V17.5 M9.5 15 H14.5" />
+        </symbol>
+        <symbol id="icon-storage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="2" /><line x1="3" y1="13" x2="21" y2="13" /><circle cx="17" cy="16" r="1" /><circle cx="14" cy="16" r="1" />
+        </symbol>
+        <symbol id="icon-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 12 A8 8 0 0 1 5.5 17.5 M4 12 A8 8 0 0 1 18.5 6.5" /><path d="M20 4 V9 H15 M4 20 V15 H9" />
+        </symbol>
+        <symbol id="icon-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3 A9 9 0 1 0 21 12" />
+        </symbol>
+        <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6.5 H20 M9 6.5 V4 C9 3.4 9.4 3 10 3 H14 C14.6 3 15 3.4 15 4 V6.5" /><path d="M6 6.5 L7.2 19.2 C7.3 20.2 8.2 21 9.2 21 H14.8 C15.8 21 16.7 20.2 16.8 19.2 L18 6.5" /><line x1="10" y1="10.5" x2="10" y2="16.5" /><line x1="14" y1="10.5" x2="14" y2="16.5" />
+        </symbol>
+        <symbol id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5.5" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="18.5" r="2.5" /><line x1="8.3" y1="10.8" x2="15.7" y2="6.7" /><line x1="8.3" y1="13.2" x2="15.7" y2="17.3" />
+        </symbol>
+        <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="11,6 5,12 11,18" />
+        </symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13,6 19,12 13,18" />
+        </symbol>
+        <symbol id="icon-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6,15 12,9 18,15" />
+        </symbol>
+        <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6,9 12,15 18,9" />
+        </symbol>
+        <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9,6 15,12 9,18" />
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="5,12.5 9.5,17 19,7" />
+        </symbol>
+        <symbol id="icon-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 13 V11 C3 6 7 2 12 2 C17 2 21 6 21 11 V13" /><rect x="3" y="11.5" width="5" height="8" rx="2" /><rect x="16" y="11.5" width="5" height="8" rx="2" />
+        </symbol>
+        <symbol id="icon-equalizer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="10" x2="6" y2="18" stroke-width="2.2" /><line x1="12" y1="5" x2="12" y2="18" stroke-width="2.2" /><line x1="18" y1="12" x2="18" y2="18" stroke-width="2.2" />
+        </symbol>
+        <symbol id="icon-install" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="3" width="14" height="18" rx="2" /><line x1="12" y1="8" x2="12" y2="14" /><polyline points="9,11 12,14 15,11" /><circle cx="12" cy="17.5" r="0.6" fill="currentColor" />
+        </symbol>
+        <symbol id="icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 3 L3 10.5 L10.5 13.5 L13.5 21 L21 3 Z" /><line x1="10.5" y1="13.5" x2="21" y2="3" />
+        </symbol>
+        <symbol id="icon-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="10,17.5 15,12 10,6.5" /><line x1="15" y1="12" x2="4" y2="12" /><path d="M14 3.5 H19 C19.6 3.5 20 3.9 20 4.5 V19.5 C20 20.1 19.6 20.5 19 20.5 H14" />
+        </symbol>
+        <symbol id="icon-open-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 4 H20 V10" /><line x1="10" y1="14" x2="20" y2="4" /><path d="M19 13 V18.5 C19 19.6 18.1 20.5 17 20.5 H5.5 C4.4 20.5 3.5 19.6 3.5 18.5 V7 C3.5 5.9 4.4 5 5.5 5 H11" />
+        </symbol>
+        <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" /><line x1="12" y1="11" x2="12" y2="16.5" /><circle cx="12" cy="7.5" r="0.8" fill="currentColor" />
+        </symbol>
+        <symbol id="icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12,3.5 21,19.5 3,19.5" /><line x1="12" y1="9" x2="12" y2="13.5" /><circle cx="12" cy="16.5" r="0.8" fill="currentColor" />
+        </symbol>
+        <symbol id="icon-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" /><line x1="5.5" y1="5.5" x2="18.5" y2="18.5" />
+        </symbol>
+        <symbol id="icon-chapters" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6.5 H7 M11 6.5 H20 M4 12 H7 M11 12 H20 M4 17.5 H7 M11 17.5 H20" />
+        </symbol>
+    </svg>
+
+    <div class="glass-container">
+
+        <!-- Unified Top Navigation Bar -->
+        <header class="app-topbar">
+            <div class="topbar-left">
+                <button id="menu-btn" class="glass-btn mobile-menu-btn" aria-label="Open navigation menu">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
+                </button>
+                <a href="#home" class="brand-link" onclick="window.app.switchView('home'); return false;" aria-label="VibeAudio Home">
+                    <div class="brand-stack">
+                        <span><svg class="brand-mark-svg" viewBox="0 0 24 24" fill="none" stroke="#E5A93C" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 4.5 Q5.5 12.5 12 20.5 Q18.5 12.5 20.5 4.5" /><path d="M7.5 4.5 Q9 9.5 12 13.5 Q15 9.5 16.5 4.5" /><path d="M12 13.5 L12 17.5" /><path d="M9.8 20.5 H14.2" /></svg> VibeAudio</span>
+                        <p class="brand-subtitle">Listening Sanctuary</p>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="topbar-nav" aria-label="Main destinations">
+                <button class="topbar-nav-btn active" data-nav-view="home" onclick="window.app.switchView('home')" type="button">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-home"></use></svg> <span>Home</span>
+                </button>
+                <button class="topbar-nav-btn" data-nav-view="library" onclick="window.app.switchView('library')" type="button">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-library"></use></svg> <span>Library</span>
+                </button>
+                <button class="topbar-nav-btn" data-nav-view="offline" onclick="window.app.switchView('offline')" type="button">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-device"></use></svg> <span>On This Device</span>
+                </button>
+            </nav>
+
+            <div class="topbar-right">
+                <div class="search-shell">
+                    <div class="search-box">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+                        <input type="text" id="search-input" placeholder="Search title, author..." aria-label="Search audiobooks">
+                        <button id="search-clear-btn" class="hidden" type="button" aria-label="Clear search">
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-clear"></use></svg>
+                        </button>
+                    </div>
+                </div>
+                <button class="glass-btn profile-trigger-btn" onclick="window.app.switchView('profile')" aria-label="My Account & Storage" title="My Account">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-account"></use></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- SCREEN 1: HOME — "RETURN TO STORY" -->
+        <section id="view-home" class="view-section fade-in" aria-label="Home shelf">
+            <!-- 1. Continue Listening Hero (Visual Anchor) -->
+            <div id="home-resume-hero" class="home-resume-hero hidden"></div>
+
+            <!-- 2. On This Device Shelf (Offline Ready Differentiator) -->
+            <div id="home-offline-shelf" class="home-shelf-section hidden">
+                <div class="section-head-compact">
+                    <div>
+                        <span class="section-eyebrow">SAVED LOCALLY</span>
+                        <h3 class="shelf-title"><svg class="vibe-icon vibe-icon-success" style="color: #4EBA87;" aria-hidden="true"><use href="#icon-check-circle"></use></svg> On This Device</h3>
+                    </div>
+                    <button class="ghost-btn compact-btn" type="button" onclick="window.app.switchView('offline')" aria-label="View all offline audiobooks">
+                        <span>View All</span> <svg class="vibe-icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                    </button>
+                </div>
+                <div id="home-offline-grid" class="home-horizontal-shelf" role="region" aria-label="Audiobooks on this device"></div>
+            </div>
+
+            <!-- 3. Exploration (Single Restrained Curated Row) -->
+            <div id="home-curated-shelf" class="home-shelf-section hidden">
+                <div class="section-head-compact">
+                    <div>
+                        <span class="section-eyebrow">CURATED DISCOVERY</span>
+                        <h3 class="shelf-title">Picked for You</h3>
+                    </div>
+                    <button class="ghost-btn compact-btn" type="button" onclick="window.app.switchView('library')" aria-label="Explore full library">
+                        <span>Explore Library</span> <svg class="vibe-icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                    </button>
+                </div>
+                <div id="home-curated-grid" class="discovery-grid" role="region" aria-label="Recommended audiobooks"></div>
+            </div>
+
+            <!-- 4. Welcoming Empty State when no active listening exists -->
+            <div id="home-empty-state" class="home-empty-sanctuary hidden">
+                <div class="empty-sanctuary-icon"><svg class="vibe-icon vibe-icon-xl" aria-hidden="true"><use href="#icon-headphones"></use></svg></div>
+                <h2>Your listening shelf is ready.</h2>
+                <p>Choose an audiobook to begin listening, and your active story will always stay right here.</p>
+                <button class="action-btn" onclick="window.app.switchView('library')" aria-label="Explore Audiobooks">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-library"></use></svg> Explore Audiobooks
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: LIBRARY — "FIND A STORY" -->
+        <main id="view-library" class="view-section hidden fade-in" aria-label="Audiobook Library">
+            <div class="section-header-row">
+                <div>
+                    <span class="section-eyebrow">DISCOVER STORIES</span>
+                    <h2 class="section-title">Audiobook Library</h2>
+                    <p class="section-subtitle" id="library-subtitle">Find and explore unabridged audiobooks ready for your browser.</p>
+                    <div id="library-sync-banner" class="sync-status-banner hidden" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <div id="category-filters" class="filter-container" role="toolbar" aria-label="Filter by genre or category"></div>
+            <div id="recent-searches-panel" class="recent-searches-panel hidden" aria-label="Recent search terms"></div>
+
+            <div id="book-grid" class="grid" role="region" aria-label="Audiobook catalog grid">
+                <div class="loading-spinner">Loading audiobooks...</div>
+            </div>
+        </main>
+
+        <!-- SCREEN 3: ON THIS DEVICE / OFFLINE SHELF -->
+        <section id="view-offline" class="view-section hidden fade-in" aria-label="Offline audiobooks shelf">
+            <div class="section-header-row">
+                <div>
+                    <span class="section-eyebrow">SAVED FOR OFFLINE</span>
+                    <h2 class="section-title">On This Device</h2>
+                    <p class="section-subtitle" id="offline-subtitle">Audiobooks saved locally and ready to play anywhere without an internet connection.</p>
+                </div>
+                <div class="section-header-actions">
+                    <label for="import-audiobook-input" class="btn-secondary compact-btn" role="button" tabindex="0" title="Import local .m4b or .mp3 audiobook">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-import"></use></svg> <span>Import Audio</span>
+                    </label>
+                    <input type="file" id="import-audiobook-input" accept=".m4b,.mp3,audio/mp4,audio/mpeg" class="visually-hidden" aria-label="Import local audiobook file">
+                </div>
+            </div>
+            <div id="offline-insights" class="library-insights" aria-label="Offline storage summary"></div>
+            <div id="offline-grid" class="grid" role="region" aria-label="Downloaded audiobooks">
+                <p class="empty-msg">No saved audiobooks on this device yet.</p>
+            </div>
+        </section>
+
+        <!-- SCREEN: LISTENING HISTORY -->
+        <section id="view-history" class="view-section hidden fade-in" aria-label="Listening history">
+            <div class="section-header-row">
+                <div>
+                    <span class="section-eyebrow">CONTINUITY</span>
+                    <h2 class="section-title">Listening History</h2>
+                    <p class="section-subtitle">Stories you've listened to recently on this device.</p>
+                    <div id="history-sync-banner" class="sync-status-banner hidden" aria-live="polite"></div>
+                </div>
+            </div>
+            <div id="history-grid" class="grid" role="region" aria-label="History items">
+                <p class="empty-msg">No history yet. Start your first listening session.</p>
+            </div>
+        </section>
+
+        <!-- SCREEN: ABOUT -->
+        <section id="view-about" class="view-section hidden fade-in" aria-label="About VibeAudio">
+            <div class="profile-card about-card">
+                <span class="section-eyebrow">ABOUT</span>
+                <h2>About VibeAudio</h2>
+                <p class="about-version">Listening-First Browser Edition</p>
+                <div class="about-copy">
+                    <p>VibeAudio is a calm, minimal browser audiobook sanctuary designed for listeners who value continuity, tactile typography, and private local storage.</p>
+                    <p>Every screen is built around one primary job with zero distraction, no social feed bloat, and instant resume-to-story capability.</p>
+                </div>
+                <button class="action-btn" onclick="window.app.switchView('home')" aria-label="Return to home shelf">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-home"></use></svg> Return to Home
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN: PROFILE & STORAGE SETTINGS -->
+        <section id="view-profile" class="view-section hidden fade-in" aria-label="User profile and settings">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <img src="https://ui-avatars.com/api/?name=User&background=E5A93C&color=0C0D11&bold=true" alt="User Avatar" class="avatar" id="profile-avatar">
+                    <div>
+                        <h2 id="user-name-display">Guest Listener</h2>
+                        <p class="user-badge" id="profile-top-genre">Listening Shelf Active</p>
+                    </div>
+                </div>
+
+                <p class="profile-summary-copy" id="profile-summary-copy">Your listening progress and moments are preserved automatically.</p>
+                <p class="profile-sync-note" id="profile-sync-note">Local storage active on this browser.</p>
+
+                <div class="stats-container profile-stats-grid">
+                    <div class="stat-box">
+                        <h3 id="profile-stat-finished">0</h3>
+                        <p>Books Finished</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 id="profile-stat-hours">0h</h3>
+                        <p>Hours Listened</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 id="profile-stat-active">0</h3>
+                        <p>Active Stories</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 id="profile-stat-bookmarks">0</h3>
+                        <p>Saved Moments</p>
+                    </div>
+                </div>
+
+                <div class="offline-storage-panel">
+                    <div class="stack-header">
+                        <div>
+                            <h3>Device Storage</h3>
+                            <p>Private offline audio saved on this device for offline playback.</p>
+                        </div>
+                        <button class="btn-secondary compact-btn subtle-danger" id="clear-offline-downloads-btn" type="button" aria-label="Clear offline storage">
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-trash"></use></svg> Clear Offline Audio
+                        </button>
+                    </div>
+
+                    <div class="offline-storage-grid">
+                        <div class="stat-box">
+                            <h3 id="offline-storage-used">0 MB</h3>
+                            <p>Audio Saved Locally</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3 id="offline-storage-quota">Browser Managed</h3>
+                            <p>Available Quota</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3 id="offline-storage-books">0</h3>
+                            <p>Saved Books</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3 id="offline-storage-chapters">0</h3>
+                            <p>Saved Chapters</p>
+                        </div>
+                    </div>
+
+                    <p class="offline-storage-mode" id="offline-storage-mode">Device storage active.</p>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn-secondary" id="sync-profile-btn" aria-label="Sync listening progress">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud-sync"></use></svg> Sync Progress
+                    </button>
+                    <button class="btn-danger" onclick="window.app.logout()" aria-label="Sign out">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-logout"></use></svg> Logout
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 4 & 5: BOOK DETAIL & FULL PLAYER — "PURE LISTENING" -->
+        <section id="view-player" class="view-section hidden fade-in" aria-label="Audiobook Player">
+            <div class="player-top-actions">
+                <button id="back-btn" class="glass-back-btn" onclick="window.app.goBack()" aria-label="Back to shelf">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg> <span>Back</span>
+                </button>
+                <div class="player-top-state">
+                    <span id="player-offline-status-chip" class="player-offline-status-chip" data-state="not_downloaded">
+                        <svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check-circle"></use></svg> Ready Offline
+                    </span>
+                </div>
+            </div>
+
+            <!-- Detail & Hero Card -->
+            <div class="player-header-card">
+                <div class="blur-bg" id="blur-bg" aria-hidden="true"></div>
+                <div class="player-cover-wrap">
+                    <img id="detail-cover" src="" alt="Book Cover">
+                </div>
+
+                <div class="info">
+                    <span class="badge" id="player-status-badge">AUDIOBOOK</span>
+                    <h1 id="detail-title">Loading title...</h1>
+                    <p id="detail-author">Unknown author</p>
+                    <div id="detail-pills" class="detail-pills" aria-label="Book tags"></div>
+                    <p id="detail-summary" class="detail-summary">Story notes and listening context will appear here.</p>
+
+                    <div id="lang-toggle-container" class="hidden" style="margin: 10px 0;"></div>
+
+                    <div class="player-detail-ctas">
+                        <button id="main-play-btn" class="action-btn player-primary-cta" aria-label="Listen Now">
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-play"></use></svg> <span>Listen Now</span>
+                        </button>
+                        <button id="download-book-btn" class="btn-secondary" type="button" aria-label="Save for offline">
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud-download"></use></svg> <span>Save for Offline</span>
+                        </button>
+                        <button id="remove-offline-book-btn" class="btn-secondary subtle-danger hidden" type="button" aria-label="Remove offline copy">
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-trash"></use></svg> <span>Remove Offline</span>
+                        </button>
+                        <button id="share-book-btn" class="btn-secondary" type="button" aria-label="Share audiobook" title="Share audiobook">
+                            <svg class="vibe-icon" aria-hidden="true"><use href="#icon-share"></use></svg> <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dedicated Full Player Transport Deck -->
+            <div class="player-transport-deck">
+                <div class="player-position-line">
+                    <span class="player-current-part" id="player-current-part">Part 1</span>
+                    <span class="player-time-remaining" id="player-time-remaining">Ready to listen</span>
+                </div>
+
+                <div class="player-scrubber-container">
+                    <span id="current-time" class="timecode">00:00</span>
+                    <input type="range" id="progress-bar" value="0" step="0.1" aria-label="Playback progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <span id="total-duration" class="timecode">00:00</span>
+                </div>
+
+                <div class="player-transport-controls">
+                    <button id="speed-btn" class="transport-secondary-btn" aria-label="Playback speed options" aria-haspopup="true" aria-expanded="false" title="Playback Speed">1x</button>
+                    <button id="seek-back-btn" class="transport-step-btn" aria-label="Jump backward 15 seconds" title="Back 15s">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-seek-back"></use></svg> <span>15s</span>
+                    </button>
+                    <button id="play-btn" class="transport-play-btn" aria-label="Play or Pause" title="Play">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+                    </button>
+                    <button id="seek-fwd-btn" class="transport-step-btn" aria-label="Jump forward 30 seconds" title="Forward 30s">
+                        <span>30s</span> <svg class="vibe-icon" aria-hidden="true"><use href="#icon-seek-forward"></use></svg>
+                    </button>
+                    <button id="sleep-timer-btn" class="transport-secondary-btn" aria-label="Sleep timer options" aria-haspopup="true" aria-expanded="false" title="Sleep Timer">
+                        <svg class="vibe-icon" aria-hidden="true"><use href="#icon-sleep"></use></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- YouTube Source Banner (Conditional) -->
+            <div id="source-support-note" class="source-support-note hidden" aria-live="polite">
+                <div class="source-support-copy">
+                    <span class="source-support-badge">YOUTUBE SOURCE</span>
+                    <p id="source-support-text"></p>
+                </div>
+                <button id="source-support-open-btn" type="button" aria-label="Open source in browser">
+                    <svg class="vibe-icon" aria-hidden="true"><use href="#icon-open-external"></use></svg> Open in Browser
+                </button>
+            </div>
+
+            <!-- Chapters & Secondary Surfaces -->
+            <div class="player-two-column">
+                <div class="chapter-list-container">
+                    <div class="chapter-list-head">
+                        <h3>Chapters</h3>
+                        <span id="total-chapters" class="chapter-count-label">0 Parts</span>
+                    </div>
+                    <ul id="chapter-list" role="list" aria-label="Chapter list"></ul>
+                </div>
+
+                <div class="player-side-stack">
+                    <!-- Saved Moments (Bookmarks) -->
+                    <div class="bookmark-section">
+                        <div class="stack-header">
+                            <div>
+                                <h3>Saved Moments</h3>
+                                <p>Pin scenes and lines to return to fast.</p>
+                            </div>
+                            <button id="bookmark-current-btn" class="mini-action-btn" type="button" aria-label="Save current listening moment">
+                                <svg class="vibe-icon" aria-hidden="true"><use href="#icon-bookmark"></use></svg> Save moment
+                            </button>
+                        </div>
+                        <div id="bookmark-list" class="bookmark-list" aria-label="Saved moments list"></div>
+                    </div>
+
+                    <!-- Notes & Timestamp -->
+                    <div class="comments-section">
+                        <div class="stack-header">
+                            <div>
+                                <h3>Notes & Timestamps</h3>
+                                <p>Notes locked to the exact listening moment.</p>
+                            </div>
+                        </div>
+                        <div class="add-comment-box">
+                            <input type="text" id="comment-input" placeholder="Write a note for this moment" aria-label="Write a note for this moment">
+                            <button id="post-comment-btn" aria-label="Save comment"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-send"></use></svg></button>
+                        </div>
+                        <div id="comments-list" aria-label="Notes and comments list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Hidden Host for YouTube Audio Engine -->
+    <div id="yt-player-shell" class="youtube-audio-host" aria-hidden="true"></div>
+
+    <!-- Mobile Drawer Overlay & Sidebar Navigation -->
+    <div id="sidebar-overlay" class="hidden" aria-hidden="true"></div>
+    <aside id="sidebar" aria-label="Navigation drawer">
+        <div class="sidebar-header">
+            <h3>VibeAudio</h3>
+            <button id="close-sidebar" aria-label="Close navigation"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-close"></use></svg></button>
+        </div>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+            <button onclick="window.app.switchView('home')"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-home"></use></svg> Home</button>
+            <button onclick="window.app.switchView('library')"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-library"></use></svg> Library</button>
+            <button onclick="window.app.switchView('offline')"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-device"></use></svg> On This Device</button>
+            <button onclick="window.app.switchView('history')"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-history"></use></svg> Listening History</button>
+            <button onclick="window.app.switchView('about')"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-info"></use></svg> About</button>
+            <button id="install-app-btn" class="hidden"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-install"></use></svg> Install App</button>
+            <div class="divider" role="separator"></div>
+            <button onclick="window.app.switchView('profile')"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-account"></use></svg> My Account & Storage</button>
+        </nav>
+    </aside>
+
+    <!-- SCREEN 6: MINI-PLAYER — "THE LISTENING BRIDGE" -->
+    <div id="mini-player" class="player-bar mini-dock hidden" role="region" aria-label="Now playing mini bar">
+        <div class="mini-progress-line">
+            <div class="mini-progress-line-fill" id="mini-progress-line-fill" style="width: 0%;"></div>
+        </div>
+        <div class="track-info" id="mini-track-info" role="button" tabindex="0" title="Tap to open full player" aria-label="Open full player view">
+            <img id="mini-cover" src="" alt="Active Audiobook Cover">
+            <div class="mini-text">
+                <h4 id="mini-title">Select a story</h4>
+                <p id="mini-chapter">Your shelf is ready</p>
+            </div>
+            <span class="mini-expand-icon" aria-hidden="true"><svg class="vibe-icon vibe-icon-sm" aria-hidden="true"><use href="#icon-chevron-up"></use></svg></span>
+        </div>
+
+        <div class="mini-transport-actions">
+            <button id="mini-seek-back-btn" class="mini-transport-btn" aria-label="Jump backward 15 seconds" title="Jump backward 15s">
+                <svg class="vibe-icon" aria-hidden="true"><use href="#icon-seek-back"></use></svg>
+            </button>
+            <button id="mini-play-btn" class="mini-play-circle" aria-label="Play or Pause" title="Play">
+                <svg class="vibe-icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+            </button>
+            <button id="mini-seek-fwd-btn" class="mini-transport-btn" aria-label="Jump forward 30 seconds" title="Jump forward 30s">
+                <svg class="vibe-icon" aria-hidden="true"><use href="#icon-seek-forward"></use></svg>
+            </button>
+        </div>
+    </div>
+
+    <audio id="audio-element" crossorigin="anonymous"></audio>
+
+    <script type="module" src="../js/pwa.js"></script>
+    <script type="module" src="../js/app-entry.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+
+</body>
+
+</html>
