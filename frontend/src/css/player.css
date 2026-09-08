@@ -50,6 +50,10 @@
     pointer-events: none;
 }
 
+html[data-theme="light"] .player-header-card::after {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.68) 100%);
+}
+
 /* Subtle, calm ambient cover lighting */
 .blur-bg {
     position: absolute;
@@ -62,6 +66,11 @@
     transform: scale(1.1);
     z-index: 0;
     pointer-events: none;
+}
+
+html[data-theme="light"] .blur-bg {
+    filter: blur(80px) saturate(120%) brightness(1.02);
+    opacity: 0.24;
 }
 
 .player-cover-wrap {
@@ -227,7 +236,7 @@
 
 .player-scrubber-container input[type=range]::-webkit-slider-runnable-track {
     height: 6px;
-    background: rgba(245, 246, 250, 0.08);
+    background: var(--theme-progress-track);
     border-radius: var(--radius-pill);
 }
 
@@ -238,7 +247,7 @@
     width: 18px;
     border-radius: 50%;
     background: var(--color-text-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     margin-top: -6px;
     transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -252,7 +261,7 @@
 
 .player-scrubber-container input[type=range]::-moz-range-track {
     height: 6px;
-    background: rgba(245, 246, 250, 0.08);
+    background: var(--theme-progress-track);
     border-radius: var(--radius-pill);
 }
 
@@ -634,7 +643,7 @@ body.view-is-player #mini-player,
 }
 
 .player-bar.mini-dock:hover {
-    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.75);
+    box-shadow: var(--shadow-sheet);
 }
 
 /* Micro progress line along top edge of mini player */
@@ -644,7 +653,7 @@ body.view-is-player #mini-player,
     left: 0;
     right: 0;
     height: 2px;
-    background: rgba(245, 246, 250, 0.08);
+    background: var(--theme-progress-track);
 }
 
 .mini-progress-line-fill {
@@ -668,7 +677,7 @@ body.view-is-player #mini-player,
 }
 
 .mini-dock .track-info:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-surface-2);
 }
 
 .mini-dock .track-info img,
@@ -948,7 +957,7 @@ body.view-is-player #mini-player,
         border-bottom: none;
         padding: 6px 12px max(10px, env(safe-area-inset-bottom, 10px));
         height: calc(64px + env(safe-area-inset-bottom, 0px));
-        background: rgba(18, 20, 26, 0.95);
+        background: var(--color-surface-translucent);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         gap: 8px;

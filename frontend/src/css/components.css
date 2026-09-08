@@ -57,6 +57,10 @@
     pointer-events: none;
 }
 
+html[data-theme="light"] .book-card-media::after {
+    background: linear-gradient(180deg, rgba(248, 246, 241, 0) 60%, rgba(30, 24, 16, 0.35) 100%);
+}
+
 .book-card img,
 .book-card-media img {
     width: 100%;
@@ -135,7 +139,7 @@
 .card-progress-track {
     height: 4px;
     border-radius: var(--radius-pill);
-    background: rgba(245, 246, 250, 0.08);
+    background: var(--theme-progress-track);
     overflow: hidden;
 }
 
@@ -250,7 +254,7 @@
 }
 
 .source-type-badge.audio-badge {
-    background: rgba(245, 246, 250, 0.06);
+    background: var(--color-surface-2);
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
 }
@@ -392,6 +396,10 @@
     backdrop-filter: blur(6px);
 }
 
+html[data-theme="light"] .resume-offline-tag {
+    background: rgba(255, 255, 255, 0.92);
+}
+
 .resume-hero-content {
     display: flex;
     flex-direction: column;
@@ -488,7 +496,7 @@
 .resume-track {
     margin: 4px 0 8px;
     height: 5px;
-    background: rgba(245, 246, 250, 0.08);
+    background: var(--theme-progress-track);
     border-radius: var(--radius-pill);
     overflow: hidden;
 }
@@ -644,6 +652,10 @@
     padding: 2px 4px;
     border-radius: 4px;
     text-align: center;
+}
+
+html[data-theme="light"] .shelf-offline-badge {
+    background: rgba(255, 255, 255, 0.92);
 }
 
 .shelf-card-info h4 {
@@ -871,7 +883,7 @@
     appearance: none;
     width: 100%;
     height: 4px;
-    background: rgba(245, 246, 250, 0.1);
+    background: var(--theme-progress-track);
     border-radius: var(--radius-pill);
     outline: none;
     padding: 16px 0;
@@ -881,7 +893,7 @@
 
 .progress-container input[type=range]::-webkit-slider-runnable-track {
     height: 4px;
-    background: rgba(245, 246, 250, 0.1);
+    background: var(--theme-progress-track);
     border-radius: var(--radius-pill);
 }
 
@@ -904,7 +916,7 @@
 
 .progress-container input[type=range]::-moz-range-track {
     height: 4px;
-    background: rgba(245, 246, 250, 0.1);
+    background: var(--theme-progress-track);
     border-radius: var(--radius-pill);
 }
 

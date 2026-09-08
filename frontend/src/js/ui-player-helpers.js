@@ -106,8 +106,53 @@ function buildSurfacePalette(palette, surface) {
     });
 }
 
-function buildTheme(palette, surface = 'library') {
+let currentActivePalette = null;
+
+function isDaylightTheme() {
+    return typeof document !== 'undefined' && document.documentElement?.getAttribute('data-theme') === 'light';
+}
+
+export function buildTheme(palette, surface = 'library') {
+    const isLight = isDaylightTheme();
     const [primaryBase, secondaryBase, tertiaryBase, depthBase] = buildSurfacePalette(palette, surface);
+
+    if (isLight) {
+        const primary = mixColor(primaryBase, [180, 110, 10], 0.25);
+        const secondary = mixColor(secondaryBase, [90, 75, 60], 0.25);
+        const tertiary = mixColor(tertiaryBase, [239, 236, 228], 0.5);
+        const canvas = [248, 246, 241];
+        const shell = mixColor(canvas, primaryBase, 0.04);
+        const titleAccent = mixColor(primary, [45, 35, 20], 0.6);
+
+        return {
+            '--primary': rgb(primary),
+            '--secondary': rgb(secondary),
+            '--accent-soft': rgba(primary, 0.12),
+            '--theme-bg-1': rgba(primary, 0.06),
+            '--theme-bg-2': rgba(secondary, 0.04),
+            '--theme-bg-3': 'rgba(239, 236, 228, 0.6)',
+            '--theme-bg-4': 'rgba(248, 246, 241, 0.99)',
+            '--theme-surface-1': 'rgba(255, 255, 255, 0.92)',
+            '--theme-surface-2': 'rgba(239, 236, 228, 0.8)',
+            '--theme-surface-3': 'rgba(227, 221, 208, 0.8)',
+            '--theme-border': 'rgba(45, 35, 20, 0.08)',
+            '--theme-border-strong': 'rgba(45, 35, 20, 0.16)',
+            '--theme-glow': rgba(primary, 0.12),
+            '--theme-glow-soft': rgba(secondary, 0.08),
+            '--theme-shadow': '0 8px 24px rgba(45, 35, 20, 0.06)',
+            '--theme-shadow-strong': '0 16px 40px rgba(45, 35, 20, 0.12)',
+            '--theme-title': 'rgba(26, 24, 21, 0.98)',
+            '--theme-text': 'rgba(44, 40, 35, 0.94)',
+            '--theme-text-soft': 'rgba(84, 76, 68, 0.85)',
+            '--theme-text-dim': 'rgba(118, 108, 97, 0.80)',
+            '--theme-title-gradient-start': '#1A1815',
+            '--theme-title-gradient-end': rgb(titleAccent),
+            '--theme-progress-track': 'rgba(45, 35, 20, 0.1)',
+            '--theme-progress-fill': `linear-gradient(90deg, ${rgb(primary)}, ${rgb(secondary)})`,
+            '--theme-player-overlay': `linear-gradient(135deg, ${rgba(primary, 0.08)}, rgba(255, 255, 255, 0.72) 42%, ${rgba(shell, 0.96)})`
+        };
+    }
+
     const primary = mixColor(primaryBase, [255, 238, 212], 0.12);
     const secondary = mixColor(secondaryBase, [255, 245, 223], 0.12);
     const tertiary = mixColor(tertiaryBase, [236, 228, 216], 0.06);
@@ -158,14 +203,16 @@ function resolveImageUrl(imageUrl) {
 }
 
 function setCssVariables(theme) {
+    if (typeof document === 'undefined') return;
     const root = document.documentElement;
     Object.entries(theme).forEach(([key, value]) => {
         root.style.setProperty(key, value);
     });
 
     const themeMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeMeta && theme['--primary']) {
-        themeMeta.setAttribute('content', theme['--primary']);
+    if (themeMeta) {
+        const isLight = isDaylightTheme();
+        themeMeta.setAttribute('content', isLight ? '#F8F6F1' : (theme['--primary'] || '#0C0D11'));
     }
 }
 
@@ -227,6 +274,9 @@ async function queueSurfaceTheme(imageUrl, surface, activate = false) {
     }
 
     if (!SURFACE_DYNAMIC_THEME[safeSurface] || !imageUrl) {
+        if (safeSurface === 'player') {
+            currentActivePalette = null;
+        }
         const theme = buildTheme(null, safeSurface);
         surfaceThemes[safeSurface] = theme;
 
@@ -238,6 +288,9 @@ async function queueSurfaceTheme(imageUrl, surface, activate = false) {
     }
 
     const palette = await extractPaletteFromImage(imageUrl);
+    if (safeSurface === 'player') {
+        currentActivePalette = palette;
+    }
     if (pendingThemeTokens[safeSurface] !== token) {
         return surfaceThemes[safeSurface] || getDefaultTheme();
     }
@@ -250,6 +303,13 @@ async function queueSurfaceTheme(imageUrl, surface, activate = false) {
     }
 
     return theme;
+}
+
+export function refreshThemeColors() {
+    surfaceThemes.library = getDefaultTheme();
+    surfaceThemes.history = buildTheme(null, 'history');
+    surfaceThemes.player = buildTheme(currentActivePalette, 'player');
+    setCssVariables(surfaceThemes[activeSurface] || getDefaultTheme());
 }
 
 export function setActiveThemeSurface(surface) {

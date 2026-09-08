@@ -19,7 +19,7 @@ import { togglePlay, nextChapter, prevChapter, skip, seekTo, getCurrentState } f
 import * as LibraryUI from './ui-library.js';
 import { openPlayerUI, updateUI } from './ui-player-main.js';
 import { STORAGE_KEYS, SYNC_STATES } from './config.js';
-import { formatTime, renderSingleComment, setActiveThemeSurface, showToast } from './ui-player-helpers.js';
+import { formatTime, refreshThemeColors, renderSingleComment, setActiveThemeSurface, showToast } from './ui-player-helpers.js';
 import { signOutCurrentUser } from './auth.js';
 import { injectUiRuntimeStyles, setupImageObserver } from './ui-dom.js';
 import { formatRelativeTime } from './ui-formatters.js';
@@ -65,6 +65,77 @@ function sortCatalogBooks(books) {
             return numA - numB;
         })
         .map((book, index) => ({ ...book, catalogOrder: index }));
+}
+
+function getResolvedTheme() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEYS.theme);
+        if (stored === 'light' || stored === 'dark') return stored;
+    } catch (e) {}
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        return 'light';
+    }
+    return 'dark';
+}
+
+function updateThemeUI(theme) {
+    if (typeof document === 'undefined') return;
+    const isLight = theme === 'light';
+
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+    if (themeToggleBtn) {
+        themeToggleBtn.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to daylight theme');
+        themeToggleBtn.setAttribute('title', isLight ? 'Switch to dark theme' : 'Switch to daylight theme');
+    }
+    if (themeToggleIcon) {
+        themeToggleIcon.setAttribute('href', isLight ? '#icon-moon' : '#icon-sun');
+    }
+
+    const sidebarToggleIcon = document.getElementById('sidebar-theme-toggle-icon');
+    const sidebarToggleLabel = document.getElementById('sidebar-theme-toggle-label');
+    if (sidebarToggleIcon) {
+        sidebarToggleIcon.setAttribute('href', isLight ? '#icon-moon' : '#icon-sun');
+    }
+    if (sidebarToggleLabel) {
+        sidebarToggleLabel.textContent = isLight ? 'Dark Obsidian' : 'Daylight Mode';
+    }
+
+    document.querySelectorAll('.theme-choice-btn').forEach((btn) => {
+        const matches = btn.dataset.themeChoice === theme;
+        btn.classList.toggle('active', matches);
+        btn.setAttribute('aria-checked', String(matches));
+    });
+
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+        meta.setAttribute('content', isLight ? '#F8F6F1' : '#0C0D11');
+    }
+}
+
+export function applyTheme(theme, persist = true) {
+    if (typeof document === 'undefined') return theme;
+    const nextTheme = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+
+    if (persist) {
+        try {
+            localStorage.setItem(STORAGE_KEYS.theme, nextTheme);
+        } catch (e) {}
+    }
+
+    updateThemeUI(nextTheme);
+    refreshThemeColors();
+    return nextTheme;
+}
+
+export function toggleTheme() {
+    if (typeof document === 'undefined') return 'dark';
+    const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    const next = current === 'light' ? 'dark' : 'light';
+    applyTheme(next, true);
+    showToast(next === 'light' ? 'Warm Daylight sanctuary active' : 'Dark Obsidian sanctuary active');
+    return next;
 }
 
 function renderSyncState(status = getSyncStatus()) {
@@ -442,6 +513,7 @@ function renderProfileSnapshot() {
     if (genreEl) genreEl.innerText = `Top lane: ${snapshot.topGenre}`;
 
     renderProfileStoragePanel();
+    updateThemeUI(document.documentElement.getAttribute('data-theme') || 'dark');
 }
 
 function renderProfileStoragePanel() {
@@ -550,6 +622,8 @@ window.app = {
     switchView: (id) => switchView(id),
     goBack: () => goBackInApp(),
     filterLibrary: (category) => filterLibraryLogic(category),
+    toggleTheme: () => toggleTheme(),
+    setTheme: (theme) => applyTheme(theme, true),
 
     togglePlay: () => {
         const isPlaying = togglePlay();
@@ -636,6 +710,19 @@ async function init() {
     hasInitialized = true;
 
     console.log("VibeAudio UI starting...");
+    const initialTheme = (typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme')) || getResolvedTheme();
+    applyTheme(initialTheme, false);
+
+    if (typeof window !== 'undefined' && window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            try {
+                if (!localStorage.getItem(STORAGE_KEYS.theme)) {
+                    applyTheme(e.matches ? 'dark' : 'light', false);
+                }
+            } catch (err) {}
+        });
+    }
+
     setupImageObserver();
     setupRouting();
     renderSyncState();
@@ -1027,6 +1114,23 @@ function setupListeners() {
             const navView = btn.dataset.navView;
             if (navView) switchView(navView);
         });
+    });
+
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn) {
+        themeToggleBtn.onclick = () => toggleTheme();
+    }
+
+    const sidebarThemeToggleBtn = document.getElementById('sidebar-theme-toggle-btn');
+    if (sidebarThemeToggleBtn) {
+        sidebarThemeToggleBtn.onclick = () => toggleTheme();
+    }
+
+    document.querySelectorAll('.theme-choice-btn').forEach((btn) => {
+        btn.onclick = () => {
+            const choice = btn.dataset.themeChoice;
+            if (choice) applyTheme(choice, true);
+        };
     });
 
     if (filterContainer) {

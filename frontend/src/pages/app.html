@@ -41,6 +41,19 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16.png">
     <meta name="theme-color" content="#0C0D11">
+
+    <script>
+        (function() {
+            try {
+                const stored = localStorage.getItem('vibe_theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored ? stored : (prefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+                const meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) meta.setAttribute('content', theme === 'light' ? '#F8F6F1' : '#0C0D11');
+            } catch (e) {}
+        })();
+    </script>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="VibeAudio">
@@ -201,6 +214,12 @@
         <symbol id="icon-chapters" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 6.5 H7 M11 6.5 H20 M4 12 H7 M11 12 H20 M4 17.5 H7 M11 17.5 H20" />
         </symbol>
+        <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" /><path d="M12 2.5 V5 M12 19 V21.5 M4.5 12 H2 M22 12 H19.5 M18.7 5.3 L16.9 7.1 M7.1 16.9 L5.3 18.7 M18.7 18.7 L16.9 16.9 M7.1 7.1 L5.3 5.3" />
+        </symbol>
+        <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.5 14.5 C19.5 18.5 15.5 21 11.5 20 C7.5 19 4.5 15 5 11 C5.5 7 9 4 13 4.5 C12 6.5 12.5 9 14.5 11 C16.5 13 19 13.5 20.5 14.5 Z" />
+        </symbol>
     </svg>
 
     <div class="glass-container">
@@ -241,6 +260,9 @@
                         </button>
                     </div>
                 </div>
+                <button id="theme-toggle-btn" class="glass-btn theme-toggle-btn" type="button" aria-label="Switch to daylight theme" title="Switch to daylight theme">
+                    <svg class="vibe-icon" aria-hidden="true"><use id="theme-toggle-icon" href="#icon-sun"></use></svg>
+                </button>
                 <button class="glass-btn profile-trigger-btn" onclick="window.app.switchView('profile')" aria-label="My Account & Storage" title="My Account">
                     <svg class="vibe-icon" aria-hidden="true"><use href="#icon-account"></use></svg>
                 </button>
@@ -428,6 +450,31 @@
                     <p class="offline-storage-mode" id="offline-storage-mode">Device storage active.</p>
                 </div>
 
+                <div class="appearance-panel">
+                    <div class="stack-header">
+                        <div>
+                            <h3>Appearance</h3>
+                            <p>Choose your listening atmosphere: Warm Daylight for reading ambiance or Dark Obsidian for nocturnal focus.</p>
+                        </div>
+                    </div>
+                    <div class="theme-picker-group" role="radiogroup" aria-label="Theme selection">
+                        <button type="button" class="theme-choice-btn" data-theme-choice="light" role="radio" aria-checked="false">
+                            <span class="theme-choice-swatch light-swatch"></span>
+                            <span class="theme-choice-label">
+                                <strong>Warm Daylight</strong>
+                                <small>Parchment &amp; linen sanctuary</small>
+                            </span>
+                        </button>
+                        <button type="button" class="theme-choice-btn" data-theme-choice="dark" role="radio" aria-checked="false">
+                            <span class="theme-choice-swatch dark-swatch"></span>
+                            <span class="theme-choice-label">
+                                <strong>Dark Obsidian</strong>
+                                <small>Nocturnal library &amp; gold</small>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="profile-actions">
                     <button class="btn-secondary" id="sync-profile-btn" aria-label="Sync listening progress">
                         <svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud-sync"></use></svg> Sync Progress
@@ -590,6 +637,7 @@
             <button id="install-app-btn" class="hidden"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-install"></use></svg> Install App</button>
             <div class="divider" role="separator"></div>
             <button onclick="window.app.switchView('profile')"><svg class="vibe-icon" aria-hidden="true"><use href="#icon-account"></use></svg> My Account & Storage</button>
+            <button id="sidebar-theme-toggle-btn" type="button" aria-label="Toggle daylight or dark theme"><svg class="vibe-icon" aria-hidden="true"><use id="sidebar-theme-toggle-icon" href="#icon-sun"></use></svg> <span id="sidebar-theme-toggle-label">Daylight Mode</span></button>
         </nav>
     </aside>
 

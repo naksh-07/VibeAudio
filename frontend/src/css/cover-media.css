@@ -5,6 +5,12 @@
         rgba(8, 12, 18, 0.92);
 }
 
+html[data-theme="light"] {
+    --cover-surface:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(239, 236, 228, 0.8)),
+        #EFECE4;
+}
+
 .featured-cover,
 .preview-card img,
 .book-card img,
@@ -20,6 +26,10 @@
 .book-card-media {
     aspect-ratio: 2 / 3;
     background: rgba(8, 12, 18, 0.82);
+}
+
+html[data-theme="light"] .book-card-media {
+    background: #EFECE4;
 }
 
 .book-card:hover img {

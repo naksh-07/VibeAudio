@@ -145,6 +145,112 @@
     line-height: 1.5;
 }
 
+/* --- Appearance Panel (Theme Selector) --- */
+.appearance-panel {
+    margin-bottom: 28px;
+    padding: 22px;
+    border-radius: var(--radius-panel);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-2);
+    box-shadow: var(--shadow-subtle);
+    text-align: left;
+}
+
+.theme-picker-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.theme-choice-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: var(--radius-panel);
+    background: var(--color-surface-1);
+    border: 2px solid var(--color-border);
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--duration-fast) var(--ease-snappy);
+    font-family: inherit;
+    color: var(--color-text-primary);
+}
+
+.theme-choice-btn:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-3);
+}
+
+.theme-choice-btn.active,
+.theme-choice-btn[aria-checked="true"] {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-subtle);
+}
+
+.theme-choice-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-circle);
+    border: 2px solid var(--color-border-strong);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-choice-swatch.light-swatch {
+    background: #F8F6F1;
+    border-color: #D3CEBE;
+}
+.theme-choice-swatch.light-swatch::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    background: #C67D0A;
+}
+
+.theme-choice-swatch.dark-swatch {
+    background: #0C0D11;
+    border-color: #2D323F;
+}
+.theme-choice-swatch.dark-swatch::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    background: #E5A93C;
+}
+
+.theme-choice-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.theme-choice-label strong {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.theme-choice-label small {
+    font-size: 0.78rem;
+    color: var(--color-text-dim);
+}
+
+@media (max-width: 600px) {
+    .theme-picker-group {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
 /* Stack Header */
 .stack-header {
     display: flex;

@@ -31,6 +31,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
     <link rel="manifest" href="./app.webmanifest">
     <meta name="theme-color" content="#0C0D11">
+
+    <script>
+        (function() {
+            try {
+                const stored = localStorage.getItem('vibe_theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored ? stored : (prefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+                const meta = document.querySelector('meta[name="theme-color"]');
+                if (meta) meta.setAttribute('content', theme === 'light' ? '#F8F6F1' : '#0C0D11');
+            } catch (e) {}
+        })();
+    </script>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="VibeAudio">
@@ -135,6 +148,12 @@
         <symbol id="icon-install" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
             <rect x="5" y="3" width="14" height="18" rx="2" /><line x1="12" y1="8" x2="12" y2="14" /><polyline points="9,11 12,14 15,11" /><circle cx="12" cy="17.5" r="0.6" fill="currentColor" />
         </symbol>
+        <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" /><path d="M12 2.5 V5 M12 19 V21.5 M4.5 12 H2 M22 12 H19.5 M18.7 5.3 L16.9 7.1 M7.1 16.9 L5.3 18.7 M18.7 18.7 L16.9 16.9 M7.1 7.1 L5.3 5.3" />
+        </symbol>
+        <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.5 14.5 C19.5 18.5 15.5 21 11.5 20 C7.5 19 4.5 15 5 11 C5.5 7 9 4 13 4.5 C12 6.5 12.5 9 14.5 11 C16.5 13 19 13.5 20.5 14.5 Z" />
+        </symbol>
     </svg>
 
     <div class="landing-shell">
@@ -149,6 +168,9 @@
 
             <div class="topbar-actions">
                 <span class="topbar-reassurance-chip"><svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check-circle"></use></svg> Guest &amp; Offline Ready</span>
+                <button id="landing-theme-toggle-btn" class="ghost-btn theme-toggle-btn" type="button" aria-label="Switch to daylight theme" title="Switch to daylight theme">
+                    <svg class="vibe-icon" aria-hidden="true"><use id="landing-theme-toggle-icon" href="#icon-sun"></use></svg>
+                </button>
                 <button class="ghost-btn topbar-browse-btn" type="button" data-scroll-target="#library-preview-panel">Browse library</button>
                 <a href="./src/pages/app.html#home" class="solid-btn topbar-start-btn" role="button">Start listening</a>
             </div>

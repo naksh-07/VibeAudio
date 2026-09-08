@@ -41,7 +41,8 @@ export const STORAGE_KEYS = {
     lastOpenedBook: 'vibe_last_opened_book',
     syncStatus: 'vibe_sync_status',
     progressQueue: 'vibe_progress_queue',
-    catalogSnapshot: 'vibe_catalog_snapshot'
+    catalogSnapshot: 'vibe_catalog_snapshot',
+    theme: 'vibe_theme'
 };
 
 export const SYNC_STATES = {

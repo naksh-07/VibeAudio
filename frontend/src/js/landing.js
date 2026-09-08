@@ -293,11 +293,63 @@ async function bootAuthPanel() {
     }
 }
 
+function updateLandingThemeUI(theme) {
+    const isLight = theme === 'light';
+    const toggleBtn = document.getElementById('landing-theme-toggle-btn');
+    const toggleIcon = document.getElementById('landing-theme-toggle-icon');
+    if (toggleBtn) {
+        toggleBtn.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to daylight theme');
+        toggleBtn.setAttribute('title', isLight ? 'Switch to dark theme' : 'Switch to daylight theme');
+    }
+    if (toggleIcon) {
+        toggleIcon.setAttribute('href', isLight ? '#icon-moon' : '#icon-sun');
+    }
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+        meta.setAttribute('content', isLight ? '#F8F6F1' : '#0C0D11');
+    }
+}
+
+function bindLandingThemeToggle() {
+    const current = document.documentElement.getAttribute('data-theme') || (
+        localStorage.getItem('vibe_theme') || (
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        )
+    );
+    updateLandingThemeUI(current);
+
+    const toggleBtn = document.getElementById('landing-theme-toggle-btn');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            const active = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+            const next = active === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            try {
+                localStorage.setItem('vibe_theme', next);
+            } catch (e) {}
+            updateLandingThemeUI(next);
+        });
+    }
+
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            try {
+                if (!localStorage.getItem('vibe_theme')) {
+                    const next = e.matches ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', next);
+                    updateLandingThemeUI(next);
+                }
+            } catch (err) {}
+        });
+    }
+}
+
 async function initLanding() {
     if (!navigator.onLine && await openOfflineShelfIfReady()) {
         return;
     }
 
+    bindLandingThemeToggle();
     setGreeting();
 
     const books = await fetchAllBooks();
