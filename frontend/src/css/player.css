@@ -167,6 +167,44 @@ html[data-theme="light"] .blur-bg {
     font-size: 0.95rem;
 }
 
+/* Language Switcher */
+#lang-toggle-container {
+    margin: 10px 0;
+}
+
+.lang-switch {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 3px;
+    gap: 2px;
+}
+
+.lang-btn {
+    border: none;
+    background: transparent;
+    color: var(--color-text-dim);
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.lang-btn:hover:not(.active) {
+    color: var(--color-text-primary);
+}
+
+.lang-btn.active {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-subtle);
+}
+
 /* --- 3. DEDICATED FULL PLAYER TRANSPORT DECK --- */
 .player-transport-deck {
     background: var(--color-surface-1);
@@ -354,6 +392,13 @@ html[data-theme="light"] .blur-bg {
     background: var(--color-surface-2);
     color: var(--color-text-primary);
     border-color: var(--color-border-strong);
+}
+
+.transport-secondary-btn.active,
+#vocal-boost-btn.active {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
 }
 
 /* --- 4. TWO COLUMN LAYOUT & CHAPTER LIST --- */

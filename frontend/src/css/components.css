@@ -234,6 +234,26 @@ html[data-theme="light"] .book-card-media::after {
     color: var(--color-danger);
 }
 
+html[data-theme="light"] .book-badge,
+html[data-theme="light"] .card-offline-badge:not([data-status]),
+html[data-theme="light"] .card-activity-badge:not(.continue):not(.finished) {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(45, 35, 20, 0.14);
+    color: var(--color-text-primary);
+    box-shadow: 0 2px 6px rgba(45, 35, 20, 0.08);
+}
+
+@media (prefers-color-scheme: light) {
+    html:not([data-theme="dark"]) .book-badge,
+    html:not([data-theme="dark"]) .card-offline-badge:not([data-status]),
+    html:not([data-theme="dark"]) .card-activity-badge:not(.continue):not(.finished) {
+        background: rgba(255, 255, 255, 0.92);
+        border-color: rgba(45, 35, 20, 0.14);
+        color: var(--color-text-primary);
+        box-shadow: 0 2px 6px rgba(45, 35, 20, 0.08);
+    }
+}
+
 /* Source Badges */
 .source-type-badge {
     font-size: 0.64rem;

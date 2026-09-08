@@ -670,8 +670,8 @@ window.app = {
         await refreshPersonalizedCatalog();
 
         btn.innerHTML = `<svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check"></use></svg> Synced!`;
-        btn.style.borderColor = "#00ff00";
-        btn.style.color = "#00ff00";
+        btn.style.borderColor = "var(--color-success)";
+        btn.style.color = "var(--color-success)";
         showToast("Shelf synced with the cloud.");
 
         setTimeout(() => {

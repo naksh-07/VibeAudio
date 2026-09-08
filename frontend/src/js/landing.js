@@ -262,6 +262,9 @@ async function bootAuthPanel() {
         statusEl.textContent = 'Sign in to continue your listening position across devices. Or start listening immediately as a guest.';
         statusEl.classList.add('is-ready');
 
+        const isLight = (document.documentElement.getAttribute('data-theme') === 'light') ||
+            (!document.documentElement.getAttribute('data-theme') && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+
         await mountSignIn(signInContainer, {
             afterSignInUrl: APP_URL,
             afterSignUpUrl: APP_URL,
@@ -272,11 +275,11 @@ async function bootAuthPanel() {
                 },
                 variables: {
                     fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
-                    colorPrimary: '#E5A93C',
-                    colorText: '#F5F6FA',
+                    colorPrimary: isLight ? '#C67D0A' : '#E5A93C',
+                    colorText: isLight ? '#1A1815' : '#F5F6FA',
                     colorBackground: 'transparent',
-                    colorInputBackground: 'rgba(255,255,255,0.06)',
-                    colorInputText: '#F5F6FA',
+                    colorInputBackground: isLight ? 'rgba(45, 35, 20, 0.05)' : 'rgba(255,255,255,0.06)',
+                    colorInputText: isLight ? '#1A1815' : '#F5F6FA',
                     borderRadius: '12px'
                 },
                 elements: {

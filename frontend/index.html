@@ -37,7 +37,7 @@
             try {
                 const stored = localStorage.getItem('vibe_theme');
                 const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = stored ? stored : (prefersDark ? 'dark' : 'light');
+                const theme = (stored === 'light' || stored === 'dark') ? stored : (prefersDark ? 'dark' : 'light');
                 document.documentElement.setAttribute('data-theme', theme);
                 const meta = document.querySelector('meta[name="theme-color"]');
                 if (meta) meta.setAttribute('content', theme === 'light' ? '#F8F6F1' : '#0C0D11');

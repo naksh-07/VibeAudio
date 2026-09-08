@@ -32,22 +32,6 @@ function showPwaToast(message) {
     const toast = document.createElement('div');
     toast.className = 'vibe-pwa-toast';
     toast.textContent = message;
-    toast.style.position = 'fixed';
-    toast.style.left = '50%';
-    toast.style.bottom = 'max(24px, calc(16px + env(safe-area-inset-bottom, 0px)))';
-    toast.style.transform = 'translateX(-50%)';
-    toast.style.padding = '12px 20px';
-    toast.style.borderRadius = '12px';
-    toast.style.background = 'rgba(22, 24, 31, 0.96)';
-    toast.style.color = '#F5F6FA';
-    toast.style.border = '1px solid rgba(229, 169, 60, 0.28)';
-    toast.style.boxShadow = '0 16px 40px rgba(0, 0, 0, 0.55)';
-    toast.style.zIndex = '5000';
-    toast.style.fontSize = '0.88rem';
-    toast.style.fontFamily = "'Inter', sans-serif";
-    toast.style.letterSpacing = '0.01em';
-    toast.style.pointerEvents = 'none';
-    toast.style.transition = 'opacity 240ms ease, transform 240ms ease';
     document.body.appendChild(toast);
 
     window.setTimeout(() => {

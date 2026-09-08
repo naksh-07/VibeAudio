@@ -335,26 +335,30 @@ async function syncOfflineExperienceUI(book, chapter, state) {
     if (offlineState.status === OFFLINE_STATES.downloaded) {
         chapterButton.innerHTML = `<svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check"></use></svg>`;
         chapterButton.title = 'Remove this offline chapter';
-        chapterButton.style.color = '#77d28c';
+        chapterButton.style.color = 'var(--color-success)';
     } else if (offlineState.status === OFFLINE_STATES.updateAvailable) {
         chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-sync"></use></svg>`;
         chapterButton.title = 'Refresh this offline chapter';
-        chapterButton.style.color = '#ffd37b';
+        chapterButton.style.color = 'var(--color-warning)';
     } else if (offlineState.status === OFFLINE_STATES.downloading) {
         const progressPercent = Math.max(0, Math.round(Number(offlineState.record?.progressPercent || 0)));
         chapterButton.innerHTML = `<span>${progressPercent || 0}%</span>`;
         chapterButton.title = 'Chapter download in progress';
         chapterButton.disabled = true;
+        chapterButton.style.color = '';
     } else if (offlineState.status === OFFLINE_STATES.queued) {
         chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-chapters"></use></svg>`;
         chapterButton.title = 'Chapter is queued for download';
         chapterButton.disabled = true;
+        chapterButton.style.color = '';
     } else if (offlineState.status === OFFLINE_STATES.failed) {
         chapterButton.innerHTML = `<svg class="vibe-icon vibe-icon-accent" aria-hidden="true"><use href="#icon-warning"></use></svg>`;
         chapterButton.title = offlineState.reason || 'Retry offline download';
+        chapterButton.style.color = '';
     } else {
         chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-download"></use></svg>`;
         chapterButton.title = 'Save this chapter for offline use';
+        chapterButton.style.color = '';
     }
 
     if (state.playbackOrigin === 'offline') {
@@ -732,6 +736,7 @@ export function setupPlayerListeners() {
     if (!boostBtn) {
         boostBtn = document.createElement('button');
         boostBtn.id = 'vocal-boost-btn';
+        boostBtn.className = 'transport-secondary-btn';
         boostBtn.title = "Vocal Clarity Booster";
         boostBtn.setAttribute('aria-label', 'Toggle vocal clarity booster');
         boostBtn.setAttribute('aria-pressed', 'false');

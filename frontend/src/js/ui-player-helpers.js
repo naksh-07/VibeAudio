@@ -109,7 +109,11 @@ function buildSurfacePalette(palette, surface) {
 let currentActivePalette = null;
 
 function isDaylightTheme() {
-    return typeof document !== 'undefined' && document.documentElement?.getAttribute('data-theme') === 'light';
+    if (typeof document === 'undefined') return false;
+    const dataTheme = document.documentElement?.getAttribute('data-theme');
+    if (dataTheme === 'light') return true;
+    if (dataTheme === 'dark') return false;
+    return typeof window !== 'undefined' && Boolean(window.matchMedia?.('(prefers-color-scheme: light)').matches);
 }
 
 export function buildTheme(palette, surface = 'library') {
