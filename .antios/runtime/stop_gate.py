@@ -241,6 +241,30 @@ def main() -> None:
 
         input_data = json.loads(raw_input)
         decision, reason = evaluate_stop_gate(input_data)
+
+        # Telemetry Ingestion Hook (Non-blocking, zero framework import)
+        try:
+            transcript_path = input_data.get("transcriptPath")
+            session_id = input_data.get("conversationId")
+            workspace_paths = input_data.get("workspacePaths", [])
+            target_repo = workspace_paths[0] if workspace_paths else None
+
+            if transcript_path and os.path.exists(transcript_path):
+                cmd = ["antios", "telemetry", "ingest", "--transcript", str(transcript_path)]
+                if session_id:
+                    cmd.extend(["--session-id", str(session_id)])
+                if target_repo:
+                    cmd.extend(["--path", str(target_repo)])
+
+                subprocess.run(
+                    cmd,
+                    capture_output=True,
+                    timeout=5,
+                    shell=True if os.name == "nt" else False,
+                )
+        except Exception:
+            pass  # Fail-safe: telemetry failure must never impede stop gate verdict
+
         output_decision(decision, reason)
 
     except Exception as e:
