@@ -1,0 +1,14 @@
+{
+  "project_name": "vibeaudio-main",
+  "primary_role": "role:primary-engineer",
+  "allow_delegation": true,
+  "max_depth": 2,
+  "canonical_roles": [
+    "role:primary-engineer",
+    "role:root-cause-debugger",
+    "role:independent-verifier",
+    "role:investigation-specialist",
+    "role:security-reviewer"
+  ],
+  "specialists": {}
+}

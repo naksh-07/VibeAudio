@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "name": "AntiOS-vibeaudio-main-Adapter",
+  "protected_zones": [
+    ".agents",
+    "framework",
+    ".antios"
+  ],
+  "protected_domain_paths": [],
+  "forbidden_patterns": [],
+  "test_runners": [
+    {
+      "name": "node-test-runner",
+      "manifest": "package.json",
+      "scripts": [],
+      "default_command": [
+        "npm",
+        "test"
+      ],
+      "timeout_seconds": 90,
+      "cwd": null,
+      "required": true,
+      "scope": "workspace",
+      "member": null,
+      "__test__": false
+    }
+  ],
+  "linters": [],
+  "policies": {
+    "fail_closed": true,
+    "enforce_working_tree_cleanliness": true,
+    "enforce_same_change_set": true
+  },
+  "changeset": {
+    "enabled": true,
+    "code_patterns": [
+      "*.py",
+      "*.ts",
+      "*.js",
+      "*.tsx",
+      "*.jsx",
+      "*.rs",
+      "*.go",
+      "*.c",
+      "*.cpp",
+      "*.java",
+      "*.dart"
+    ],
+    "doc_patterns": [
+      "docs/**",
+      "*.md",
+      "doc/**"
+    ],
+    "test_patterns": [
+      "tests/**",
+      "test/**",
+      "*_test.*",
+      "*test.*",
+      "*.spec.*",
+      "tests/*"
+    ],
+    "state_patterns": [
+      "docs/ACTIVE_CONTEXT.md",
+      "ACTIVE_CONTEXT.md"
+    ],
+    "require_tests_on_code_change": true,
+    "require_docs_on_code_change": false,
+    "require_state_on_code_change": false,
+    "audit_documentation_references": true
+  },
+  "manifest_fingerprint": "",
+  "components": {},
+  "capabilities": {},
+  "agent_topology": {},
+  "data_dir": "C:\\Users\\Suraj\\Documents\\Antigravity\\Os-Collection",
+  "telemetry": {
+    "enabled": true,
+    "mode": "ON"
+  }
+}

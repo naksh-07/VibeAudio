@@ -1,0 +1,21 @@
+{
+  "antios-guard": {
+    "PreToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .antios/runtime/pre_tool_guard.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python .antios/runtime/stop_gate.py"
+      }
+    ]
+  }
+}

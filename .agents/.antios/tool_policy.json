@@ -1,0 +1,33 @@
+{
+  "tier_preference": [
+    "NATIVE",
+    "SCRIPT",
+    "PROJECT",
+    "EXTERNAL",
+    "SERVICE",
+    "MCP"
+  ],
+  "configured_runners": [
+    {
+      "name": "node-test-runner",
+      "manifest": "package.json",
+      "scripts": [],
+      "default_command": [
+        "npm",
+        "test"
+      ],
+      "timeout_seconds": 90,
+      "cwd": null,
+      "required": true,
+      "scope": "workspace",
+      "member": null,
+      "__test__": false
+    }
+  ],
+  "linters": [],
+  "policies": {
+    "fail_closed": true,
+    "enforce_working_tree_cleanliness": true,
+    "enforce_same_change_set": true
+  }
+}

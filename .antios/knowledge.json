@@ -1,0 +1,23 @@
+{
+  "project_identity": {
+    "name": "vibeaudio-main",
+    "root_path": "c:\\users\\suraj\\documents\\antigravity\\vibeaudio-main\\vibeaudio-main",
+    "is_git_repo": true,
+    "head_commit": "d229f1fd6a",
+    "languages": [
+      "TypeScript / JavaScript"
+    ],
+    "frameworks": [],
+    "package_managers": [
+      "npm"
+    ],
+    "build_systems": []
+  },
+  "workspace_topology": "STANDALONE",
+  "subsystems": [],
+  "workspace_members": [],
+  "risk_zones": [],
+  "protected_paths": [],
+  "protected_domain_paths": [],
+  "manifest_fingerprint": "962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4"
+}

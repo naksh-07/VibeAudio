@@ -1,0 +1,135 @@
+{
+  "project_name": "vibeaudio-main",
+  "root_path": "c:\\users\\suraj\\documents\\antigravity\\vibeaudio-main\\vibeaudio-main",
+  "archetype": "STANDALONE_CLI",
+  "languages": [
+    "TypeScript / JavaScript"
+  ],
+  "frameworks": [],
+  "package_manifests": [
+    {
+      "path": "package.json",
+      "manifest_type": "npm",
+      "lockfile_present": true,
+      "lockfile_path": "package-lock.json",
+      "members": [],
+      "declared_scripts": {
+        "test": "node --test tests/",
+        "test:all": "node --test tests/ && node tools/test-reliability.mjs && node tools/test-phase2-pwa.mjs"
+      },
+      "has_build_target": false
+    }
+  ],
+  "source_roots": [],
+  "test_roots": [
+    "tests"
+  ],
+  "test_runners": [
+    {
+      "name": "node-test-runner",
+      "manifest_path": "package.json",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "timeout_seconds": 90,
+      "required": true,
+      "cwd": null,
+      "is_available_in_path": true
+    }
+  ],
+  "build_systems": [],
+  "package_managers": [
+    "npm"
+  ],
+  "application_entrypoints": [
+    {
+      "path": "index.js",
+      "type": "MODULE_MAIN"
+    }
+  ],
+  "executable_entrypoints": [],
+  "major_subsystems": [],
+  "important_directories": [
+    ".agents",
+    "docs"
+  ],
+  "configuration_surfaces": [
+    "antios.config.json"
+  ],
+  "public_interfaces": [
+    "index.js"
+  ],
+  "dependency_relationships": [],
+  "documentation_surfaces": [
+    "README.md",
+    "docs/ACTIVE_CONTEXT.md"
+  ],
+  "agent_facing_configuration": {
+    "has_agents_directory": true,
+    "has_hooks": true,
+    "has_instructions": true
+  },
+  "existing_agents_structure": {
+    "skills": [
+      "antios",
+      "antios-adapt-project",
+      "antios-debug",
+      "antios-engineer",
+      "antios-verifier"
+    ],
+    "skills_count": 5,
+    "custom_agents": []
+  },
+  "ownership_signals": {
+    "declared_owner": null,
+    "source": "UNKNOWN",
+    "codeowners_present": false
+  },
+  "epistemic_ledger": {
+    "OBSERVED": [
+      {
+        "fact": "Manifest 'package.json' detected",
+        "source": "package.json",
+        "witness_type": "FILE_EXISTENCE",
+        "lockfile_present": true
+      },
+      {
+        "fact": "Test root 'tests/' detected",
+        "source": "tests",
+        "witness_type": "DIR_EXISTENCE"
+      },
+      {
+        "fact": "Config surface 'antios.config.json' detected",
+        "source": "antios.config.json",
+        "witness_type": "FILE_EXISTENCE"
+      },
+      {
+        "fact": "Existing agent skills detected: antios, antios-adapt-project, antios-debug, antios-engineer, antios-verifier",
+        "source": ".agents/skills/",
+        "witness_type": "DIR_SCAN"
+      },
+      {
+        "fact": "Test runner 'node-test-runner' discovered with command 'npm test'",
+        "source": "package.json",
+        "witness_type": "MANIFEST_KEY"
+      }
+    ],
+    "INFERRED": [],
+    "UNKNOWN": [
+      {
+        "field_name": "ownership_signals.codeowners",
+        "reason": "No CODEOWNERS file witnessed in repository root or .github/",
+        "required_action": "Rely on package manifest author or commit history heuristic"
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "AntiOS ProjectAnatomyCompiler v2.0.0",
+    "generated_at": "2026-09-08T10:08:38.056981+00:00",
+    "manifest_fingerprint": "962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4",
+    "epistemic_state": "PARTIALLY_OBSERVED",
+    "confidence": 0.92
+  },
+  "manifest_fingerprint": "962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4"
+}

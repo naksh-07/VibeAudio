@@ -1,0 +1,35 @@
+{
+  "$schema": "https://antios.dev/schemas/v3/routes.json",
+  "project_id": "vibeaudio",
+  "subsystems": {
+    "backend": {
+      "capabilities": [
+        "execute"
+      ],
+      "dependencies": [],
+      "description": "Backend subsystem implementation and domain logic.",
+      "entrypoint": "backend",
+      "invariants": [],
+      "root_dir": "backend",
+      "test_suite": [
+        "npm",
+        "test"
+      ]
+    },
+    "frontend": {
+      "capabilities": [
+        "run_service-worker"
+      ],
+      "dependencies": [],
+      "description": "Frontend subsystem implementation and domain logic.",
+      "entrypoint": "frontend/service-worker.js",
+      "invariants": [],
+      "root_dir": "frontend",
+      "test_suite": [
+        "npm",
+        "test"
+      ]
+    }
+  },
+  "version": "3.0.0"
+}

@@ -1,0 +1,126 @@
+{
+  "identity": {
+    "name": "vibeaudio-main",
+    "root_path": "c:\\users\\suraj\\documents\\antigravity\\vibeaudio-main\\vibeaudio-main",
+    "is_git_repo": true,
+    "head_commit": "d229f1fd6a",
+    "languages": [
+      "TypeScript / JavaScript"
+    ],
+    "frameworks": [],
+    "package_managers": [
+      "npm"
+    ],
+    "build_systems": []
+  },
+  "topology": "STANDALONE",
+  "workspace_members": [],
+  "manifest_fingerprint": "962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4",
+  "observed_facts": [
+    {
+      "tier": "OBSERVED",
+      "path": ".git",
+      "selector": "directory",
+      "value": "present",
+      "witness_type": "FILE_EXISTENCE",
+      "description": "Repository is git version controlled"
+    },
+    {
+      "tier": "OBSERVED",
+      "path": "package.json",
+      "selector": "file",
+      "value": "present",
+      "witness_type": "FILE_EXISTENCE",
+      "description": "Node.js package manifest"
+    },
+    {
+      "tier": "OBSERVED",
+      "path": "package-lock.json",
+      "selector": "file",
+      "value": "present",
+      "witness_type": "FILE_EXISTENCE",
+      "description": "npm package-lock file"
+    },
+    {
+      "tier": "OBSERVED",
+      "path": "package.json",
+      "selector": "scripts.test",
+      "value": "node --test tests/",
+      "witness_type": "FILE_CONTENT",
+      "description": "Test script 'test'"
+    },
+    {
+      "tier": "OBSERVED",
+      "path": "AGENTS.md",
+      "selector": "file",
+      "value": "present",
+      "witness_type": "FILE_EXISTENCE",
+      "description": "Guidance document: AGENTS.md"
+    },
+    {
+      "tier": "OBSERVED",
+      "path": "README.md",
+      "selector": "file",
+      "value": "present",
+      "witness_type": "FILE_EXISTENCE",
+      "description": "Guidance document: README.md"
+    }
+  ],
+  "inferred_facts": [
+    {
+      "tier": "INFERRED",
+      "hypothesis": "Project executes tests via 'npm test'",
+      "confidence": 0.95,
+      "confidence_level": "HIGH",
+      "rationale": "Found 'test' script in package.json",
+      "underlying_evidence": [
+        "package.json#scripts.test"
+      ]
+    }
+  ],
+  "unknown_fields": [],
+  "tools": [
+    {
+      "name": "node-test-runner",
+      "category": "TEST_RUNNER",
+      "manifest_path": "package.json",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "timeout_seconds": 90,
+      "required": true,
+      "cwd": null,
+      "is_available_in_path": true,
+      "non_interactive_flags": [],
+      "tier": "OBSERVED"
+    }
+  ],
+  "guidance": [
+    {
+      "source_file": "AGENTS.md",
+      "declared_commands": {
+        "test": [],
+        "lint": [],
+        "build": []
+      },
+      "declared_constraints": [],
+      "target_rules": []
+    },
+    {
+      "source_file": "README.md",
+      "declared_commands": {
+        "test": [],
+        "lint": [],
+        "build": []
+      },
+      "declared_constraints": [],
+      "target_rules": []
+    }
+  ],
+  "conflicts": [],
+  "risk_zones": [],
+  "protected_paths": [],
+  "forbidden_patterns": [],
+  "subsystems": {}
+}

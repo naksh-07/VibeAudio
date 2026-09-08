@@ -1,0 +1,346 @@
+{
+  "antios_version": "3.0.0",
+  "schema_version": "2.0.0",
+  "project_fingerprint": "962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4",
+  "source_revision": "v3.0.0",
+  "generated_at": "2026-09-08T10:34:11.689422+00:00",
+  "adaptation_state": "ADAPTED",
+  "installation_state": "INSTALLED",
+  "managed_paths": {
+    "antios.config.json": {
+      "path": "antios.config.json",
+      "ownership": "MANAGED",
+      "sha256": "fd368e5b7846d4415edef3564f6e640d3733c63986169a4b16634caa49a88ba6",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": "antios.config.json",
+      "evidence": [],
+      "is_user_modified": true,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".agents/hooks.json": {
+      "path": ".agents/hooks.json",
+      "ownership": "MANAGED",
+      "sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": ".agents/hooks.json",
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    }
+  },
+  "generated_paths": {
+    ".antios/knowledge.json": {
+      "path": ".antios/knowledge.json",
+      "ownership": "GENERATED",
+      "sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/tool_policy.json": {
+      "path": ".antios/tool_policy.json",
+      "ownership": "GENERATED",
+      "sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/runtime/inspect_instance.py": {
+      "path": ".antios/runtime/inspect_instance.py",
+      "ownership": "GENERATED",
+      "sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/runtime/verify_runtime.py": {
+      "path": ".antios/runtime/verify_runtime.py",
+      "ownership": "GENERATED",
+      "sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/agent_topology.json": {
+      "path": ".antios/agent_topology.json",
+      "ownership": "GENERATED",
+      "sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/project_anatomy.json": {
+      "path": ".antios/project_anatomy.json",
+      "ownership": "GENERATED",
+      "sha256": "6633d8f6d63cb9534249b2342d29b7837ec6cd4cd0591bae9038a5b667bb0e0a",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/learning_proposals.json": {
+      "path": ".antios/learning_proposals.json",
+      "ownership": "GENERATED",
+      "sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/runtime/pre_tool_guard.py": {
+      "path": ".antios/runtime/pre_tool_guard.py",
+      "ownership": "GENERATED",
+      "sha256": "5218d2f3efe352abff5668f4d625b8db8feb9b5b4f78266f114012fb340649d2",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/learning_observations.json": {
+      "path": ".antios/learning_observations.json",
+      "ownership": "GENERATED",
+      "sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".agents/skills/antios/SKILL.md": {
+      "path": ".agents/skills/antios/SKILL.md",
+      "ownership": "GENERATED",
+      "sha256": "03f6e24b2aeb3f75b1db8f1e4e635349e2d711300f3e7de806b35ca3c14097ef",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/runtime/stop_gate.py": {
+      "path": ".antios/runtime/stop_gate.py",
+      "ownership": "GENERATED",
+      "sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    },
+    ".antios/project_profile.json": {
+      "path": ".antios/project_profile.json",
+      "ownership": "GENERATED",
+      "sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033",
+      "source_revision": "v3.0.0",
+      "generated_at": "2026-09-08T10:34:11.689422+00:00",
+      "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+      "source_template": null,
+      "evidence": [],
+      "is_user_modified": false,
+      "is_stale": false,
+      "metadata": {}
+    }
+  },
+  "user_owned_paths": [
+    "antios.config.json"
+  ],
+  "protected_paths": [
+    ".agents",
+    "framework",
+    ".antios"
+  ],
+  "stale_paths": [],
+  "project_profile_reference": ".antios/project_profile.json",
+  "knowledge_revision": "1.0",
+  "capability_revision": "1.0",
+  "agent_topology_revision": "1.0",
+  "tool_policy_revision": "1.0",
+  "memory_revision": "1.0",
+  "reconciliation_state": {
+    "installed_version": "3.0.0",
+    "target_version": "3.0.0",
+    "installed_schema_version": "2.0.0",
+    "target_schema_version": "2.0.0",
+    "project_id": "unknown",
+    "schema_migration_required": false,
+    "is_idempotent": false,
+    "can_safely_apply": true,
+    "total_actions": 14,
+    "counts": {
+      "regenerate": 1,
+      "create": 0,
+      "reap_obsolete": 0,
+      "preserve_user_modified": 1,
+      "untouched": 12,
+      "conflicts": 0
+    },
+    "actions": [
+      {
+        "path": ".agents/hooks.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54",
+        "manifest_sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54",
+        "target_sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54"
+      },
+      {
+        "path": ".agents/skills/antios/SKILL.md",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "03f6e24b2aeb3f75b1db8f1e4e635349e2d711300f3e7de806b35ca3c14097ef",
+        "manifest_sha256": "03f6e24b2aeb3f75b1db8f1e4e635349e2d711300f3e7de806b35ca3c14097ef",
+        "target_sha256": "03f6e24b2aeb3f75b1db8f1e4e635349e2d711300f3e7de806b35ca3c14097ef"
+      },
+      {
+        "path": ".antios/agent_topology.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17",
+        "manifest_sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17",
+        "target_sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17"
+      },
+      {
+        "path": ".antios/knowledge.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1",
+        "manifest_sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1",
+        "target_sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1"
+      },
+      {
+        "path": ".antios/learning_observations.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22",
+        "manifest_sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22",
+        "target_sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22"
+      },
+      {
+        "path": ".antios/learning_proposals.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe",
+        "manifest_sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe",
+        "target_sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe"
+      },
+      {
+        "path": ".antios/project_anatomy.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "6633d8f6d63cb9534249b2342d29b7837ec6cd4cd0591bae9038a5b667bb0e0a",
+        "manifest_sha256": "6633d8f6d63cb9534249b2342d29b7837ec6cd4cd0591bae9038a5b667bb0e0a",
+        "target_sha256": "6633d8f6d63cb9534249b2342d29b7837ec6cd4cd0591bae9038a5b667bb0e0a"
+      },
+      {
+        "path": ".antios/project_profile.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033",
+        "manifest_sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033",
+        "target_sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033"
+      },
+      {
+        "path": ".antios/runtime/inspect_instance.py",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad",
+        "manifest_sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad",
+        "target_sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad"
+      },
+      {
+        "path": ".antios/runtime/pre_tool_guard.py",
+        "action": "REGENERATE",
+        "reason": "AntiOS-owned unmodified artifact; updated to new release",
+        "disk_sha256": "b0dfc3c067df1646f91984eb2bd81cceeb57c4dec9956e51e6a030d33e75d528",
+        "manifest_sha256": "b0dfc3c067df1646f91984eb2bd81cceeb57c4dec9956e51e6a030d33e75d528",
+        "target_sha256": "5218d2f3efe352abff5668f4d625b8db8feb9b5b4f78266f114012fb340649d2"
+      },
+      {
+        "path": ".antios/runtime/stop_gate.py",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d",
+        "manifest_sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d",
+        "target_sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d"
+      },
+      {
+        "path": ".antios/runtime/verify_runtime.py",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508",
+        "manifest_sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508",
+        "target_sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508"
+      },
+      {
+        "path": ".antios/tool_policy.json",
+        "action": "UNTOUCHED",
+        "reason": "Artifact matches target release; already up to date",
+        "disk_sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8",
+        "manifest_sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8",
+        "target_sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8"
+      },
+      {
+        "path": "antios.config.json",
+        "action": "PRESERVE_USER_MODIFIED",
+        "reason": "User modified AntiOS artifact on disk; preserved without overwrite",
+        "disk_sha256": "fd368e5b7846d4415edef3564f6e640d3733c63986169a4b16634caa49a88ba6",
+        "manifest_sha256": "2bb068cdde84a89cab852c0bfdb85731d85bd08f991059d1a762b3c9d9e42e53",
+        "target_sha256": "fd368e5b7846d4415edef3564f6e640d3733c63986169a4b16634caa49a88ba6"
+      }
+    ],
+    "issues": [],
+    "summary": "Reconciliation Plan: 14 total checks. Scheduled: 1 updates, 0 new files, 0 removals, 1 preserved user modifications."
+  },
+  "metadata": {}
+}

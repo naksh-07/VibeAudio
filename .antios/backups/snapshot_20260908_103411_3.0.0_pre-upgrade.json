@@ -1,0 +1,365 @@
+{
+  "timestamp": "2026-09-08T10:34:11.694285+00:00",
+  "antios_version": "3.0.0",
+  "label": "pre-upgrade",
+  "manifest": {
+    "antios_version": "3.0.0",
+    "schema_version": "2.0.0",
+    "project_fingerprint": "962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4",
+    "source_revision": "v3.0.0",
+    "generated_at": "2026-09-08T10:29:33.302160+00:00",
+    "adaptation_state": "ADAPTED",
+    "installation_state": "INSTALLED",
+    "managed_paths": {
+      ".agents/hooks.json": {
+        "path": ".agents/hooks.json",
+        "ownership": "MANAGED",
+        "sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": ".agents/hooks.json",
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      "antios.config.json": {
+        "path": "antios.config.json",
+        "ownership": "MANAGED",
+        "sha256": "2bb068cdde84a89cab852c0bfdb85731d85bd08f991059d1a762b3c9d9e42e53",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": "antios.config.json",
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      }
+    },
+    "generated_paths": {
+      ".antios/project_profile.json": {
+        "path": ".antios/project_profile.json",
+        "ownership": "GENERATED",
+        "sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/learning_proposals.json": {
+        "path": ".antios/learning_proposals.json",
+        "ownership": "GENERATED",
+        "sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/runtime/verify_runtime.py": {
+        "path": ".antios/runtime/verify_runtime.py",
+        "ownership": "GENERATED",
+        "sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/learning_observations.json": {
+        "path": ".antios/learning_observations.json",
+        "ownership": "GENERATED",
+        "sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".agents/skills/antios/SKILL.md": {
+        "path": ".agents/skills/antios/SKILL.md",
+        "ownership": "GENERATED",
+        "sha256": "03f6e24b2aeb3f75b1db8f1e4e635349e2d711300f3e7de806b35ca3c14097ef",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/knowledge.json": {
+        "path": ".antios/knowledge.json",
+        "ownership": "GENERATED",
+        "sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/runtime/pre_tool_guard.py": {
+        "path": ".antios/runtime/pre_tool_guard.py",
+        "ownership": "GENERATED",
+        "sha256": "b0dfc3c067df1646f91984eb2bd81cceeb57c4dec9956e51e6a030d33e75d528",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/runtime/inspect_instance.py": {
+        "path": ".antios/runtime/inspect_instance.py",
+        "ownership": "GENERATED",
+        "sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/runtime/stop_gate.py": {
+        "path": ".antios/runtime/stop_gate.py",
+        "ownership": "GENERATED",
+        "sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/project_anatomy.json": {
+        "path": ".antios/project_anatomy.json",
+        "ownership": "GENERATED",
+        "sha256": "6633d8f6d63cb9534249b2342d29b7837ec6cd4cd0591bae9038a5b667bb0e0a",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/tool_policy.json": {
+        "path": ".antios/tool_policy.json",
+        "ownership": "GENERATED",
+        "sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      },
+      ".antios/agent_topology.json": {
+        "path": ".antios/agent_topology.json",
+        "ownership": "GENERATED",
+        "sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17",
+        "source_revision": "v3.0.0",
+        "generated_at": "2026-09-08T10:29:33.302160+00:00",
+        "generator": "AntiOS-Project-Boundary-Compiler-v2.0",
+        "source_template": null,
+        "evidence": [],
+        "is_user_modified": false,
+        "is_stale": false,
+        "metadata": {}
+      }
+    },
+    "user_owned_paths": [],
+    "protected_paths": [
+      ".agents",
+      "framework",
+      ".antios"
+    ],
+    "stale_paths": [],
+    "project_profile_reference": ".antios/project_profile.json",
+    "knowledge_revision": "1.0",
+    "capability_revision": "1.0",
+    "agent_topology_revision": "1.0",
+    "tool_policy_revision": "1.0",
+    "memory_revision": "1.0",
+    "reconciliation_state": {
+      "installed_version": "3.0.0",
+      "target_version": "3.0.0",
+      "installed_schema_version": "2.0.0",
+      "target_schema_version": "2.0.0",
+      "project_id": "unknown",
+      "schema_migration_required": false,
+      "is_idempotent": false,
+      "can_safely_apply": true,
+      "total_actions": 14,
+      "counts": {
+        "regenerate": 4,
+        "create": 0,
+        "reap_obsolete": 0,
+        "preserve_user_modified": 0,
+        "untouched": 10,
+        "conflicts": 0
+      },
+      "actions": [
+        {
+          "path": ".agents/hooks.json",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54",
+          "manifest_sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54",
+          "target_sha256": "03f67ede35f4f6049b4c7bab137cb18b4d1f4059d67d35f5379bee750a0c8a54"
+        },
+        {
+          "path": ".agents/skills/antios/SKILL.md",
+          "action": "REGENERATE",
+          "reason": "AntiOS-owned unmodified artifact; updated to new release",
+          "disk_sha256": "611c5a883f8626e3a067317b6d53c4ce91fea0c45240ba370bb52405cbdde7e8",
+          "manifest_sha256": "611c5a883f8626e3a067317b6d53c4ce91fea0c45240ba370bb52405cbdde7e8",
+          "target_sha256": "03f6e24b2aeb3f75b1db8f1e4e635349e2d711300f3e7de806b35ca3c14097ef"
+        },
+        {
+          "path": ".antios/agent_topology.json",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17",
+          "manifest_sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17",
+          "target_sha256": "2e0c7cd76fc4f5d26c3bfc2e7120438493321fb49552b8f87681f40b5fe63c17"
+        },
+        {
+          "path": ".antios/knowledge.json",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1",
+          "manifest_sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1",
+          "target_sha256": "09c0fbd7b7ce0bf3de8e36f1f98e2ffb7b5ca4df19a20edc3678731e4590c0b1"
+        },
+        {
+          "path": ".antios/learning_observations.json",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22",
+          "manifest_sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22",
+          "target_sha256": "ff6371bd200793ef6fe1bd723038fafdca0ac549b690553ddce55998e2d71b22"
+        },
+        {
+          "path": ".antios/learning_proposals.json",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe",
+          "manifest_sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe",
+          "target_sha256": "c9f99984e80c81fc775419730cd2b2d83e16329fb1f5ec6a633c092b406c8ffe"
+        },
+        {
+          "path": ".antios/project_anatomy.json",
+          "action": "REGENERATE",
+          "reason": "AntiOS-owned unmodified artifact; updated to new release",
+          "disk_sha256": "c7ee9f54ad775ff6050599a2dbd058d3777c2506935b3d5e0c5319714c39464d",
+          "manifest_sha256": "c7ee9f54ad775ff6050599a2dbd058d3777c2506935b3d5e0c5319714c39464d",
+          "target_sha256": "6633d8f6d63cb9534249b2342d29b7837ec6cd4cd0591bae9038a5b667bb0e0a"
+        },
+        {
+          "path": ".antios/project_profile.json",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033",
+          "manifest_sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033",
+          "target_sha256": "d2c819bceee8b537574929c7823c7fd22202c739daeac478ab7a8c6f182f0033"
+        },
+        {
+          "path": ".antios/runtime/inspect_instance.py",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad",
+          "manifest_sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad",
+          "target_sha256": "9783a1afaa1b4874d64489d56d62b25705a88b74a2b9606b703b9d69d7857dad"
+        },
+        {
+          "path": ".antios/runtime/pre_tool_guard.py",
+          "action": "REGENERATE",
+          "reason": "AntiOS-owned unmodified artifact; updated to new release",
+          "disk_sha256": "5218d2f3efe352abff5668f4d625b8db8feb9b5b4f78266f114012fb340649d2",
+          "manifest_sha256": "5218d2f3efe352abff5668f4d625b8db8feb9b5b4f78266f114012fb340649d2",
+          "target_sha256": "b0dfc3c067df1646f91984eb2bd81cceeb57c4dec9956e51e6a030d33e75d528"
+        },
+        {
+          "path": ".antios/runtime/stop_gate.py",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d",
+          "manifest_sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d",
+          "target_sha256": "0a72bb5521424e5ccc2c8f8714f57f3585294532192c24dfe97bee27f8214c4d"
+        },
+        {
+          "path": ".antios/runtime/verify_runtime.py",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508",
+          "manifest_sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508",
+          "target_sha256": "7c7c27196c23cd431e4f1715b7d749ee13dbcf2c851feeba40521c4bd3b18508"
+        },
+        {
+          "path": ".antios/tool_policy.json",
+          "action": "UNTOUCHED",
+          "reason": "Artifact matches target release; already up to date",
+          "disk_sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8",
+          "manifest_sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8",
+          "target_sha256": "b3b2bc7f9e47b61f85e953672c39b9cd95791f45198e476855ecc2e54b2a3af8"
+        },
+        {
+          "path": "antios.config.json",
+          "action": "REGENERATE",
+          "reason": "AntiOS-owned unmodified artifact; updated to new release",
+          "disk_sha256": "fd368e5b7846d4415edef3564f6e640d3733c63986169a4b16634caa49a88ba6",
+          "manifest_sha256": "fd368e5b7846d4415edef3564f6e640d3733c63986169a4b16634caa49a88ba6",
+          "target_sha256": "2bb068cdde84a89cab852c0bfdb85731d85bd08f991059d1a762b3c9d9e42e53"
+        }
+      ],
+      "issues": [],
+      "summary": "Reconciliation Plan: 14 total checks. Scheduled: 4 updates, 0 new files, 0 removals, 0 preserved user modifications."
+    },
+    "metadata": {}
+  },
+  "files": {
+    ".antios/project_profile.json": "{\n  \"identity\": {\n    \"name\": \"vibeaudio-main\",\n    \"root_path\": \"c:\\\\users\\\\suraj\\\\documents\\\\antigravity\\\\vibeaudio-main\\\\vibeaudio-main\",\n    \"is_git_repo\": true,\n    \"head_commit\": \"d229f1fd6a\",\n    \"languages\": [\n      \"TypeScript / JavaScript\"\n    ],\n    \"frameworks\": [],\n    \"package_managers\": [\n      \"npm\"\n    ],\n    \"build_systems\": []\n  },\n  \"topology\": \"STANDALONE\",\n  \"workspace_members\": [],\n  \"manifest_fingerprint\": \"962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4\",\n  \"observed_facts\": [\n    {\n      \"tier\": \"OBSERVED\",\n      \"path\": \".git\",\n      \"selector\": \"directory\",\n      \"value\": \"present\",\n      \"witness_type\": \"FILE_EXISTENCE\",\n      \"description\": \"Repository is git version controlled\"\n    },\n    {\n      \"tier\": \"OBSERVED\",\n      \"path\": \"package.json\",\n      \"selector\": \"file\",\n      \"value\": \"present\",\n      \"witness_type\": \"FILE_EXISTENCE\",\n      \"description\": \"Node.js package manifest\"\n    },\n    {\n      \"tier\": \"OBSERVED\",\n      \"path\": \"package-lock.json\",\n      \"selector\": \"file\",\n      \"value\": \"present\",\n      \"witness_type\": \"FILE_EXISTENCE\",\n      \"description\": \"npm package-lock file\"\n    },\n    {\n      \"tier\": \"OBSERVED\",\n      \"path\": \"package.json\",\n      \"selector\": \"scripts.test\",\n      \"value\": \"node --test tests/\",\n      \"witness_type\": \"FILE_CONTENT\",\n      \"description\": \"Test script 'test'\"\n    },\n    {\n      \"tier\": \"OBSERVED\",\n      \"path\": \"AGENTS.md\",\n      \"selector\": \"file\",\n      \"value\": \"present\",\n      \"witness_type\": \"FILE_EXISTENCE\",\n      \"description\": \"Guidance document: AGENTS.md\"\n    },\n    {\n      \"tier\": \"OBSERVED\",\n      \"path\": \"README.md\",\n      \"selector\": \"file\",\n      \"value\": \"present\",\n      \"witness_type\": \"FILE_EXISTENCE\",\n      \"description\": \"Guidance document: README.md\"\n    }\n  ],\n  \"inferred_facts\": [\n    {\n      \"tier\": \"INFERRED\",\n      \"hypothesis\": \"Project executes tests via 'npm test'\",\n      \"confidence\": 0.95,\n      \"confidence_level\": \"HIGH\",\n      \"rationale\": \"Found 'test' script in package.json\",\n      \"underlying_evidence\": [\n        \"package.json#scripts.test\"\n      ]\n    }\n  ],\n  \"unknown_fields\": [],\n  \"tools\": [\n    {\n      \"name\": \"node-test-runner\",\n      \"category\": \"TEST_RUNNER\",\n      \"manifest_path\": \"package.json\",\n      \"command\": [\n        \"npm\",\n        \"test\"\n      ],\n      \"timeout_seconds\": 90,\n      \"required\": true,\n      \"cwd\": null,\n      \"is_available_in_path\": true,\n      \"non_interactive_flags\": [],\n      \"tier\": \"OBSERVED\"\n    }\n  ],\n  \"guidance\": [\n    {\n      \"source_file\": \"AGENTS.md\",\n      \"declared_commands\": {\n        \"test\": [],\n        \"lint\": [],\n        \"build\": []\n      },\n      \"declared_constraints\": [],\n      \"target_rules\": []\n    },\n    {\n      \"source_file\": \"README.md\",\n      \"declared_commands\": {\n        \"test\": [],\n        \"lint\": [],\n        \"build\": []\n      },\n      \"declared_constraints\": [],\n      \"target_rules\": []\n    }\n  ],\n  \"conflicts\": [],\n  \"risk_zones\": [],\n  \"protected_paths\": [],\n  \"forbidden_patterns\": [],\n  \"subsystems\": {}\n}",
+    ".antios/learning_proposals.json": "{\n  \"schema_version\": \"2.0.0\",\n  \"total_proposals\": 0,\n  \"proposals\": []\n}",
+    ".antios/runtime/verify_runtime.py": "\"\"\"AntiOS 2.0 Project Instance Runtime: Self-Verification & Runtime Closure Check.\n\nPhase 80/81: Instance-Local Runtime Closure Verifier.\nSelf-contained, zero-external-dependency standard-library script.\nDoes NOT import or depend on the AntiOS source repository.\n\nVerifies that this project instance is 100% self-contained and closed.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport ast\nimport json\nimport os\nfrom pathlib import Path\nimport sys\nfrom typing import List, Tuple\n\n\nREQUIRED_FILES = [\n    \".antios/manifest.json\",\n    \".antios/project_profile.json\",\n    \".antios/project_anatomy.json\",\n    \".antios/knowledge.json\",\n    \".antios/agent_topology.json\",\n    \".antios/tool_policy.json\",\n    \".antios/runtime/pre_tool_guard.py\",\n    \".antios/runtime/stop_gate.py\",\n    \".antios/runtime/inspect_instance.py\",\n    \".antios/runtime/verify_runtime.py\",\n    \".agents/skills/antios/SKILL.md\",\n    \".agents/hooks.json\",\n    \"antios.config.json\",\n]\n\n# Split string constants to prevent self-detection false positives\nFORBIDDEN_LEAKS = [\n    \"framework/\" + \"scripts/\",\n    \"framework/\" + \"core/\",\n    \"framework\" + \".core\",\n    \"../\" + \"framework/\",\n]\n\n\ndef check_ast(path: Path) -> List[str]:\n    violations = []\n    try:\n        content = path.read_text(encoding=\"utf-8\")\n        tree = ast.parse(content, filename=str(path))\n        for node in ast.walk(tree):\n            if isinstance(node, ast.Import):\n                for alias in node.names:\n                    if alias.name == \"framework\" or alias.name.startswith(\"framework.\"):\n                        violations.append(f\"{path.name}:{node.lineno}: import {alias.name}\")\n            elif isinstance(node, ast.ImportFrom):\n                if node.module and (node.module == \"framework\" or node.module.startswith(\"framework.\")):\n                    violations.append(f\"{path.name}:{node.lineno}: from {node.module} import ...\")\n    except Exception as e:\n        violations.append(f\"{path.name}: AST parse error: {e}\")\n    return violations\n\n\ndef main() -> int:\n    root = Path(\".\").resolve()\n    issues: List[str] = []\n\n    # 1. Check required files\n    for rel in REQUIRED_FILES:\n        p = root / rel\n        if not p.is_file():\n            issues.append(f\"Missing required file: '{rel}'\")\n\n    # 2. Check hooks.json\n    hooks_file = root / \".agents/hooks.json\"\n    if hooks_file.is_file():\n        try:\n            data = json.loads(hooks_file.read_text(encoding=\"utf-8\"))\n            hooks_text = json.dumps(data)\n            for leak in FORBIDDEN_LEAKS:\n                if leak in hooks_text:\n                    issues.append(f\"Source leak in .agents/hooks.json: '{leak}'\")\n        except Exception as e:\n            issues.append(f\"Invalid .agents/hooks.json: {e}\")\n\n    # 3. Check for leaks in all instance files\n    for rel in REQUIRED_FILES:\n        if rel.endswith(\"verify_runtime.py\"):\n            continue\n        p = root / rel\n        if p.is_file():\n            try:\n                content = p.read_text(encoding=\"utf-8\")\n                for leak in FORBIDDEN_LEAKS:\n                    if leak in content:\n                        issues.append(f\"Source leak in '{rel}': '{leak}'\")\n            except Exception as e:\n                issues.append(f\"Cannot read '{rel}': {e}\")\n\n    # 4. AST check on runtime scripts\n    runtime_dir = root / \".antios/runtime\"\n    if runtime_dir.is_dir():\n        for py in runtime_dir.glob(\"*.py\"):\n            ast_errs = check_ast(py)\n            for err in ast_errs:\n                issues.append(f\"Forbidden framework import in runtime script: {err}\")\n\n    # 5. Check that framework/core does not exist\n    if (root / \"framework/core\").is_dir():\n        issues.append(\"AntiOS development source ('framework/core/') is present in target repository\")\n\n    print(\"=\" * 65)\n    print(\" AntiOS Project Instance Runtime Closure Verification\")\n    print(\"=\" * 65)\n    if not issues:\n        print(\"[PASS] Instance is self-contained. All runtime assets physically closed.\")\n        print(\"       Zero references to external AntiOS source repository.\")\n        return 0\n\n    print(f\"[FAIL] Found {len(issues)} runtime closure violation(s):\")\n    for issue in issues:\n        print(f\"  [x] {issue}\")\n    return 1\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+    ".antios/learning_observations.json": "{\n  \"schema_version\": \"2.0.0\",\n  \"total_observations\": 0,\n  \"observations\": []\n}",
+    ".agents/skills/antios/SKILL.md": "---\nname: antios\ndescription: >-\n  Universal project-native control plane under AntiOS 2.0 governance.\n  Use when planning, navigating, implementing, debugging, verifying,\n  or orchestrating any engineering task in this repository.\n---\n\n# AntiOS Project Operating Interface (`/antios`)\n\nYou are operating under **AntiOS 2.0 (Project Agent OS)** governance.\nThis skill is your **single authoritative control plane** (`/antios`). AntiOS coordinates native Antigravity primitives without reimplementing the platform. Helper CLI: `dispatch_task.py`.\n\n## 1. Responsibility Demarcation (Phase 83 Workforce Contract)\n- **Platform (Antigravity)**: Owns execution primitives (`invoke_subagent`, `manage_subagents`), tool transport, and workspace branching.\n- **AntiOS Core**: Owns governance, boundaries, task dispatch, adaptive planning, anti-hydra validation, and verification gates.\n- **Project Adapter (`antios.config.json` / `.antios/`)**: Owns project topology, protected paths, and test runners.\n- **Target Project**: Owns application logic, domain schemas, and native test suites.\n\n## 2. Canonical Capability Pipeline Stages\n1. `UNDERSTAND`: Parse user intent, acceptance criteria, and non-goals.\n2. `CHECK STATE`: Read `.antios/knowledge.json` and `docs/ACTIVE_CONTEXT.md` ($\\le 60$ lines).\n3. `LOCATE`: Deterministically locate code via project intelligence.\n4. `CLASSIFY`: Determine `TaskClass` and `RiskTier`.\n5. `SELECT CAPABILITIES`: Resolve 8-tier matrix (Native -> Skill -> Tool -> Runtime -> Specialist -> CLI -> Service -> MCP).\n6. `SELECT WORKFORCE`: 12-input `AdaptiveWorkforcePlanner` emitting cost reasoning card.\n7. `BUILD CONTEXT`: Internal `ContextBudgetGovernor` & `FreshnessEvaluator` emitting bounded context card.\n8. `EXECUTE`: Dispatch native tools or specialists (`antios-engineer`, `antios-debug`, `antios-adapt-project`).\n9. `VERIFY`: Independent Maker-Checker audit (`antios-verifier`) and test suite (exit code 0).\n10. `REMEMBER`: Distill durable lessons and refresh active context.\n\n## 3. Adaptive Workforce Sizing & Anti-Hydra Waves (Phases 84\u201385)\n- **Modes**: `SOLO` (0 subagents), `FOCUSED` (1 specialist), `SMALL` (2 specialists), `PARALLEL` (2\u20134 specialists), `STAGED` (sequential waves), `HIERARCHICAL` (coordinator + 1\u20132 children), `MAX` (constitutional ceiling).\n- **Constitutional Limits**: Max Active Subagents Per Wave: 10. Max Lifetime Launches Per Mission: 20. Shallow Depth Law: $\\le 2$. Mandatory Wave Collapse. Read-Parallel, Write-Controlled: Single writer default.\n\n## 4. Capability Matrix & Context Budget Governor (Phases 86\u201388)\n- **Matrix**: 1. Native -> 2. Skill -> 3. Script -> 4. Runtime -> 5. Specialist -> 6. CLI -> 7. Service -> 8. MCP. Local Git CLI over MCP.\n- **Context & Freshness**: Classify (`MANDATORY` to `REDUNDANT`), govern (`LOAD` to `REFRESH`), and ground against physical file SHAs.\n\n## 5. Mission State & Evidence Architecture (Phases 89\u201392)\n- **Continuity**: Crash recovery (`RESUME` to `ABORT`) and bounded tool outputs (`RAW`, `RELEVANT`, `SUMMARIZED`, `DISCARDED`).\n- **Epistemic Law**: `OBSERVATION \u2260 EVIDENCE \u2260 VERDICT \u2260 INFERENCE \u2260 DECISION`. 6 states (`OBSERVED` to `CONFLICTING`).\n- **Evaluation & Benchmark**: 11-dimension evaluator (`PASS` to `INCONCLUSIVE`) and agent-native benchmark grounds (Scenarios A\u2013J).\n\n## 6. Proofs, Certification, Proving Ground & Recovery (Phases 93\u201398)\n- **Proofs & Certification (93\u201395)**: Durable proofs ($\\le 50$), event drift (10 domains), release certification (12 dims).\n- **Proving Ground (96)**: Real proving ground (Scenarios A\u2013H), bounded `MissionTrace`, native vs simulated trace.\n- **Failure Matrix & Long-Horizon (97\u201398)**: 16 failure modes, deterministic recovery matrix, RUN-01 to RUN-05 adaptation.\n\n## 7. Stop Gate & Task Completion\n1. Collapse all active workers: `manage_subagents(Action='kill', ...)`.\n2. Execute configured test runner (from `antios.config.json`, must exit code 0).\n3. Ensure `docs/ACTIVE_CONTEXT.md` is updated and strictly $\\le 60$ lines.\n\n\n",
+    ".antios/knowledge.json": "{\n  \"project_identity\": {\n    \"name\": \"vibeaudio-main\",\n    \"root_path\": \"c:\\\\users\\\\suraj\\\\documents\\\\antigravity\\\\vibeaudio-main\\\\vibeaudio-main\",\n    \"is_git_repo\": true,\n    \"head_commit\": \"d229f1fd6a\",\n    \"languages\": [\n      \"TypeScript / JavaScript\"\n    ],\n    \"frameworks\": [],\n    \"package_managers\": [\n      \"npm\"\n    ],\n    \"build_systems\": []\n  },\n  \"workspace_topology\": \"STANDALONE\",\n  \"subsystems\": [],\n  \"workspace_members\": [],\n  \"risk_zones\": [],\n  \"protected_paths\": [],\n  \"protected_domain_paths\": [],\n  \"manifest_fingerprint\": \"962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4\"\n}",
+    ".antios/runtime/pre_tool_guard.py": "\"\"\"AntiOS 2.0 Project Instance Runtime: PreToolUse Security Guard.\n\nPhase 80/81: Instance-Local PreToolUse Guard Hook.\nSelf-contained, zero-external-dependency standard-library script.\nDoes NOT import or depend on the AntiOS source repository.\n\nEnforces deterministic boundary protection, framework self-protection,\npath canonicalization, and workspace boundary confinement with strict fail-closed semantics.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport os\nfrom pathlib import Path\nimport sys\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\n# Immutable Core Zones that CANNOT be modified via IDE tool calls\nIMMUTABLE_CORE_ZONES: List[str] = [\n    \".agents\",\n    \".antios\",\n    \"antios.config.json\",\n    \".git\",\n]\n\n\ndef output_decision(decision: str, reason: Optional[str] = None) -> None:\n    \"\"\"Outputs structured JSON decision to stdout and exits cleanly.\"\"\"\n    payload = {\"decision\": decision}\n    if reason:\n        payload[\"reason\"] = reason\n    print(json.dumps(payload))\n    sys.exit(0)\n\n\ndef load_adapter_config(repo_root: str) -> Dict[str, Any]:\n    \"\"\"Loads antios.config.json from repo_root if present.\"\"\"\n    config_path = os.path.join(repo_root, \"antios.config.json\")\n    if os.path.isfile(config_path):\n        try:\n            with open(config_path, \"r\", encoding=\"utf-8\") as f:\n                return json.load(f)\n        except Exception:\n            return {}\n    return {}\n\n\ndef evaluate_payload(input_data: Any) -> Tuple[str, Optional[str]]:\n    \"\"\"Evaluates the Antigravity PreToolUse hook payload.\"\"\"\n    if not isinstance(input_data, dict):\n        return \"deny\", \"AntiOS Security Guard: Invalid JSON root type (must be object). Failing closed.\"\n\n    tool_call = input_data.get(\"toolCall\")\n    if not isinstance(tool_call, dict):\n        return \"deny\", \"AntiOS Security Guard: Missing or malformed toolCall object. Failing closed.\"\n\n    args = tool_call.get(\"args\")\n    if not isinstance(args, dict):\n        return \"deny\", \"AntiOS Security Guard: Missing or malformed tool args. Failing closed.\"\n\n    target_file = args.get(\"TargetFile\")\n    if not target_file or not isinstance(target_file, str):\n        return \"deny\", \"AntiOS Security Guard: TargetFile must be a non-empty string. Failing closed.\"\n\n    workspace_paths = input_data.get(\"workspacePaths\")\n    if not workspace_paths or not isinstance(workspace_paths, list) or len(workspace_paths) == 0:\n        return \"deny\", \"AntiOS Security Guard: workspacePaths must be a non-empty list. Failing closed.\"\n\n    first_workspace = workspace_paths[0]\n    if not isinstance(first_workspace, str) or not first_workspace.strip():\n        return \"deny\", \"AntiOS Security Guard: workspacePaths contains invalid entry. Failing closed.\"\n\n    repo_root = os.path.normcase(os.path.abspath(os.path.realpath(first_workspace)))\n\n    # Canonicalize TargetFile anchored strictly to workspace root\n    if not os.path.isabs(target_file):\n        target_abs = os.path.abspath(os.path.join(repo_root, target_file))\n    else:\n        target_abs = os.path.abspath(target_file)\n    target_resolved = os.path.normcase(os.path.realpath(target_abs))\n\n    # Confinement Check: TargetFile must reside within repo_root\n    try:\n        if os.path.commonpath([target_resolved, repo_root]) != repo_root:\n            return (\n                \"deny\",\n                f\"AntiOS Boundary Policy: Modifying files outside the workspace repository ({repo_root}) \"\n                f\"is strictly forbidden. Target: '{target_file}'. Failing closed.\"\n            )\n    except ValueError:\n        return (\n            \"deny\",\n            f\"AntiOS Boundary Policy: Cross-drive paths outside workspace repository are forbidden. Target: '{target_file}'. Failing closed.\"\n        )\n\n    # Load adapter configuration\n    config = load_adapter_config(repo_root)\n    configured_zones = config.get(\"protected_zones\", [])\n    configured_domain_paths = config.get(\"protected_domain_paths\", [])\n\n    all_protected = list(dict.fromkeys(IMMUTABLE_CORE_ZONES + configured_zones + configured_domain_paths))\n\n    # Check against protected zones\n    for zone in all_protected:\n        zone_clean = zone.replace(\"\\\\\", \"/\").strip(\"/\")\n        if not zone_clean:\n            continue\n        zone_abs = os.path.normcase(os.path.abspath(os.path.join(repo_root, zone_clean)))\n        # File match\n        if os.path.isfile(zone_abs) and target_resolved == zone_abs:\n            return (\n                \"deny\",\n                f\"AntiOS Self-Protection Policy: Direct tool modifications to protected file '{zone_clean}' \"\n                f\"are strictly forbidden. Failing closed.\"\n            )\n        # Directory prefix match\n        try:\n            if os.path.commonpath([target_resolved, zone_abs]) == zone_abs:\n                return (\n                    \"deny\",\n                    f\"AntiOS Self-Protection Policy: Direct tool modifications within protected zone '{zone_clean}' \"\n                    f\"are strictly forbidden. Failing closed.\"\n                )\n        except ValueError:\n            pass\n\n    # Windows 8.3 Short-name bypass mitigation\n    target_lower = target_file.lower().replace(\"\\\\\", \"/\")\n    if \"~\" in target_lower:\n        segments = target_lower.split(\"/\")\n        for seg in segments:\n            for forbidden in [\".agents\", \".antios\", \"antios.config\"]:\n                clean_f = forbidden.lstrip(\".\")\n                prefix = clean_f[:5]\n                if seg.startswith(prefix) and \"~\" in seg:\n                    return (\n                        \"deny\",\n                        f\"AntiOS Boundary Policy: Short-name (8.3) alias match '{seg}' targeting protected '{forbidden}' \"\n                        f\"is strictly forbidden. Failing closed.\"\n                    )\n\n    return \"allow\", None\n\n\ndef main() -> None:\n    try:\n        raw_input = sys.stdin.read()\n        if not raw_input.strip():\n            output_decision(\"deny\", \"AntiOS Security Guard: Empty hook payload received. Failing closed.\")\n            return\n\n        input_data = json.loads(raw_input)\n        decision, reason = evaluate_payload(input_data)\n        output_decision(decision, reason)\n\n    except Exception as e:\n        # Strict fail-closed on any unhandled exception\n        output_decision(\"deny\", f\"AntiOS Security Guard internal error: {str(e)}. Failing closed.\")\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    ".antios/runtime/inspect_instance.py": "\"\"\"AntiOS 2.0 Project Instance Runtime: Instance Inspector & Wayfinding Helper.\n\nPhase 80/82: Instance-Local Architecture Inspector & Wayfinder.\nSelf-contained, zero-external-dependency standard-library script.\nDoes NOT import or depend on the AntiOS source repository.\n\nProvides wayfinding, subsystem resolution, and test runner inspection\nfor the /antios control plane inside target projects.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport json\nimport os\nfrom pathlib import Path\nimport sys\nfrom typing import Any, Dict, List, Optional, Set\n\n\ndef load_json_safe(path: Path) -> Dict[str, Any]:\n    if path.is_file():\n        try:\n            return json.loads(path.read_text(encoding=\"utf-8\"))\n        except Exception:\n            return {}\n    return {}\n\n\ndef match_subsystem(query: str, subsystems: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:\n    \"\"\"Simple deterministic keyword overlap matching for wayfinding.\"\"\"\n    if not query or not subsystems:\n        return None\n\n    words = set(query.lower().replace(\"-\", \" \").replace(\"_\", \" \").replace(\"/\", \" \").split())\n    best_match = None\n    best_score = 0\n\n    for sub in subsystems:\n        sub_id = str(sub.get(\"subsystem_id\") or sub.get(\"name\") or \"\").lower()\n        sub_paths = [str(p).lower() for p in sub.get(\"paths\", [])]\n        sub_desc = str(sub.get(\"description\", \"\")).lower()\n\n        score = 0\n        for w in words:\n            if len(w) < 2:\n                continue\n            if w in sub_id:\n                score += 3\n            for p in sub_paths:\n                if w in p:\n                    score += 2\n            if w in sub_desc:\n                score += 1\n\n        if score > best_score:\n            best_score = score\n            best_match = sub\n\n    return best_match if best_score > 0 else (subsystems[0] if len(subsystems) == 1 else None)\n\n\ndef main() -> int:\n    parser = argparse.ArgumentParser(description=\"AntiOS Project Instance Inspector & Wayfinder\")\n    parser.add_argument(\"--query\", \"-q\", default=None, help=\"Query intent to resolve responsible subsystem\")\n    parser.add_argument(\"--json\", action=\"store_true\", help=\"Output machine-readable JSON\")\n    parser.add_argument(\"--summary\", action=\"store_true\", help=\"Output JSON summary of instance\")\n    args = parser.parse_args()\n\n    repo_root = Path(\".\").resolve()\n    antios_dir = repo_root / \".antios\"\n\n    manifest_data = load_json_safe(antios_dir / \"manifest.json\")\n    anatomy_data = load_json_safe(antios_dir / \"project_anatomy.json\")\n    knowledge_data = load_json_safe(antios_dir / \"knowledge.json\")\n    topology_data = load_json_safe(antios_dir / \"agent_topology.json\")\n    config_data = load_json_safe(repo_root / \"antios.config.json\")\n\n    project_name = config_data.get(\"project_name\") or anatomy_data.get(\"project_name\") or config_data.get(\"name\") or repo_root.name\n    archetype = anatomy_data.get(\"archetype\", \"UNKNOWN\")\n    source_roots = anatomy_data.get(\"source_roots\", [\".\"])\n    test_roots = anatomy_data.get(\"test_roots\", [\"tests\"])\n    test_runners = config_data.get(\"test_runners\", []) or anatomy_data.get(\"test_runners\", [])\n    protected_zones = config_data.get(\"protected_zones\", [\".agents\", \".antios\", \"antios.config.json\", \".git\"])\n    protected_domain = config_data.get(\"protected_domain_paths\", [])\n\n    subsystems = knowledge_data.get(\"subsystems\", []) or anatomy_data.get(\"subsystems\", [])\n\n    matched = None\n    if args.query:\n        matched = match_subsystem(args.query, subsystems)\n\n    report: Dict[str, Any] = {\n        \"project_name\": project_name,\n        \"archetype\": archetype,\n        \"source_roots\": source_roots,\n        \"test_roots\": test_roots,\n        \"test_runners\": test_runners,\n        \"protected_zones\": protected_zones,\n        \"protected_domain_paths\": protected_domain,\n        \"total_subsystems\": len(subsystems),\n        \"query\": args.query,\n        \"matched_subsystem\": matched,\n    }\n\n    if args.json or args.summary:\n        print(json.dumps(report, indent=2))\n        return 0\n\n    print(\"=\" * 65)\n    print(f\" AntiOS Project Instance: {project_name} ({archetype})\")\n    print(\"=\" * 65)\n    print(f\"Source Roots:    {', '.join(source_roots)}\")\n    print(f\"Test Roots:      {', '.join(test_roots)}\")\n    print(f\"Protected Zones: {', '.join(protected_zones)}\")\n    if protected_domain:\n        print(f\"Domain Cores:    {', '.join(protected_domain)}\")\n\n    if test_runners:\n        print(\"\\nConfigured Test Runners:\")\n        for tr in test_runners:\n            name = tr.get(\"name\", \"runner\")\n            cmd = \" \".join(tr.get(\"default_command\") or tr.get(\"command\") or [])\n            print(f\"  - {name}: `{cmd}`\")\n\n    if args.query:\n        print(f\"\\nWayfinding Query: '{args.query}'\")\n        if matched:\n            sid = matched.get(\"subsystem_id\") or matched.get(\"name\")\n            paths = \", \".join(matched.get(\"paths\", []))\n            tests = \", \".join(matched.get(\"covering_tests\", []))\n            print(f\"  -> Responsible Subsystem: {sid}\")\n            print(f\"     Paths:          {paths}\")\n            print(f\"     Covering Tests: {tests}\")\n        else:\n            print(\"  -> No specific subsystem matched. Inspect root project structure.\")\n\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+    ".antios/runtime/stop_gate.py": "\"\"\"AntiOS 2.0 Project Instance Runtime: Stop Gate Verification Engine.\n\nPhase 80/81: Instance-Local Stop Gate Hook.\nSelf-contained, zero-external-dependency standard-library script.\nDoes NOT import or depend on the AntiOS source repository.\n\nEnforces physical process test execution ratchets, working tree cleanliness,\nunresolved conflict marker detection, and dynamic project test runner discovery.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport os\nfrom pathlib import Path\nimport subprocess\nimport sys\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\ndef output_decision(decision: str, reason: Optional[str] = None) -> None:\n    \"\"\"Outputs structured JSON decision to stdout and exits cleanly.\"\"\"\n    payload = {\"decision\": decision}\n    if reason:\n        payload[\"reason\"] = reason\n    print(json.dumps(payload))\n    sys.exit(0)\n\n\ndef load_adapter_config(repo_root: str) -> Dict[str, Any]:\n    \"\"\"Loads antios.config.json from repo_root if present.\"\"\"\n    config_path = os.path.join(repo_root, \"antios.config.json\")\n    if os.path.isfile(config_path):\n        try:\n            with open(config_path, \"r\", encoding=\"utf-8\") as f:\n                return json.load(f)\n        except Exception:\n            return {}\n    return {}\n\n\ndef check_working_tree_conflicts(repo_root: str) -> Optional[str]:\n    \"\"\"Scans working tree files for unresolved git merge conflict markers.\"\"\"\n    ignore_dirs = {\".git\", \".venv\", \"node_modules\", \"__pycache__\", \"dist\", \"build\", \".pytest_cache\"}\n    conflict_markers = [\"<\" * 7 + \" \", \"=\" * 7, \">\" * 7 + \" \"]\n\n    try:\n        # Check files modified or untracked via git if git is present\n        git_proc = subprocess.run(\n            [\"git\", \"status\", \"--porcelain\"],\n            cwd=repo_root,\n            capture_output=True,\n            text=True,\n            timeout=10,\n            shell=True if os.name == \"nt\" else False,\n        )\n        if git_proc.returncode == 0:\n            changed_files = []\n            for line in git_proc.stdout.splitlines():\n                if len(line) > 3:\n                    file_path = line[3:].strip()\n                    # Strip quotes if git quoted the path\n                    if file_path.startswith('\"') and file_path.endswith('\"'):\n                        file_path = file_path[1:-1]\n                    changed_files.append(file_path)\n\n            for rel_file in changed_files:\n                full_path = os.path.join(repo_root, rel_file)\n                if os.path.isfile(full_path):\n                    try:\n                        with open(full_path, \"r\", encoding=\"utf-8\", errors=\"ignore\") as f:\n                            for i, file_line in enumerate(f, 1):\n                                for marker in conflict_markers:\n                                    if file_line.startswith(marker):\n                                        return f\"Unresolved conflict marker '{marker.strip()}' in '{rel_file}:{i}'\"\n                    except Exception:\n                        pass\n        else:\n            for root_dir, dirs, files in os.walk(repo_root):\n                dirs[:] = [d for d in dirs if d not in ignore_dirs]\n                for fname in files:\n                    full_path = os.path.join(root_dir, fname)\n                    rel_file = os.path.relpath(full_path, repo_root)\n                    try:\n                        with open(full_path, \"r\", encoding=\"utf-8\", errors=\"ignore\") as f:\n                            for i, file_line in enumerate(f, 1):\n                                for marker in conflict_markers:\n                                    if file_line.startswith(marker):\n                                        return f\"Unresolved conflict marker '{marker.strip()}' in '{rel_file}:{i}'\"\n                    except Exception:\n                        pass\n    except Exception:\n        pass\n\n    return None\n\n\ndef discover_test_runners(repo_root: str, config: Dict[str, Any]) -> List[Dict[str, Any]]:\n    \"\"\"Resolves test runners from adapter config or dynamically from project manifests.\"\"\"\n    # 1. Configured runners in antios.config.json\n    configured = config.get(\"test_runners\", [])\n    if configured:\n        return configured\n\n    runners: List[Dict[str, Any]] = []\n\n    # 2. Dynamic discovery: Node.js (package.json)\n    pkg_path = os.path.join(repo_root, \"package.json\")\n    if os.path.isfile(pkg_path):\n        try:\n            with open(pkg_path, \"r\", encoding=\"utf-8\") as f:\n                pkg_data = json.load(f)\n            scripts = pkg_data.get(\"scripts\", {})\n            if \"test\" in scripts:\n                runners.append({\n                    \"name\": \"npm-test\",\n                    \"default_command\": [\"npm\", \"test\"],\n                    \"timeout_seconds\": 90,\n                    \"required\": True,\n                })\n            elif \"vitest:once\" in scripts:\n                runners.append({\n                    \"name\": \"vitest\",\n                    \"default_command\": [\"npm\", \"run\", \"vitest:once\"],\n                    \"timeout_seconds\": 90,\n                    \"required\": True,\n                })\n        except Exception:\n            pass\n\n    # 3. Dynamic discovery: Python (pyproject.toml, pytest.ini, tests/)\n    has_pyproject = os.path.isfile(os.path.join(repo_root, \"pyproject.toml\"))\n    has_pytest_ini = os.path.isfile(os.path.join(repo_root, \"pytest.ini\"))\n    has_tests_dir = os.path.isdir(os.path.join(repo_root, \"tests\"))\n\n    if has_pyproject or has_pytest_ini or has_tests_dir:\n        runners.append({\n            \"name\": \"pytest\",\n            \"default_command\": [\"pytest\"],\n            \"timeout_seconds\": 60,\n            \"required\": True,\n        })\n\n    # 4. Dynamic discovery: Rust (Cargo.toml)\n    if os.path.isfile(os.path.join(repo_root, \"Cargo.toml\")):\n        runners.append({\n            \"name\": \"cargo-test\",\n            \"default_command\": [\"cargo\", \"test\"],\n            \"timeout_seconds\": 120,\n            \"required\": True,\n        })\n\n    # 5. Dynamic discovery: Go (go.mod)\n    if os.path.isfile(os.path.join(repo_root, \"go.mod\")):\n        runners.append({\n            \"name\": \"go-test\",\n            \"default_command\": [\"go\", \"test\", \"./...\"],\n            \"timeout_seconds\": 60,\n            \"required\": True,\n        })\n\n    return runners\n\n\ndef run_test_runner(runner: Dict[str, Any], repo_root: str) -> Tuple[int, str, str]:\n    \"\"\"Executes a test runner command safely.\"\"\"\n    cmd = runner.get(\"default_command\") or runner.get(\"command\")\n    if not cmd:\n        return 0, \"\", \"\"\n\n    timeout = runner.get(\"timeout_seconds\", 60)\n    try:\n        proc = subprocess.run(\n            cmd,\n            cwd=repo_root,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n            shell=True if os.name == \"nt\" else False,\n        )\n        return proc.returncode, proc.stdout, proc.stderr\n    except subprocess.TimeoutExpired:\n        return -1, \"\", f\"Command timed out after {timeout} seconds\"\n    except Exception as e:\n        return -1, \"\", str(e)\n\n\ndef evaluate_stop_gate(input_data: Any) -> Tuple[str, Optional[str]]:\n    \"\"\"Evaluates the Stop hook payload against git cleanliness and physical test passes.\"\"\"\n    workspace_paths = input_data.get(\"workspacePaths\", []) if isinstance(input_data, dict) else []\n    if not workspace_paths or not isinstance(workspace_paths, list):\n        return \"continue\", \"AntiOS Stop Gate: Missing workspacePaths. Failing closed.\"\n\n    repo_root = os.path.normcase(os.path.abspath(os.path.realpath(workspace_paths[0])))\n\n    # 1. Inspect working tree conflicts\n    conflict_err = check_working_tree_conflicts(repo_root)\n    if conflict_err:\n        return (\n            \"continue\",\n            f\"AntiOS Stop Gate Ratchet: {conflict_err}. Resolve merge conflicts before concluding turn.\"\n        )\n\n    # 2. Discover and execute test runners\n    config = load_adapter_config(repo_root)\n    runners = discover_test_runners(repo_root, config)\n\n    if not runners:\n        # No test runners found in project\n        return \"approve\", None\n\n    for runner in runners:\n        runner_name = runner.get(\"name\", \"unnamed-runner\")\n        is_required = runner.get(\"required\", True)\n\n        returncode, stdout, stderr = run_test_runner(runner, repo_root)\n\n        if returncode != 0:\n            details = (stderr.strip() or stdout.strip() or f\"Process exited with code {returncode}\")\n            # Truncate details if very long\n            if len(details) > 800:\n                details = details[:800] + \"... [truncated]\"\n\n            if is_required:\n                return (\n                    \"continue\",\n                    f\"AntiOS Stop Gate Ratchet: Physical test runner '{runner_name}' failed with exit code {returncode}.\\n\"\n                    f\"Details:\\n{details}\\n\"\n                    f\"In accordance with Constitutional Invariant 4, all tests must pass before concluding.\"\n                )\n\n    return \"approve\", None\n\n\ndef main() -> None:\n    try:\n        raw_input = sys.stdin.read()\n        if not raw_input.strip():\n            output_decision(\"continue\", \"AntiOS Stop Gate: Empty input received on stdin. Failing closed.\")\n            return\n\n        input_data = json.loads(raw_input)\n        decision, reason = evaluate_stop_gate(input_data)\n        output_decision(decision, reason)\n\n    except Exception as e:\n        # Strict fail-closed on any unhandled exception\n        output_decision(\"continue\", f\"AntiOS Stop Gate internal error: {str(e)}. Failing closed.\")\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    ".antios/project_anatomy.json": "{\n  \"project_name\": \"vibeaudio-main\",\n  \"root_path\": \"c:\\\\users\\\\suraj\\\\documents\\\\antigravity\\\\vibeaudio-main\\\\vibeaudio-main\",\n  \"archetype\": \"STANDALONE_CLI\",\n  \"languages\": [\n    \"TypeScript / JavaScript\"\n  ],\n  \"frameworks\": [],\n  \"package_manifests\": [\n    {\n      \"path\": \"package.json\",\n      \"manifest_type\": \"npm\",\n      \"lockfile_present\": true,\n      \"lockfile_path\": \"package-lock.json\",\n      \"members\": [],\n      \"declared_scripts\": {\n        \"test\": \"node --test tests/\",\n        \"test:all\": \"node --test tests/ && node tools/test-reliability.mjs && node tools/test-phase2-pwa.mjs\"\n      },\n      \"has_build_target\": false\n    }\n  ],\n  \"source_roots\": [],\n  \"test_roots\": [\n    \"tests\"\n  ],\n  \"test_runners\": [\n    {\n      \"name\": \"node-test-runner\",\n      \"manifest_path\": \"package.json\",\n      \"command\": [\n        \"npm\",\n        \"test\"\n      ],\n      \"timeout_seconds\": 90,\n      \"required\": true,\n      \"cwd\": null,\n      \"is_available_in_path\": true\n    }\n  ],\n  \"build_systems\": [],\n  \"package_managers\": [\n    \"npm\"\n  ],\n  \"application_entrypoints\": [\n    {\n      \"path\": \"index.js\",\n      \"type\": \"MODULE_MAIN\"\n    }\n  ],\n  \"executable_entrypoints\": [],\n  \"major_subsystems\": [],\n  \"important_directories\": [\n    \".agents\",\n    \"docs\"\n  ],\n  \"configuration_surfaces\": [\n    \"antios.config.json\"\n  ],\n  \"public_interfaces\": [\n    \"index.js\"\n  ],\n  \"dependency_relationships\": [],\n  \"documentation_surfaces\": [\n    \"README.md\",\n    \"docs/ACTIVE_CONTEXT.md\"\n  ],\n  \"agent_facing_configuration\": {\n    \"has_agents_directory\": true,\n    \"has_hooks\": true,\n    \"has_instructions\": true\n  },\n  \"existing_agents_structure\": {\n    \"skills\": [\n      \"antios\",\n      \"antios-adapt-project\",\n      \"antios-debug\",\n      \"antios-engineer\",\n      \"antios-verifier\"\n    ],\n    \"skills_count\": 5,\n    \"custom_agents\": []\n  },\n  \"ownership_signals\": {\n    \"declared_owner\": null,\n    \"source\": \"UNKNOWN\",\n    \"codeowners_present\": false\n  },\n  \"epistemic_ledger\": {\n    \"OBSERVED\": [\n      {\n        \"fact\": \"Manifest 'package.json' detected\",\n        \"source\": \"package.json\",\n        \"witness_type\": \"FILE_EXISTENCE\",\n        \"lockfile_present\": true\n      },\n      {\n        \"fact\": \"Test root 'tests/' detected\",\n        \"source\": \"tests\",\n        \"witness_type\": \"DIR_EXISTENCE\"\n      },\n      {\n        \"fact\": \"Config surface 'antios.config.json' detected\",\n        \"source\": \"antios.config.json\",\n        \"witness_type\": \"FILE_EXISTENCE\"\n      },\n      {\n        \"fact\": \"Existing agent skills detected: antios, antios-adapt-project, antios-debug, antios-engineer, antios-verifier\",\n        \"source\": \".agents/skills/\",\n        \"witness_type\": \"DIR_SCAN\"\n      },\n      {\n        \"fact\": \"Test runner 'node-test-runner' discovered with command 'npm test'\",\n        \"source\": \"package.json\",\n        \"witness_type\": \"MANIFEST_KEY\"\n      }\n    ],\n    \"INFERRED\": [],\n    \"UNKNOWN\": [\n      {\n        \"field_name\": \"ownership_signals.codeowners\",\n        \"reason\": \"No CODEOWNERS file witnessed in repository root or .github/\",\n        \"required_action\": \"Rely on package manifest author or commit history heuristic\"\n      }\n    ]\n  },\n  \"provenance\": {\n    \"generator\": \"AntiOS ProjectAnatomyCompiler v2.0.0\",\n    \"generated_at\": \"2026-09-08T10:08:38.056981+00:00\",\n    \"manifest_fingerprint\": \"962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4\",\n    \"epistemic_state\": \"PARTIALLY_OBSERVED\",\n    \"confidence\": 0.92\n  },\n  \"manifest_fingerprint\": \"962b16d3ae9b09ba5406be6eebc8d76ab41d5231b5c12012cd4713fc393293d4\"\n}",
+    ".antios/tool_policy.json": "{\n  \"tier_preference\": [\n    \"NATIVE\",\n    \"SCRIPT\",\n    \"PROJECT\",\n    \"EXTERNAL\",\n    \"SERVICE\",\n    \"MCP\"\n  ],\n  \"configured_runners\": [\n    {\n      \"name\": \"node-test-runner\",\n      \"manifest\": \"package.json\",\n      \"scripts\": [],\n      \"default_command\": [\n        \"npm\",\n        \"test\"\n      ],\n      \"timeout_seconds\": 90,\n      \"cwd\": null,\n      \"required\": true,\n      \"scope\": \"workspace\",\n      \"member\": null,\n      \"__test__\": false\n    }\n  ],\n  \"linters\": [],\n  \"policies\": {\n    \"fail_closed\": true,\n    \"enforce_working_tree_cleanliness\": true,\n    \"enforce_same_change_set\": true\n  }\n}",
+    ".antios/agent_topology.json": "{\n  \"project_name\": \"vibeaudio-main\",\n  \"primary_role\": \"role:primary-engineer\",\n  \"allow_delegation\": true,\n  \"max_depth\": 2,\n  \"canonical_roles\": [\n    \"role:primary-engineer\",\n    \"role:root-cause-debugger\",\n    \"role:independent-verifier\",\n    \"role:investigation-specialist\",\n    \"role:security-reviewer\"\n  ],\n  \"specialists\": {}\n}",
+    ".agents/hooks.json": "{\n  \"antios-guard\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"write_to_file|replace_file_content\",\n        \"hooks\": [\n          {\n            \"type\": \"command\",\n            \"command\": \"python .antios/runtime/pre_tool_guard.py\"\n          }\n        ]\n      }\n    ],\n    \"Stop\": [\n      {\n        \"type\": \"command\",\n        \"command\": \"python .antios/runtime/stop_gate.py\"\n      }\n    ]\n  }\n}",
+    "antios.config.json": "{\n  \"version\": \"1.0\",\n  \"name\": \"AntiOS-vibeaudio-main-Adapter\",\n  \"protected_zones\": [\n    \".agents\",\n    \"framework\",\n    \".antios\"\n  ],\n  \"protected_domain_paths\": [],\n  \"forbidden_patterns\": [],\n  \"test_runners\": [\n    {\n      \"name\": \"node-test-runner\",\n      \"manifest\": \"package.json\",\n      \"scripts\": [],\n      \"default_command\": [\n        \"npm\",\n        \"test\"\n      ],\n      \"timeout_seconds\": 90,\n      \"cwd\": null,\n      \"required\": true,\n      \"scope\": \"workspace\",\n      \"member\": null,\n      \"__test__\": false\n    }\n  ],\n  \"linters\": [],\n  \"policies\": {\n    \"fail_closed\": true,\n    \"enforce_working_tree_cleanliness\": true,\n    \"enforce_same_change_set\": true\n  },\n  \"changeset\": {\n    \"enabled\": true,\n    \"code_patterns\": [\n      \"*.py\",\n      \"*.ts\",\n      \"*.js\",\n      \"*.tsx\",\n      \"*.jsx\",\n      \"*.rs\",\n      \"*.go\",\n      \"*.c\",\n      \"*.cpp\",\n      \"*.java\",\n      \"*.dart\"\n    ],\n    \"doc_patterns\": [\n      \"docs/**\",\n      \"*.md\",\n      \"doc/**\"\n    ],\n    \"test_patterns\": [\n      \"tests/**\",\n      \"test/**\",\n      \"*_test.*\",\n      \"*test.*\",\n      \"*.spec.*\",\n      \"tests/*\"\n    ],\n    \"state_patterns\": [\n      \"docs/ACTIVE_CONTEXT.md\",\n      \"ACTIVE_CONTEXT.md\"\n    ],\n    \"require_tests_on_code_change\": true,\n    \"require_docs_on_code_change\": false,\n    \"require_state_on_code_change\": false,\n    \"audit_documentation_references\": true\n  },\n  \"manifest_fingerprint\": \"\",\n  \"components\": {},\n  \"capabilities\": {},\n  \"agent_topology\": {},\n  \"data_dir\": \"C:\\\\Users\\\\Suraj\\\\Documents\\\\Antigravity\\\\Os-Collection\",\n  \"telemetry\": {\n    \"enabled\": true,\n    \"mode\": \"ON\"\n  }\n}"
+  }
+}
