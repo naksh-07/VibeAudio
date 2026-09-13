@@ -17,9 +17,52 @@ export default {
 
     if (!targetUrl) return new Response("URL parameter missing", { status: 400 });
 
+    let target;
+    try {
+      target = new URL(targetUrl);
+    } catch (e) {
+      return new Response("Malformed URL", { status: 400 });
+    }
+
+    if (target.protocol !== "https:") {
+      return new Response("Forbidden protocol", { status: 403 });
+    }
+
+    if (target.username || target.password) {
+      return new Response("Forbidden credentials", { status: 403 });
+    }
+
+    const hostname = target.hostname;
+
+    const isAllowedHost =
+      hostname === "media.vibeaudio.com" ||
+      hostname === "archive.org" ||
+      hostname.endsWith(".archive.org") ||
+      hostname.endsWith(".r2.cloudflarestorage.com");
+
+    if (!isAllowedHost) {
+      return new Response("Forbidden hostname", { status: 403 });
+    }
+
+    const allowedHeaders = [
+      "range",
+      "if-range",
+      "if-none-match",
+      "if-modified-since",
+      "accept"
+    ];
+
+    const proxyHeaders = new Headers();
+    for (const [key, value] of request.headers) {
+      if (allowedHeaders.includes(key.toLowerCase())) {
+        proxyHeaders.set(key, value);
+      }
+    }
+
     // Asli file fetch karo
-    const response = await fetch(targetUrl, {
-      headers: request.headers // Range headers pass karo seeking ke liye
+    const response = await fetch(target.toString(), {
+      headers: proxyHeaders, // Range headers pass karo seeking ke liye
+      redirect: 'manual'
     });
 
     // Naya response banao headers ke sath
