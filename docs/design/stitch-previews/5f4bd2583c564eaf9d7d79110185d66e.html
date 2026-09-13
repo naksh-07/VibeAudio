@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeAudio — Distraction-Free Personal Audiobook Sanctuary</title>
+<!-- Fonts: Newsreader (Editorial Serif), Inter (Sans), JetBrains Mono (Timecodes) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with form & container query plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Mandatory Tailwind Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary": "#ffffff",
+            "secondary-container": "#e0dfe4",
+            "primary-fixed": "#ffdbcd",
+            "on-error-container": "#93000a",
+            "surface": "#FFFFFF",
+            "text-tertiary": "#86868B",
+            "surface-tertiary": "#E5E5EA",
+            "on-secondary": "#ffffff",
+            "secondary": "#5e5e63",
+            "surface-variant": "#f5ded5",
+            "on-tertiary-fixed": "#001a41",
+            "surface-secondary": "#F2F2F7",
+            "on-secondary-fixed": "#1a1b1f",
+            "on-primary-fixed-variant": "#7c2e00",
+            "text-muted": "#AEAEB2",
+            "outline": "#8c7166",
+            "primary": "#C64E00",
+            "surface-tint": "#a23f00",
+            "tertiary-fixed-dim": "#adc6ff",
+            "inverse-on-surface": "#ffede7",
+            "on-tertiary-fixed-variant": "#004494",
+            "success": "#248A3D",
+            "surface-container-highest": "#f5ded5",
+            "on-surface-variant": "#584238",
+            "surface-container": "#ffe9e1",
+            "secondary-fixed": "#e3e2e7",
+            "surface-container-low": "#fff1ec",
+            "on-primary-fixed": "#360f00",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#251913",
+            "on-background": "#251913",
+            "canvas": "#F5F5F7",
+            "error-container": "#ffdad6",
+            "warning": "#C96E00",
+            "primary-fixed-dim": "#ffb595",
+            "error": "#D70015",
+            "outline-variant": "#e0c0b3",
+            "on-primary-container": "#fffaff",
+            "tertiary-fixed": "#d8e2ff",
+            "inverse-primary": "#ffb595",
+            "surface-bright": "#fff8f6",
+            "primary-container": "#c64e00",
+            "on-secondary-fixed-variant": "#46464b",
+            "inverse-surface": "#3b2d27",
+            "tertiary-container": "#006feb",
+            "on-tertiary": "#ffffff",
+            "background": "#fff8f6",
+            "surface-container-high": "#fbe3da",
+            "secondary-fixed-dim": "#c7c6cb",
+            "text-secondary": "#6E6E73",
+            "on-error": "#ffffff",
+            "surface-dim": "#edd5cc",
+            "text-primary": "#1D1D1F",
+            "on-tertiary-container": "#fcfbff",
+            "tertiary": "#0057bc",
+            "primary-hover": "#A84200",
+            "on-secondary-container": "#626267",
+            "primary-active": "#8F3900"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xxl": "48px",
+            "space-xl": "32px",
+            "space-sm": "8px",
+            "space-md": "16px",
+            "space-lg": "24px",
+            "space-xs": "4px",
+            "margin": "24px",
+            "gutter": "16px"
+          },
+          "fontFamily": {
+            "title-card": ["Inter"],
+            "display-hero": ["Newsreader"],
+            "label-author": ["Inter"],
+            "body-medium": ["Inter"],
+            "title-shelf": ["Inter"],
+            "title-player": ["Newsreader"],
+            "label-timecode": ["JetBrains Mono"],
+            "body-standard": ["Inter"],
+            "label-kicker": ["Inter"]
+          },
+          "fontSize": {
+            "title-card": ["18px", { "lineHeight": "1.20", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display-hero": ["48px", { "lineHeight": "1.06", "letterSpacing": "-0.035em", "fontWeight": "600" }],
+            "label-author": ["14px", { "lineHeight": "1.40", "letterSpacing": "0", "fontWeight": "500" }],
+            "body-medium": ["15px", { "lineHeight": "1.50", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "title-shelf": ["22px", { "lineHeight": "1.18", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "title-player": ["36px", { "lineHeight": "1.10", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "label-timecode": ["13px", { "lineHeight": "1.20", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-standard": ["15px", { "lineHeight": "1.60", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "label-kicker": ["11px", { "lineHeight": "1.10", "letterSpacing": "0.12em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-shadow-ambient {
+      box-shadow: 0 16px 36px -12px rgba(29, 29, 31, 0.06), 0 4px 16px -4px rgba(29, 29, 31, 0.03);
+    }
+    .custom-shadow-soft {
+      box-shadow: 0 8px 24px -8px rgba(29, 29, 31, 0.05);
+    }
+  </style>
+</head>
+<body class="bg-canvas text-text-primary antialiased selection:bg-primary-fixed selection:text-primary-active min-h-screen flex flex-col font-body-standard text-body-standard">
+<!-- ========================================================================= -->
+<!-- 1. TOP NAVIGATION BAR (Anchored from Shared Components JSON)              -->
+<!-- ========================================================================= -->
+<header class="bg-surface/80 backdrop-blur-md dark:bg-inverse-surface/80 docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center w-full px-6 md:px-margin max-w-7xl mx-auto h-20">
+<!-- Brand Wordmark -->
+<a class="font-display-hero text-title-shelf font-semibold text-text-primary dark:text-inverse-on-surface tracking-tight hover:opacity-90 transition-opacity flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-primary" data-icon="headphones">headphones</span>
+<span>VibeAudio</span>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-inverse-primary font-medium border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-author text-label-author" href="#experience">
+          Experience
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 font-label-author text-label-author transition-colors duration-200" href="#library">
+          Library
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 font-label-author text-label-author transition-colors duration-200" href="#sanctuary">
+          Sound Sanctuary
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 font-label-author text-label-author transition-colors duration-200" href="#journal">
+          Journal
+        </a>
+</nav>
+<!-- Trailing Actions: Icon & Pill Primary Button -->
+<div class="flex items-center gap-4">
+<button aria-label="Audio settings" class="p-2 text-text-secondary hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-200" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="headphones">headphones</span>
+</button>
+<a class="bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary font-label-author text-label-author font-medium px-5 py-2.5 rounded-full transition-all duration-200 ease-out active:scale-95 shadow-sm" href="#join">
+          Begin Listening
+        </a>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- ========================================================================= -->
+<!-- 2. EDITORIAL HERO SECTION                                                 -->
+<!-- ========================================================================= -->
+<section class="max-w-7xl mx-auto px-6 md:px-margin pt-12 md:pt-20 pb-16 md:pb-24" id="experience">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+<!-- Left Editorial Column -->
+<div class="lg:col-span-6 space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-surface-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-kicker text-label-kicker text-text-secondary uppercase">
+              A DISTRACTION-FREE SANCTUARY
+            </span>
+</div>
+<h1 class="font-display-hero text-display-hero text-text-primary leading-[1.08] tracking-tight">
+            The luxury of listening without interruptions.
+          </h1>
+<p class="font-body-standard text-body-standard text-text-secondary max-w-xl text-base leading-relaxed">
+            Immerse yourself in world-class narrations, masterfully mastered audio, and an interface crafted like an airy private library. No gamified badges, no ads, no noisy storefronts.
+          </p>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+<a class="bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary font-label-author text-label-author px-7 py-3.5 rounded-full text-center transition-all duration-200 ease-out active:scale-95 shadow-sm" href="#join">
+              Start 30-Day Sanctuary Pass
+            </a>
+<a class="bg-surface-secondary hover:bg-surface-tertiary text-text-primary font-label-author text-label-author px-6 py-3.5 rounded-full flex items-center justify-center gap-2 transition-all duration-200" href="#player-preview">
+<span class="material-symbols-outlined text-lg text-primary" data-icon="play_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+              Preview Sound Library
+            </a>
+</div>
+<div class="pt-6 flex items-center gap-6 text-text-tertiary font-label-author text-xs">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-success" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              Lossless Master Audio
+            </span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-success" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              Whisper Sync Offline
+            </span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base text-success" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              No Algorithmic Feeds
+            </span>
+</div>
+</div>
+<!-- Right Asymmetric Artifact Showcase -->
+<div class="lg:col-span-6 relative flex flex-col items-center">
+<!-- Background Editorial Framing Glow -->
+<div class="absolute -inset-4 bg-surface-container-low rounded-3xl -z-10 opacity-70 transform rotate-1"></div>
+<!-- Featured Hardcover Artifact (2:3 Proportion Card) -->
+<div class="w-full max-w-sm bg-surface rounded-2xl p-5 custom-shadow-ambient relative">
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative shadow-inner bg-surface-secondary">
+<img class="w-full h-full object-cover" data-alt="A minimalist architectural book cover for The Silent Horizon by Clara Vance, showing quiet stone monolithic forms bathed in soft Mediterranean sunrise lighting. The artwork relies on muted warm travertine hues, creamy whites, and deep terracotta ochre. The overall atmosphere is pristine, literary, and deeply calm, matching a high-end editorial book cover aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSlrrKRGH8eOmnSTvtnFTIqVRGHxohRpdHdU7ACP1eab7oBKd5g6vsMxfuIL0_-tsfbxfGycKlGmptQE_PbBfWGKCgfn3LD100NTrIq2slIkVN5r393omf7D_L6BnjPGfvLoBQ3Gas7n4Fj6kY1gGuTE88s69VRSMlwtmiYv3QmakOLRfjySjW0eqsNOThvUOvMvAbLo99pX6Py8iSurXYhAEt2lnTHKvcRKHK_GIlpuk-GDYHEg0rTn550uixvN7OTZI3NkDLUxQ"/>
+<div class="absolute top-3 right-3 bg-surface/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-text-primary font-label-timecode text-label-timecode shadow-sm">
+                48:15 Remainder
+              </div>
+</div>
+<!-- Embedded Live Transport Scrub Deck -->
+<div class="mt-5 space-y-3">
+<div class="flex justify-between items-baseline">
+<div>
+<h2 class="font-title-player text-xl text-text-primary font-semibold tracking-tight">The Silent Horizon</h2>
+<p class="font-label-author text-label-author text-text-secondary">Clara Vance · Read by Rosalind Ayers</p>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-secondary text-text-secondary font-label-timecode text-xs font-semibold">
+                  1.0x
+                </span>
+</div>
+<!-- 6px Terracotta Audio Scrubber -->
+<div class="space-y-1.5">
+<div class="w-full bg-surface-tertiary h-1.5 rounded-full overflow-hidden cursor-pointer relative group">
+<div class="bg-primary h-full rounded-full transition-all duration-300" style="width: 22%;"></div>
+</div>
+<div class="flex justify-between font-label-timecode text-label-timecode text-text-tertiary">
+<span>08:42</span>
+<span>48:15</span>
+</div>
+</div>
+<!-- Tactical Micro Controls -->
+<div class="flex items-center justify-between pt-2">
+<button aria-label="Sleep timer 30 minutes" class="flex items-center gap-1 text-text-secondary hover:text-text-primary text-xs font-label-author transition-colors" type="button">
+<span class="material-symbols-outlined text-base" data-icon="bedtime">bedtime</span>
+<span>30m Timer</span>
+</button>
+<div class="flex items-center gap-3">
+<button aria-label="Skip backward 15 seconds" class="p-1.5 text-text-secondary hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="replay_10">replay_10</span>
+</button>
+<button aria-label="Pause playback" class="w-10 h-10 rounded-full bg-primary hover:bg-primary-hover text-on-primary flex items-center justify-center transition-all duration-200 shadow-sm" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="pause" data-weight="fill" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button aria-label="Skip forward 30 seconds" class="p-1.5 text-text-secondary hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="forward_30">forward_30</span>
+</button>
+</div>
+<button aria-label="Bookmark chapter" class="flex items-center gap-1 text-text-secondary hover:text-text-primary text-xs font-label-author transition-colors" type="button">
+<span class="material-symbols-outlined text-base" data-icon="bookmark">bookmark</span>
+<span>Bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 3. THE THREE TENETS (BENTO-STYLE CLEAN EDITORIAL CARDS)                   -->
+<!-- ========================================================================= -->
+<section class="bg-surface py-20 border-y border-surface-tertiary">
+<div class="max-w-7xl mx-auto px-6 md:px-margin space-y-12">
+<div class="max-w-2xl">
+<p class="font-label-kicker text-label-kicker text-primary uppercase tracking-widest">
+            Design Philosophy
+          </p>
+<h2 class="font-display-hero text-title-player text-text-primary mt-2">
+            The Three Tenets of Sanctuary
+          </h2>
+<p class="font-body-standard text-body-standard text-text-secondary mt-2">
+            Engineered solely for deep cognitive ease, quiet literature, and sustained attention.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-gutter">
+<!-- Card 1: Uncluttered Focus -->
+<div class="bg-canvas rounded-2xl p-8 space-y-5 border border-surface-tertiary hover:border-text-muted transition-colors duration-200">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-2xl" data-icon="do_not_disturb_on">do_not_disturb_on</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-shelf text-title-shelf text-text-primary">Uncluttered Focus</h3>
+<p class="font-body-standard text-body-standard text-text-secondary leading-relaxed">
+                Zero algorithmic ads, banner promotions, or aggressive badges. Your bookshelf remains a dignified sanctuary for pure literary contemplation without commercial clamor.
+              </p>
+</div>
+<ul class="space-y-2 pt-2 border-t border-surface-tertiary text-xs font-label-author text-text-secondary">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="check">check</span>
+                Clean typography over flashing cover badges
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="check">check</span>
+                Quiet library view with custom shelf tags
+              </li>
+</ul>
+</div>
+<!-- Card 2: Acoustic Clarity -->
+<div class="bg-canvas rounded-2xl p-8 space-y-5 border border-surface-tertiary hover:border-text-muted transition-colors duration-200">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-2xl" data-icon="graphic_eq">graphic_eq</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-shelf text-title-shelf text-text-primary">Acoustic Clarity</h3>
+<p class="font-body-standard text-body-standard text-text-secondary leading-relaxed">
+                Lossless spatial sound staging calibrated specifically for vocal intimacy. Savor breath, subtle cadence, and quiet pauses exactly as performed in studio.
+              </p>
+</div>
+<ul class="space-y-2 pt-2 border-t border-surface-tertiary text-xs font-label-author text-text-secondary">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="check">check</span>
+                24-bit / 96kHz lossless speech mastering
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="check">check</span>
+                Natural human sibilance attenuation
+              </li>
+</ul>
+</div>
+<!-- Card 3: Effortless Resonance -->
+<div class="bg-canvas rounded-2xl p-8 space-y-5 border border-surface-tertiary hover:border-text-muted transition-colors duration-200">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-2xl" data-icon="sync">sync</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-shelf text-title-shelf text-text-primary">Effortless Resonance</h3>
+<p class="font-body-standard text-body-standard text-text-secondary leading-relaxed">
+                Seamless whisper synchronization across your desktop workstation, mobile pocket reader, and bedside tablet with fully encrypted offline storage.
+              </p>
+</div>
+<ul class="space-y-2 pt-2 border-t border-surface-tertiary text-xs font-label-author text-text-secondary">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="check">check</span>
+                Instant millisecond state resume
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="check">check</span>
+                Complete local device offline library cache
+              </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 4. CURATED SANCTUARY SHELF (AUTHENTIC 2:3 BOOK CARDS)                     -->
+<!-- ========================================================================= -->
+<section class="max-w-7xl mx-auto px-6 md:px-margin py-20 space-y-10" id="library">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-surface-tertiary pb-6">
+<div>
+<p class="font-label-kicker text-label-kicker text-primary uppercase">Editorial Curation</p>
+<h2 class="font-display-hero text-title-player text-text-primary mt-1">
+            Hand-Selected for Mindful Listening
+          </h2>
+<p class="font-body-standard text-body-standard text-text-secondary mt-1">
+            Narrations of quiet depth, philosophical memoirs, and transportive prose.
+          </p>
+</div>
+<a class="inline-flex items-center gap-1.5 font-label-author text-label-author text-primary hover:text-primary-hover transition-colors font-medium" href="#catalog">
+<span>Explore Entire Catalog</span>
+<span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<!-- 4-Column Book Catalog Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Book Card 1 -->
+<article class="group bg-surface rounded-2xl p-4 custom-shadow-soft hover:custom-shadow-ambient transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-3">
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden bg-surface-secondary relative shadow-inner">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A tranquil book cover design featuring abstract layered mountain silhouettes bathed in diffuse morning fog and muted slate blue tones. Minimal clean typography in high-contrast editorial serif, evoking a contemplative Nordic morning landscape with serene stillness and sophisticated print quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwzRFUleXw52Q075VLWm5TnobrrqO85N5TmJkLSSQwu8Abl_cxDaqM9SefyqTGZ-QUE2nSdnlQArlFp4CiuUloY3yIoUfSpBRc7NxIK_gfoqJzw7l5O52ySzFLiYeb2roV-0gJzFO-wizESL-QfgbXXtwuOJJw6dNRIftADvuXuIoU1fF5rYya1UrPMLAAHBwtwXIh8gvyN7RW4OUJ_ImFwo7IvpPshAKfF71cY714MpT63YC_d76MpCKwCbsnJ7LlLS154zJhU3g"/>
+<div class="absolute bottom-2.5 left-2.5 bg-surface/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-xs font-label-timecode text-text-secondary">
+                11h 24m
+              </div>
+</div>
+<div>
+<h3 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">
+                Solitude and Mist
+              </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">
+                Henrik Vang · Narrated by Julian Mercer
+              </p>
+</div>
+</div>
+<div class="pt-4 mt-3 border-t border-surface-secondary flex items-center justify-between text-xs text-text-tertiary">
+<span class="font-label-timecode">Philosophy</span>
+<button aria-label="Listen to sample of Solitude and Mist" class="text-primary hover:text-primary-hover font-medium flex items-center gap-1 font-label-author" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span> Sample
+            </button>
+</div>
+</article>
+<!-- Book Card 2 -->
+<article class="group bg-surface rounded-2xl p-4 custom-shadow-soft hover:custom-shadow-ambient transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-3">
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden bg-surface-secondary relative shadow-inner">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A delicate book cover illustration displaying a minimalist botanical branch against an ivory handmade linen paper background. The color palette features sage greens, earthen umber, and warm graphite typography. The composition is calm, organic, and elegant, embodying an introspective natural history essay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaQs_gRtysx_7M2NAca2bbjXDrEr00_N-bMQEASvdKDcHTfmdrMq9mgMmboIxZRVnZUxim13LCXDJP76SiXP5HMgESaj082I41MnsPowj6c87GSbMs109E2W-mAYND5G08XM55ilEH_1EpWoVdWykMVO1_65UTFiAHToXvmEDiGMT4FJuSsHyATVOri_YslSYX0Z8ebkTF63T4vKnFYyq5hhwBTRdDpqrEnT40C0-sZxYrduBS5zK0ia-AiQUkjDQDKesAhjKo_1E"/>
+<div class="absolute bottom-2.5 left-2.5 bg-surface/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-xs font-label-timecode text-text-secondary">
+                8h 40m
+              </div>
+</div>
+<div>
+<h3 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">
+                The Architecture of Quiet
+              </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">
+                Elena Rostova · Narrated by Fiona Shaw
+              </p>
+</div>
+</div>
+<div class="pt-4 mt-3 border-t border-surface-secondary flex items-center justify-between text-xs text-text-tertiary">
+<span class="font-label-timecode">Design &amp; Mind</span>
+<button aria-label="Listen to sample of The Architecture of Quiet" class="text-primary hover:text-primary-hover font-medium flex items-center gap-1 font-label-author" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span> Sample
+            </button>
+</div>
+</article>
+<!-- Book Card 3 -->
+<article class="group bg-surface rounded-2xl p-4 custom-shadow-soft hover:custom-shadow-ambient transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-3">
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden bg-surface-secondary relative shadow-inner">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A book cover artwork featuring a warm terracotta and sand-toned abstract geometric composition reminiscent of brutalist desert architecture under gentle golden hour light. The typography is modern and refined with an understated editorial presence and generous negative space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzacbQvPOhqMjlqtU8P1FMmyAi9gYVr7StDpMkqqR08vhxqaeTHzug1oL_WyGEwPxQC1yYWnOePqw68uNWvSHy5MWX-XRgpgxIsWOxhZjHb_T6LjvaPRUtJbBbRkWxXTwqNstjJWFj9SHdXQlNn9bFsHHsbvYa7Oxichol6x9WmPrRyatPpBfTgJBvV5IZ6ZTzCfgF7uWx123y2iBWDBWEk271ZTzHnq9h3PQPyNEYr1axp5EfizG_IBHSyiHsLx3ztl1Z92Ga4-Y"/>
+<div class="absolute bottom-2.5 left-2.5 bg-surface/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-xs font-label-timecode text-text-secondary">
+                14h 12m
+              </div>
+</div>
+<div>
+<h3 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">
+                Letters from the Dry Coast
+              </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">
+                Mateo Silva · Narrated by Carlos Diaz
+              </p>
+</div>
+</div>
+<div class="pt-4 mt-3 border-t border-surface-secondary flex items-center justify-between text-xs text-text-tertiary">
+<span class="font-label-timecode">Memoir</span>
+<button aria-label="Listen to sample of Letters from the Dry Coast" class="text-primary hover:text-primary-hover font-medium flex items-center gap-1 font-label-author" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span> Sample
+            </button>
+</div>
+</article>
+<!-- Book Card 4 -->
+<article class="group bg-surface rounded-2xl p-4 custom-shadow-soft hover:custom-shadow-ambient transition-all duration-300 flex flex-col justify-between">
+<div class="space-y-3">
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden bg-surface-secondary relative shadow-inner">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="An atmospheric book cover showing deep indigo waters gently rippling beneath a soft crescent moon in a midnight sky. Rich velvety navies, silvery reflections, and crisp white typography create an intimate, nocturnal meditative mood with impeccable print publishing refinement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADQjAgtCLDKNcSKJT9N4x0x5j5LrWYwBG9lmneXktBTbODyVjGfHHofXXiJ5xGxyGCEmBoSjqH_K8uFX4-ZV6il0y_e2InxzYa4zATrIoq8fRyb0qOLZ_4cvoVWxis_7DNqAEe661WdYXlFhmv_qIT3Z5nEZ6NLVSId4flURHL8TZC8FIUhnKPhWQCMghOG85bLkXm1RfI9GUhGdIUAZ091M4GrsyloTcpZPLx0KAXLjtEsZ6mBHCUzGfvlfUgntsC1B_jxorxTNQ"/>
+<div class="absolute bottom-2.5 left-2.5 bg-surface/90 backdrop-blur-sm px-2 py-0.5 rounded-md text-xs font-label-timecode text-text-secondary">
+                06h 52m
+              </div>
+</div>
+<div>
+<h3 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">
+                Night Passage
+              </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">
+                Astrid Lind · Narrated by Greta Lindqvist
+              </p>
+</div>
+</div>
+<div class="pt-4 mt-3 border-t border-surface-secondary flex items-center justify-between text-xs text-text-tertiary">
+<span class="font-label-timecode">Poetry &amp; Essay</span>
+<button aria-label="Listen to sample of Night Passage" class="text-primary hover:text-primary-hover font-medium flex items-center gap-1 font-label-author" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span> Sample
+            </button>
+</div>
+</article>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 5. INTERACTIVE SOUND PREVIEW CALLOUT (TACTILE SANCTUARY DECK)              -->
+<!-- ========================================================================= -->
+<section class="bg-surface py-20 border-y border-surface-tertiary" id="sanctuary">
+<div class="max-w-7xl mx-auto px-6 md:px-margin">
+<div class="bg-canvas rounded-3xl p-8 md:p-14 border border-surface-tertiary">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<div class="lg:col-span-5 space-y-4">
+<p class="font-label-kicker text-label-kicker text-primary uppercase">Tactile Soundstage</p>
+<h2 class="font-display-hero text-title-player text-text-primary">
+                Layer ambient soundscapes beneath any book.
+              </h2>
+<p class="font-body-standard text-body-standard text-text-secondary">
+                Blend continuous natural textures beneath your reader’s voice. Create the exact psychoacoustic mood for nocturnal reading or dawn study.
+              </p>
+<div class="pt-4 space-y-3">
+<!-- Ambient preset toggles -->
+<div class="p-3.5 bg-surface rounded-xl flex items-center justify-between border border-surface-tertiary hover:border-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="rainy">rainy</span>
+<div>
+<div class="font-label-author text-label-author text-text-primary font-semibold">Gentle Cedar Rain</div>
+<div class="font-label-timecode text-xs text-text-tertiary">Field recorded in Vancouver Island</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary text-xl" data-icon="volume_up">volume_up</span>
+</div>
+<div class="p-3.5 bg-surface rounded-xl flex items-center justify-between border border-surface-tertiary hover:border-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="local_fire_department">local_fire_department</span>
+<div>
+<div class="font-label-author text-label-author text-text-primary font-semibold">Warm Hearthfire</div>
+<div class="font-label-timecode text-xs text-text-tertiary">Dry birch crackle, low frequency hum</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-xl" data-icon="volume_off">volume_off</span>
+</div>
+<div class="p-3.5 bg-surface rounded-xl flex items-center justify-between border border-surface-tertiary hover:border-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="auto_stories">auto_stories</span>
+<div>
+<div class="font-label-author text-label-author text-text-primary font-semibold">Old Bodleian Reading Room</div>
+<div class="font-label-timecode text-xs text-text-tertiary">Distant page turns, historic room tone</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-xl" data-icon="volume_off">volume_off</span>
+</div>
+</div>
+</div>
+<!-- Visual Tactile Mixing Deck -->
+<div class="lg:col-span-7 bg-surface rounded-2xl p-6 md:p-8 custom-shadow-ambient border border-surface-tertiary space-y-6">
+<div class="flex justify-between items-center pb-4 border-b border-surface-secondary">
+<div>
+<span class="font-label-kicker text-label-kicker text-text-secondary uppercase">Sanctuary Mixer</span>
+<div class="font-title-card text-title-card text-text-primary">Dual Voice &amp; Atmospheric Channels</div>
+</div>
+<span class="px-3 py-1 bg-surface-container rounded-full text-primary font-label-timecode text-xs font-semibold">
+                  Stereo 96kHz
+                </span>
+</div>
+<!-- Narration Channel Slider -->
+<div class="space-y-2">
+<div class="flex justify-between font-label-author text-label-author">
+<span class="text-text-primary font-medium">Narrator Vocal Balance</span>
+<span class="font-label-timecode text-text-secondary">85%</span>
+</div>
+<div class="w-full bg-surface-tertiary h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%;"></div>
+</div>
+</div>
+<!-- Ambient Layer Slider -->
+<div class="space-y-2">
+<div class="flex justify-between font-label-author text-label-author">
+<span class="text-text-primary font-medium">Background Rainscape</span>
+<span class="font-label-timecode text-text-secondary">28%</span>
+</div>
+<div class="w-full bg-surface-tertiary h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full opacity-60" style="width: 28%;"></div>
+</div>
+</div>
+<!-- Literary Note Annotation Bar -->
+<div class="pt-4 border-t border-surface-secondary bg-canvas p-4 rounded-xl space-y-2">
+<div class="flex items-center justify-between text-xs text-text-tertiary font-label-timecode">
+<span class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="edit_note">edit_note</span>
+                    Marginalia Note at 08:42
+                  </span>
+<span>Chapter 3</span>
+</div>
+<p class="font-display-hero italic text-text-primary text-base">
+                  "Silence is not the absence of sound, but the presence of quiet contemplation."
+                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 6. CLOSING INVITATION SECTION                                             -->
+<!-- ========================================================================= -->
+<section class="max-w-5xl mx-auto px-6 md:px-margin py-24 text-center space-y-8" id="join">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-surface-tertiary">
+<span class="font-label-kicker text-label-kicker text-text-secondary uppercase">Private Invitation</span>
+</div>
+<h2 class="font-display-hero text-display-hero text-text-primary max-w-2xl mx-auto">
+        Step into your listening room today.
+      </h2>
+<p class="font-body-standard text-body-standard text-text-secondary max-w-xl mx-auto text-base">
+        Experience 30 days of unhurried, ad-free listening. Seamless access across all personal devices with unconditional cancellation anytime.
+      </p>
+<div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+<a class="w-full sm:w-auto bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary font-label-author text-label-author px-8 py-3.5 rounded-full transition-all duration-200 ease-out active:scale-95 shadow-sm" href="#">
+          Begin 30-Day Sanctuary Pass
+        </a>
+<a class="w-full sm:w-auto bg-surface hover:bg-surface-secondary text-text-primary border border-surface-tertiary font-label-author text-label-author px-7 py-3.5 rounded-full transition-all duration-200" href="#library">
+          Browse Featured Catalog
+        </a>
+</div>
+<p class="font-label-author text-xs text-text-tertiary pt-2">
+        $14.99/month following 30-day trial · Keep all purchased titles forever · Lossless audio standard
+      </p>
+</section>
+</main>
+<!-- ========================================================================= -->
+<!-- 7. EDITORIAL FOOTER (From Shared Components JSON)                         -->
+<!-- ========================================================================= -->
+<footer class="bg-surface-secondary dark:bg-inverse-surface border-t border-surface-tertiary">
+<div class="w-full px-6 md:px-margin max-w-7xl mx-auto py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+<!-- Logo and Copyright -->
+<div class="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+<a class="font-display-hero text-title-shelf font-semibold text-text-primary dark:text-inverse-on-surface" href="#">
+          VibeAudio
+        </a>
+<span class="hidden md:inline text-text-tertiary">|</span>
+<span class="font-body-standard text-body-standard text-text-secondary dark:text-text-muted text-sm">
+          © 2025 VibeAudio Sanctuary Inc. All rights reserved.
+        </span>
+</div>
+<!-- Footer Navigation Links -->
+<div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 text-sm font-label-author">
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#">
+          Privacy Policy
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#">
+          Terms of Sanctuary
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#">
+          Audiobook Catalog
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#">
+          Journal
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#">
+          Editorial Standards
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#">
+          Contact Concierge
+        </a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -16,7 +16,3 @@ aws/
 .DS_Store
 Thumbs.db
 *.log
-
-# Stitch temporary design previews & CLI cache
-.stitch/
-docs/design/stitch-previews/

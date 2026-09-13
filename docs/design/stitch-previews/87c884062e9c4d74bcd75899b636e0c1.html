@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeAudio Sanctuary — Library</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-secondary": "#F2F2F7",
+            "surface-container": "#ffe9e1",
+            "primary": "#C64E00",
+            "on-background": "#251913",
+            "on-secondary-fixed-variant": "#46464b",
+            "text-tertiary": "#86868B",
+            "surface-container-low": "#fff1ec",
+            "tertiary-fixed": "#d8e2ff",
+            "surface-variant": "#f5ded5",
+            "inverse-on-surface": "#ffede7",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#1a1b1f",
+            "inverse-primary": "#ffb595",
+            "surface-container-highest": "#f5ded5",
+            "on-primary": "#ffffff",
+            "surface-tint": "#a23f00",
+            "error": "#D70015",
+            "secondary-fixed-dim": "#c7c6cb",
+            "surface": "#FFFFFF",
+            "on-secondary-container": "#626267",
+            "outline-variant": "#e0c0b3",
+            "surface-dim": "#edd5cc",
+            "tertiary-fixed-dim": "#adc6ff",
+            "on-secondary": "#ffffff",
+            "primary-active": "#8F3900",
+            "surface-container-high": "#fbe3da",
+            "primary-container": "#c64e00",
+            "on-primary-fixed-variant": "#7c2e00",
+            "text-muted": "#AEAEB2",
+            "warning": "#C96E00",
+            "success": "#248A3D",
+            "tertiary-container": "#006feb",
+            "surface-tertiary": "#E5E5EA",
+            "canvas": "#F5F5F7",
+            "primary-hover": "#A84200",
+            "text-primary": "#1D1D1F",
+            "on-error": "#ffffff",
+            "inverse-surface": "#3b2d27",
+            "secondary-fixed": "#e3e2e7",
+            "surface-bright": "#fff8f6",
+            "on-tertiary-fixed-variant": "#004494",
+            "on-tertiary-fixed": "#001a41",
+            "on-primary-container": "#fffaff",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#ffdbcd",
+            "on-primary-fixed": "#360f00",
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#e0dfe4",
+            "secondary": "#5e5e63",
+            "text-secondary": "#6E6E73",
+            "on-tertiary-container": "#fcfbff",
+            "tertiary": "#0057bc",
+            "on-surface": "#251913",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#ffb595",
+            "outline": "#8c7166",
+            "on-surface-variant": "#584238",
+            "background": "#fff8f6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "0.875rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "16px",
+            "space-sm": "8px",
+            "space-lg": "24px",
+            "margin": "24px",
+            "space-xxl": "48px",
+            "space-md": "16px",
+            "space-xl": "32px",
+            "space-xs": "4px"
+          },
+          "fontFamily": {
+            "title-shelf": ["Inter", "sans-serif"],
+            "label-author": ["Inter", "sans-serif"],
+            "display-hero": ["Newsreader", "serif"],
+            "title-card": ["Inter", "sans-serif"],
+            "body-medium": ["Inter", "sans-serif"],
+            "body-standard": ["Inter", "sans-serif"],
+            "title-player": ["Newsreader", "serif"],
+            "label-kicker": ["Inter", "sans-serif"],
+            "label-timecode": ["JetBrains Mono", "monospace"]
+          },
+          "fontSize": {
+            "title-shelf": ["22px", { "lineHeight": "1.18", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-author": ["14px", { "lineHeight": "1.40", "letterSpacing": "0", "fontWeight": "500" }],
+            "display-hero": ["48px", { "lineHeight": "1.06", "letterSpacing": "-0.035em", "fontWeight": "600" }],
+            "title-card": ["18px", { "lineHeight": "1.20", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-medium": ["15px", { "lineHeight": "1.50", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-standard": ["15px", { "lineHeight": "1.60", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "title-player": ["36px", { "lineHeight": "1.10", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "label-kicker": ["11px", { "lineHeight": "1.10", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "label-timecode": ["13px", { "lineHeight": "1.20", "letterSpacing": "0.02em", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Subtle 2:3 aspect ratio containment with tactile spine effect */
+    .book-cover-shadow {
+      box-shadow: 0 4px 20px -2px rgba(29, 29, 31, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .book-cover-shadow:hover {
+      box-shadow: 0 12px 30px -4px rgba(29, 29, 31, 0.14), 0 4px 8px rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+<body class="bg-canvas text-text-primary antialiased min-h-screen pb-36 selection:bg-surface-container selection:text-primary">
+<!-- TopNavBar (Shared Component Anchor) -->
+<header class="bg-surface/80 backdrop-blur-md dark:bg-inverse-surface/80 docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center w-full px-6 md:px-margin max-w-7xl mx-auto h-20">
+<!-- Brand Logo Anchor -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-primary" data-icon="headphones">headphones</span>
+</div>
+<a class="font-display-hero text-title-shelf font-semibold text-text-primary dark:text-inverse-on-surface tracking-tight" href="#">
+          VibeAudio
+        </a>
+</div>
+<!-- Navigation Links: Contextually Active on 'Library' -->
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Experience
+        </a>
+<a class="text-primary dark:text-inverse-primary font-medium border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">
+          Library
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Sound Sanctuary
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Journal
+        </a>
+</nav>
+<!-- Trailing Action & Profile Cluster -->
+<div class="flex items-center gap-4">
+<!-- Sleek Search Input prefilled with 'Potter' -->
+<div class="relative hidden sm:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-text-tertiary text-[18px]" data-icon="search">search</span>
+<input class="bg-surface-secondary text-text-primary pl-9 pr-8 py-1.5 rounded-full text-sm font-body-standard focus:outline-none focus:ring-1 focus:ring-primary w-40 md:w-48 transition-all duration-200 border-0" placeholder="Search catalog..." type="text" value="Potter"/>
+<button class="absolute right-2.5 text-text-muted hover:text-text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+</button>
+</div>
+<button class="transition-all duration-200 ease-out active:scale-95 bg-primary hover:bg-primary-hover text-white rounded-full px-5 py-2 font-label-author text-label-author flex items-center gap-2 shadow-sm">
+<span>Begin Listening</span>
+</button>
+<!-- Sanctuary Profile Avatar -->
+<div class="w-9 h-9 rounded-full bg-surface-secondary ring-1 ring-black/5 flex items-center justify-center overflow-hidden cursor-pointer">
+<span class="material-symbols-outlined text-text-secondary text-lg" data-icon="person">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Sanctuary Catalog Container -->
+<main class="max-w-7xl mx-auto px-6 md:px-margin pt-10">
+<!-- Editorial Library Header -->
+<section class="flex flex-col md:flex-row md:items-end justify-between pb-8 gap-6">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">DISCOVER STORIES</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="font-label-timecode text-[11px] text-text-tertiary tracking-wider">OFFLINE ENGINE ACTIVE</span>
+</div>
+<h1 class="font-display-hero text-3xl md:text-4xl text-text-primary tracking-tight font-medium">
+          Audiobook Library
+        </h1>
+<p class="font-body-standard text-body-standard text-text-secondary mt-1">
+          Find and explore unabridged audiobooks ready for your browser.
+        </p>
+</div>
+<!-- Quick Metrics / OPFS Status Indicator -->
+<div class="flex items-center gap-3 bg-surface px-4 py-2 rounded-full border border-black/5 shadow-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+<span class="font-label-author text-xs font-semibold text-text-primary">28 Unabridged Editions</span>
+</div>
+<span class="text-text-muted">·</span>
+<span class="font-label-timecode text-xs text-text-secondary font-medium">12 Cached in OPFS</span>
+</div>
+</section>
+<!-- Genre & Status Filter Bar -->
+<section class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-10">
+<!-- Horizontal Filter Pills -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<button class="bg-primary text-white font-label-author text-xs font-medium px-4 py-1.5 rounded-full shadow-sm transition-all duration-150">
+          All
+        </button>
+<button class="bg-surface hover:bg-surface-secondary text-text-primary border border-black/5 font-label-author text-xs font-medium px-4 py-1.5 rounded-full transition-all duration-150">
+          Fiction
+        </button>
+<button class="bg-surface hover:bg-surface-secondary text-text-primary border border-black/5 font-label-author text-xs font-medium px-4 py-1.5 rounded-full transition-all duration-150">
+          Fantasy
+        </button>
+<button class="bg-surface hover:bg-surface-secondary text-text-primary border border-black/5 font-label-author text-xs font-medium px-4 py-1.5 rounded-full transition-all duration-150">
+          Philosophy
+        </button>
+<button class="bg-surface hover:bg-surface-secondary text-text-primary border border-black/5 font-label-author text-xs font-medium px-4 py-1.5 rounded-full transition-all duration-150">
+          Adventure
+        </button>
+<button class="bg-surface hover:bg-surface-secondary text-text-primary border border-black/5 font-label-author text-xs font-medium px-4 py-1.5 rounded-full transition-all duration-150">
+          Mystery
+        </button>
+<button class="bg-surface hover:bg-surface-secondary text-text-primary border border-black/5 font-label-author text-xs font-medium px-4 py-1.5 rounded-full transition-all duration-150">
+          Classics
+        </button>
+<button class="bg-surface hover:bg-surface-secondary text-text-primary border border-black/5 font-label-author text-xs font-medium px-4 py-1.5 rounded-full transition-all duration-150">
+          Self-Help
+        </button>
+</div>
+<!-- Sort Selection -->
+<div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+<button class="bg-surface hover:bg-surface-secondary text-text-secondary hover:text-text-primary text-xs font-label-author px-3.5 py-1.5 rounded-full border border-black/5 flex items-center gap-1.5 transition-colors">
+<span>Sort: Recently Added</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</section>
+<!-- 4-Column Editorial Bento Catalog Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Book Card 1 (Harry Potter) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<!-- 2:3 Cover Canvas with Soft Hairline Border -->
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img alt="Harry Potter and the Philosopher's Stone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+<!-- In OPFS Tag -->
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+<span class="font-label-timecode text-[10px] text-success font-semibold uppercase">In OPFS</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">FANTASY</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              Harry Potter &amp; the Philosopher's Stone
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              J.K. Rowling · Narrated by Stephen Fry
+            </p>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 54%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span class="font-medium text-text-primary">54%</span>
+<span>04:15:10 remaining</span>
+</div>
+</div>
+</article>
+<!-- Book Card 2 (The Great Gatsby) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<!-- 2:3 Cover Canvas -->
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img alt="The Great Gatsby" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1Vj7d6d5c8XWD_ntdhSZSX--BhgcM7QXXV6PwyO8KRoxhsHM0yDazWN1dCn-0IEpQz2CWrZmz5uNs3CK5Ar0jx3qH1w5etCdWfJd42ed2WXSLbrCly6cxEBDkBR0Xv6qgK4d7vhD5JRskhu4lQ7MEF9BnunxZs_hcUSMB3kwsarNJtwCZUgstIYZlXObmW7hVLEiwhMo8KEbLAr51tW8OTUcwvPCA1QZfYwxvYtL1VrOISKF6HiTO4yk7A"/>
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+<span class="font-label-timecode text-[10px] text-success font-semibold uppercase">In OPFS</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">CLASSIC</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              The Great Gatsby
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              F. Scott Fitzgerald · Narrated by Jake Gyllenhaal
+            </p>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 100%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span class="font-medium text-success">Completed</span>
+<span>Ready to Revisit</span>
+</div>
+</div>
+</article>
+<!-- Book Card 3 (The Little Prince) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<!-- 2:3 Cover Canvas -->
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img alt="The Little Prince" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1Vn6Ko9J6J3csnZRaUIOE4VXnEBHk_lYMFT4mvkR8N7ejoSkUOSRLDB74fbESCjC0CisYvJdkQjUxGMxoNi6eDlkjv_FRK5cO6Ic_lPydbuADcL50p6eA2ZUn5SgZc7M2VlOEYZKQi76ufSbBAPl1t9DllW8YWuINVMFbMh6y7Fa68T_9pudFEx1Xv462VXmwgSn5l6iH-MXfXE7j_iOyVVszH1I-kaq_bxDbSPhxF9UaDtizYDuvyhpg"/>
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+<span class="font-label-timecode text-[10px] text-success font-semibold uppercase">In OPFS</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">PHILOSOPHY</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              The Little Prince
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              Antoine de Saint-Exupéry · Narrated by Jim Dale
+            </p>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 24%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span class="font-medium text-text-primary">24%</span>
+<span>01:42:00 remaining</span>
+</div>
+</div>
+</article>
+<!-- Book Card 4 (1984) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<!-- 2:3 Cover Canvas -->
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img alt="1984" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1VlCuXA_eeU6w2QOW19Uk298_AyvjikM1rMm4ckrjXH7lhi6s8iHxCG6fN6GC0csMtTqC-nBlUYRFsnjjIdEn5QrrO7lTeKTUAD5ONQAieyzTD43jdjtRKiRJwRUxgsyYgYjetJ3R0LzcgGj9JLf6xLvIsoc1EIUgeTV87tB6gw1E2ZEqIeaSLeUpihP9r3HxPBZG1bbQMHPULIa7hsZlo9S0BaOCPB0C1EBYzqOC8bt8FnWp3YRGqEOVc"/>
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+<span class="font-label-timecode text-[10px] text-success font-semibold uppercase">In OPFS</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">DYSTOPIAN</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              1984
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              George Orwell · Narrated by Richard Burton
+            </p>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 78%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span class="font-medium text-text-primary">78%</span>
+<span>02:30:15 remaining</span>
+</div>
+</div>
+</article>
+<!-- Book Card 5 (The Hobbit) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<!-- 2:3 Cover Canvas with Editorial Graphic -->
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="An exquisite vintage leather-bound book cover featuring an embossed gold-foil mountain silhouette and a solitary dragon under a starry twilight sky. The composition has high contrast, warm cream paper tones, soft natural lighting, and a serene, contemplative aesthetic matching an intimate editorial library sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCidJLPqa_-z79lPEvyUAhnS88HcWXQ9w1-ii9iytcQlUZ7gEY5uCJzxm9UMV_ownXK98d4eAWjncnepOoZUQqKEeC2tVwrrx6aEQ7nESGTtayx04ZSzMZmCbESoGRRo0TGTBkR7v3kAE3caBPSVl3kF_6REXD_pZQnKnFxvZ80omNMfasAF6yS2Nt761Q5y65G61fELg49RLCjBcH0W1JIZCkgnVeH6T7q8egTYbkMxH_pck4lMjbTgMt7lArreDGvBupfPJXAAbU"/>
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-timecode text-[10px] text-primary font-semibold uppercase">Stream Ready</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">FANTASY</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              The Hobbit
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              J.R.R. Tolkien · Narrated by Andy Serkis
+            </p>
+</div>
+</div>
+<!-- Duration Info -->
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span>Unabridged</span>
+<span>11h 05m duration</span>
+</div>
+</div>
+</article>
+<!-- Book Card 6 (Meditations) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A minimalist fine-art book cover depicting a weathered classical marble bust of a stoic philosopher set against a calming cream and terracotta textured backdrop. The lighting is diffused and peaceful, evoking deep personal reflection, clarity, and timeless literary sanctuary design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDoHS3MsKDy5PHBZbc5G5J7mjhH0QgiMS3Lpl7u-JJ8hnKyZ2qDO2btFzfXRYNCy9d98pOyIdNhzh6cfxtNGGUbUFT2qAlFEFYsaWOEDKwCnuS5IavM_EF7EXurwGOUtLQ6Z2kFQsqDHi_u8Ez2CccRt-m7AqeVKvSX360XnNRWBYNAGtwNAUFRR0x5zvlbZmtMM5hXpjTSHwSWyIUOMngSFMa74zf4mYcCvvNeIN0DmpaATwZd-S3_ZpGVb-SlxcQ-UFkOd8RJHY"/>
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+<span class="font-label-timecode text-[10px] text-success font-semibold uppercase">In OPFS</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">PHILOSOPHY</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              Meditations
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              Marcus Aurelius · Gregory Hays translation
+            </p>
+</div>
+</div>
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 40%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span class="font-medium text-text-primary">40%</span>
+<span>02:18:40 remaining</span>
+</div>
+</div>
+</article>
+<!-- Book Card 7 (The Architecture of Quiet) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="An architectural book jacket photograph showing a minimalist concrete and timber reading nook with morning sunlight casting soft geometric shadows on pristine pine floors. The scene exudes silent luxury, quietude, and intellectual focus in an editorial light-palette aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT9YKxuMD0I5vD7AM5cSsyGYQtxpeKCjn4-QD_djR-xZcDZgW0P2auuI6-If0jEv40LC1QdOLxGr37-GiWzEp1typwMv3XxBy_ClRRDwxMKYyw6MFAlwuhjndX94ZNqxA413hxSkQi0jzxPW5cLGQEAQZQvG8vCFBfZLzdg1gyHFv4ZF0Q7IqwVQTRQYvHiUDik1TKlPrgskadWMljqhPEdzyPGOeufq-p-LH5y3lFtLRbzv5PZS_lnLQvNzUrMIHIDFAoG0z-1kA"/>
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-timecode text-[10px] text-primary font-semibold uppercase">Stream Ready</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">ESSAYS</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              The Architecture of Quiet
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              Hélène Moreau · Narrated by Author
+            </p>
+</div>
+</div>
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span>Essays</span>
+<span>5h 48m duration</span>
+</div>
+</div>
+</article>
+<!-- Book Card 8 (Letters from the Dry Coast) -->
+<article class="group bg-surface rounded-2xl p-4 border border-black/[0.06] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 book-cover-shadow">
+<div>
+<div class="aspect-[2/3] w-full rounded-xl overflow-hidden relative bg-surface-secondary border border-black/[0.08]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A textured poetic watercolor book cover featuring coastal cliffs, pale ochre dune sands, and deep sea indigo hues under a peaceful late afternoon sun. Warm earthy pigments, delicate paper grain, and refined literary typography establish a contemplative mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjCuqv8uFViCYKMz_28SNlnV_Cq1L_E0X1Prl7X7dlH0pTMjpFz1ANarJl2NBvkzDH4XE_Yp_0oRNwsvzBbxrsQ2yMVDV9tcYl6wVULC2jy7aIURVeYkfo9hZfkFKWsY38Nva8zs6Ypmcvlrj_yVZuJ8-u0YS3erRO6JERUk2Qt1Kxm7_KI-QnystnuE3enVqlBQaSghtQMHMBWXotjL06EqaXjX8nOrhJt9ka-6kQSuGn-HITScHj5-jGZW6o6gvr_vFjEqaTPR8"/>
+<div class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-timecode text-[10px] text-primary font-semibold uppercase">Stream Ready</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="pt-4">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">MEMOIR</span>
+<h2 class="font-display-hero text-[19px] leading-snug font-semibold text-text-primary mt-1 line-clamp-2 group-hover:text-primary transition-colors">
+              Letters from the Dry Coast
+            </h2>
+<p class="font-body-standard text-[13px] text-text-secondary mt-1 line-clamp-1">
+              Mateo Arcos · Narrated by Gael García
+            </p>
+</div>
+</div>
+<div class="pt-4 mt-2">
+<div class="w-full h-1 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 0%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 font-label-timecode text-xs text-text-tertiary">
+<span>Memoir</span>
+<span>9h 02m duration</span>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Floating Mini-Player Dock (Docked at Viewport Bottom) -->
+<aside class="fixed bottom-4 inset-x-0 z-40 px-4 pointer-events-none">
+<div class="pointer-events-auto max-w-4xl mx-auto rounded-3xl bg-surface/90 backdrop-blur-xl border border-black/10 shadow-2xl relative overflow-hidden">
+<!-- 2px Top Terracotta Micro Progress Line -->
+<div class="absolute top-0 inset-x-0 h-[2.5px] bg-surface-secondary">
+<div class="h-full bg-primary transition-all duration-300" style="width: 54%;"></div>
+</div>
+<div class="px-5 py-2.5 flex items-center justify-between gap-4">
+<!-- Left: Playing Book Info with Thumbnail -->
+<div class="flex items-center gap-3.5 min-w-0 max-w-[40%]">
+<div class="w-11 h-11 rounded-lg overflow-hidden shrink-0 border border-black/10 shadow-sm relative">
+<img alt="Harry Potter and the Philosopher's Stone thumbnail" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+</div>
+<div class="min-w-0">
+<h4 class="font-title-shelf text-sm text-text-primary font-semibold truncate leading-snug">
+              Harry Potter and the Philosopher's Stone
+            </h4>
+<p class="font-body-standard text-xs text-text-secondary truncate flex items-center gap-1.5">
+<span>Chapter 14: Felix Felicis</span>
+<span class="text-text-muted">·</span>
+<span class="font-label-timecode text-[11px] text-text-tertiary">04:15 / 45:10</span>
+</p>
+</div>
+</div>
+<!-- Center: Core Audio Transport Controls -->
+<div class="flex items-center gap-2 sm:gap-3 shrink-0">
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Skip Back 15s">
+<span class="material-symbols-outlined text-[20px]" data-icon="replay_10">replay_10</span>
+</button>
+<!-- Primary Circular Terracotta Play Button -->
+<button class="w-11 h-11 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-white flex items-center justify-center shadow-md transition-all duration-150 transform active:scale-95">
+<span class="material-symbols-outlined text-[22px]" data-icon="pause">pause</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Skip Forward 30s">
+<span class="material-symbols-outlined text-[20px]" data-icon="forward_30">forward_30</span>
+</button>
+</div>
+<!-- Right: Utility Controls (Speed & Bookmark) -->
+<div class="flex items-center gap-2 shrink-0">
+<button class="bg-surface-secondary hover:bg-surface-tertiary text-text-primary px-3 py-1 rounded-full font-label-timecode text-xs font-medium transition-colors">
+            1.0x
+          </button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Bookmark">
+<span class="material-symbols-outlined text-[19px]" data-icon="bookmark">bookmark</span>
+</button>
+<button class="w-9 h-9 hidden sm:flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Volume">
+<span class="material-symbols-outlined text-[19px]" data-icon="volume_up">volume_up</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Footer (Shared Component Anchor) -->
+<footer class="bg-surface-secondary dark:bg-inverse-surface docked full-width bottom mt-20">
+<div class="w-full px-6 md:px-margin max-w-7xl mx-auto py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="font-display-hero text-title-shelf font-semibold text-text-primary dark:text-inverse-on-surface">
+          VibeAudio
+        </div>
+<p class="font-body-standard text-body-standard text-text-secondary dark:text-text-muted text-center md:text-left">
+          © 2025 VibeAudio Sanctuary Inc. All rights reserved.
+        </p>
+</div>
+<nav class="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 font-body-standard text-body-standard">
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Privacy Policy
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Terms of Sanctuary
+        </a>
+<a class="text-text-primary dark:text-inverse-on-surface font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Audiobook Catalog
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Journal
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Editorial Standards
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">
+          Contact Concierge
+        </a>
+</nav>
+</div>
+</footer>
+</body></html>

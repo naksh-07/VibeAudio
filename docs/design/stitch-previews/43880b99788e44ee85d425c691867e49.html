@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeAudio — Personal Listening Sanctuary</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#C64E00",
+            "surface-tertiary": "#E5E5EA",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#3b2d27",
+            "secondary-fixed": "#e3e2e7",
+            "surface-dim": "#edd5cc",
+            "surface-container-low": "#fff1ec",
+            "canvas": "#F5F5F7",
+            "tertiary": "#0057bc",
+            "error-container": "#ffdad6",
+            "surface-variant": "#f5ded5",
+            "secondary": "#5e5e63",
+            "inverse-primary": "#ffb595",
+            "text-secondary": "#6E6E73",
+            "on-tertiary-container": "#fcfbff",
+            "text-primary": "#1D1D1F",
+            "secondary-fixed-dim": "#c7c6cb",
+            "on-error": "#ffffff",
+            "text-tertiary": "#86868B",
+            "surface-container": "#ffe9e1",
+            "warning": "#C96E00",
+            "inverse-on-surface": "#ffede7",
+            "on-primary-fixed": "#360f00",
+            "background": "#fff8f6",
+            "on-tertiary-fixed-variant": "#004494",
+            "on-secondary-container": "#626267",
+            "on-surface-variant": "#584238",
+            "surface-secondary": "#F2F2F7",
+            "tertiary-container": "#006feb",
+            "on-secondary-fixed": "#1a1b1f",
+            "surface-tint": "#a23f00",
+            "outline": "#8c7166",
+            "secondary-container": "#e0dfe4",
+            "primary-hover": "#A84200",
+            "on-secondary-fixed-variant": "#46464b",
+            "on-secondary": "#ffffff",
+            "error": "#D70015",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#d8e2ff",
+            "success": "#248A3D",
+            "on-background": "#251913",
+            "primary-active": "#8F3900",
+            "tertiary-fixed-dim": "#adc6ff",
+            "on-surface": "#251913",
+            "surface-bright": "#fff8f6",
+            "surface-container-high": "#fbe3da",
+            "primary-fixed-dim": "#ffb595",
+            "primary-container": "#c64e00",
+            "on-primary-fixed-variant": "#7c2e00",
+            "outline-variant": "#e0c0b3",
+            "text-muted": "#AEAEB2",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed": "#001a41",
+            "primary-fixed": "#ffdbcd",
+            "on-primary": "#ffffff",
+            "surface": "#FFFFFF",
+            "surface-container-highest": "#f5ded5",
+            "on-primary-container": "#fffaff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xxl": "48px",
+            "space-md": "16px",
+            "space-lg": "24px",
+            "space-xl": "32px",
+            "margin": "24px",
+            "space-xs": "4px",
+            "space-sm": "8px",
+            "gutter": "16px"
+          },
+          "fontFamily": {
+            "body-medium": ["Inter", "sans-serif"],
+            "body-standard": ["Inter", "sans-serif"],
+            "label-author": ["Inter", "sans-serif"],
+            "title-shelf": ["Inter", "sans-serif"],
+            "title-player": ["Newsreader", "serif"],
+            "title-card": ["Inter", "sans-serif"],
+            "label-timecode": ["JetBrains Mono", "monospace"],
+            "label-kicker": ["Inter", "sans-serif"],
+            "display-hero": ["Newsreader", "serif"]
+          },
+          "fontSize": {
+            "body-medium": ["15px", { "lineHeight": "1.50", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-standard": ["15px", { "lineHeight": "1.60", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "label-author": ["14px", { "lineHeight": "1.40", "letterSpacing": "0", "fontWeight": "500" }],
+            "title-shelf": ["22px", { "lineHeight": "1.18", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "title-player": ["36px", { "lineHeight": "1.10", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "title-card": ["18px", { "lineHeight": "1.20", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-timecode": ["13px", { "lineHeight": "1.20", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-kicker": ["11px", { "lineHeight": "1.10", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "display-hero": ["48px", { "lineHeight": "1.06", "letterSpacing": "-0.035em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    body {
+      background-color: #F5F5F7;
+      color: #1D1D1F;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+</head>
+<body class="bg-canvas min-h-screen selection:bg-primary/20 selection:text-primary relative pb-28">
+<!-- Top Floating App Bar (From Shared Components & Requirements) -->
+<header class="sticky top-3.5 z-50 px-4 md:px-margin max-w-6xl mx-auto">
+<nav class="h-[62px] w-full rounded-full bg-surface/80 backdrop-blur-md shadow-sm px-6 flex items-center justify-between transition-all duration-200">
+<!-- Brand Logo & Identity -->
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="headphones" style="font-variation-settings: 'FILL' 1;">headphones</span>
+</div>
+<div>
+<span class="font-display-hero text-title-shelf font-semibold text-text-primary tracking-tight leading-none block">VibeAudio</span>
+<span class="font-label-kicker text-[10px] text-text-secondary tracking-normal block -mt-0.5">Personal listening sanctuary</span>
+</div>
+</div>
+<!-- Trust State Pill -->
+<div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-success/10 border border-success/20 text-success text-[12px] font-medium">
+<span class="material-symbols-outlined text-[15px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Guest &amp; Offline Ready</span>
+</div>
+<!-- Navigation & Action -->
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-6 text-sm">
+<a class="text-text-secondary font-medium hover:text-text-primary pb-1 transition-colors" href="#experience">Experience</a>
+<a class="text-primary font-medium border-b-2 border-primary pb-1 transition-colors" href="#shelf">Library</a>
+<a class="text-text-secondary font-medium hover:text-text-primary pb-1 transition-colors" href="#sanctuary">Sound Sanctuary</a>
+<a class="text-text-secondary font-medium hover:text-text-primary pb-1 transition-colors" href="#journal">Journal</a>
+</div>
+<a class="inline-flex items-center justify-center bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary px-5 py-2 rounded-full font-body-medium text-body-medium shadow-sm transition-all duration-200 active:scale-95" href="#listen">
+          Begin Listening
+        </a>
+</div>
+</nav>
+</header>
+<!-- Main Sanctuary Canvas -->
+<main class="max-w-6xl mx-auto px-4 md:px-margin pt-10 pb-16">
+<!-- Hero Section: Editorial Asymmetric Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-space-xxl" id="experience">
+<!-- Left Panel: Editorial Manifesto -->
+<div class="lg:col-span-7 bg-surface rounded-3xl p-8 md:p-12 shadow-sm flex flex-col justify-between">
+<div>
+<!-- Kicker -->
+<div class="inline-flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-kicker text-label-kicker text-primary uppercase">PERSONAL AUDIOBOOK SANCTUARY</span>
+</div>
+<!-- Headline -->
+<h1 class="font-display-hero text-display-hero text-text-primary mb-6">
+            A calmer way to <span class="italic font-normal text-primary">listen.</span>
+</h1>
+<!-- Body Standard -->
+<p class="font-body-standard text-body-standard text-text-secondary max-w-xl mb-8">
+            Step into your personal listening shelf. Enjoy unabridged audiobooks directly in your browser, save stories to your device for offline playback, and pick up right where you left off.
+          </p>
+<!-- Button Actions -->
+<div class="flex flex-wrap items-center gap-3">
+<a class="inline-flex items-center gap-2 bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary px-7 py-3 rounded-full font-body-medium text-body-medium shadow-sm transition-all active:scale-95" href="#player">
+<span class="material-symbols-outlined text-base" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>Start listening</span>
+</a>
+<a class="inline-flex items-center gap-2 bg-surface-secondary hover:bg-surface-tertiary text-text-primary px-6 py-3 rounded-full font-body-medium text-body-medium transition-colors" href="#shelf">
+<span class="material-symbols-outlined text-base text-text-secondary" data-icon="local_library">local_library</span>
+<span>Browse library</span>
+</a>
+</div>
+</div>
+<!-- Trust Credentials Footer -->
+<div class="mt-10 pt-6 border-t border-black/[0.06] flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-text-secondary">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-success" data-icon="verified_user">verified_user</span>
+<span>Works as a guest</span>
+</div>
+<span class="text-text-muted hidden sm:inline">·</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-secondary" data-icon="hard_drive">hard_drive</span>
+<span>Saved on device</span>
+</div>
+<span class="text-text-muted hidden sm:inline">·</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-secondary" data-icon="cloud_off">cloud_off</span>
+<span>Cloud sync optional</span>
+</div>
+</div>
+</div>
+<!-- Right Panel: Spotlight Card -->
+<div class="lg:col-span-5 bg-surface rounded-3xl p-7 shadow-sm flex flex-col justify-between" id="listen">
+<!-- Header status -->
+<div class="flex items-center justify-between mb-4">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-secondary text-text-secondary font-label-author text-xs">
+<span class="material-symbols-outlined text-warning text-[14px]" data-icon="sparkles" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+<span>Featured Story</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-success/10 text-success text-[12px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
+            Ready to Stream
+          </span>
+</div>
+<!-- Cover Art Presentation -->
+<div class="relative w-full aspect-[2/3] max-h-[340px] rounded-2xl overflow-hidden shadow-sm mx-auto bg-surface-secondary group">
+<img alt="Harry Potter and the Philosopher's Stone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXg41At5NLOcFWFgSk3ThJo1YaPX8ryq2mf39oXDmW6CqfG16PqIT4x_QNSrsE8JclF9Nh_5xT0f5BXSkeBOzqVV3PliqjvX1_Yx5RWUH3jvBVFPwvoHW0hNMyyys2KkGr0CRbH65d5Dbjpekuq_IULLqAAwIsUdPjJTm9chis6DjAPldJvgTkhoLu2IgCuvonzYU94t_krHi07SQlEEbSDlB9lV-RRiZJBZpTWDO4WiJdIjSmsf98olH7oAEPvymEuTjxFixV-0Y"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white/90">
+<span class="font-label-timecode text-xs px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-sm font-medium">08:22:14</span>
+<span class="text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded bg-white/20 backdrop-blur-sm">Acoustic Edition</span>
+</div>
+</div>
+<!-- Metadata & Playback Tracker -->
+<div class="mt-5 space-y-3">
+<div>
+<h2 class="font-display-hero text-title-shelf font-semibold text-text-primary leading-snug">Harry Potter &amp; the Philosopher's Stone</h2>
+<p class="font-label-author text-label-author text-text-secondary">J.K. Rowling · Narrated by Stephen Fry</p>
+</div>
+<!-- Mini Timecode indicator -->
+<div class="space-y-1.5">
+<div class="flex justify-between items-center text-xs">
+<span class="font-label-timecode text-text-secondary">Chapter 1: The Boy Who Lived</span>
+<span class="font-label-timecode text-primary font-medium">04:15 / 45:10</span>
+</div>
+<!-- Progress Line -->
+<div class="w-full h-1.5 bg-surface-secondary rounded-full overflow-hidden">
+<div class="w-[32%] h-full bg-primary rounded-full transition-all duration-300"></div>
+</div>
+</div>
+<!-- Play Action Pill -->
+<button class="w-full mt-2 bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary py-3 rounded-full font-body-medium text-body-medium shadow-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>Listen Now</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Curated Shelf Catalog -->
+<section class="mb-space-xxl" id="shelf">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+<div>
+<span class="font-label-kicker text-label-kicker text-primary uppercase">CURATED PREVIEW</span>
+<h2 class="font-display-hero text-title-player font-semibold text-text-primary mt-1">Browse the shelf or listen right away</h2>
+</div>
+<a class="inline-flex items-center gap-1 text-primary font-body-medium text-sm hover:text-primary-hover transition-colors group" href="#library">
+<span>Open entire library</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<!-- 4-Column Editorial Book Shelf -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Book 1 -->
+<article class="bg-surface rounded-2xl p-4 shadow-sm hover:-translate-y-1 transition duration-200 flex flex-col justify-between group">
+<div>
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 shadow-sm">
+<img alt="Harry Potter and the Philosopher's Stone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXg41At5NLOcFWFgSk3ThJo1YaPX8ryq2mf39oXDmW6CqfG16PqIT4x_QNSrsE8JclF9Nh_5xT0f5BXSkeBOzqVV3PliqjvX1_Yx5RWUH3jvBVFPwvoHW0hNMyyys2KkGr0CRbH65d5Dbjpekuq_IULLqAAwIsUdPjJTm9chis6DjAPldJvgTkhoLu2IgCuvonzYU94t_krHi07SQlEEbSDlB9lV-RRiZJBZpTWDO4WiJdIjSmsf98olH7oAEPvymEuTjxFixV-0Y"/>
+<button aria-label="Play audiobook" class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-primary hover:bg-primary-hover text-on-primary flex items-center justify-center shadow-md opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-surface-secondary text-text-secondary">Fantasy</span>
+<span class="font-label-timecode text-xs text-text-tertiary">8h 22m</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary line-clamp-1 group-hover:text-primary transition-colors">Harry Potter &amp; Philosopher's Stone</h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">J.K. Rowling</p>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between text-xs text-text-muted">
+<span>Audio mastered 96kHz</span>
+<span class="text-success flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="offline_pin">offline_pin</span> Cached
+            </span>
+</div>
+</article>
+<!-- Book 2 -->
+<article class="bg-surface rounded-2xl p-4 shadow-sm hover:-translate-y-1 transition duration-200 flex flex-col justify-between group">
+<div>
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 shadow-sm">
+<img alt="The Great Gatsby" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVXUyvoiTG7Y0Kh5Jieb81ikBlR5nUkCNayqwCWAZsH7-gZpi5La8vxlG_f0gr3PlFXP4CBejvWojF4xr-IE1LUl_YxIyVA4-ADzOjTnH7FGhA5a2PfiiawOVpiUFv_aJyFMgx6u7a0ly79pz9Bybm6I9lvd-EilOsiQ91i4t4n7WMepzCaK5S3HU-8bEE7_P7_0JvEjXV7fZgvGFO5OD2wOO4U5DOs3oml5_iDMnz3bV_dZDSSMd8wz3Em3sKJuOveyopwdShbuM"/>
+<button aria-label="Play audiobook" class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-primary hover:bg-primary-hover text-on-primary flex items-center justify-center shadow-md opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-surface-secondary text-text-secondary">Classic</span>
+<span class="font-label-timecode text-xs text-text-tertiary">4h 45m</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary line-clamp-1 group-hover:text-primary transition-colors">The Great Gatsby</h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">F. Scott Fitzgerald</p>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between text-xs text-text-muted">
+<span>Narrated by Jake Gyllenhaal</span>
+<span class="text-text-secondary">Full length</span>
+</div>
+</article>
+<!-- Book 3 -->
+<article class="bg-surface rounded-2xl p-4 shadow-sm hover:-translate-y-1 transition duration-200 flex flex-col justify-between group">
+<div>
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 shadow-sm">
+<img alt="The Little Prince" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd1xJ6befsAiStXEZ5PEnpIlAY_grx7Ku42nsDZ4t2dTt8hN18c3qXi4e3G3oOnwCxSCcUjQHH1PnpCOLqIAe0sayEYfoluLZpTIfSiTH9ySKSnn8XAwyxCo3p9Fyc9Nk9OmGsKO-cVjHc0znA35o3os6uJbIYmuzjIXs2t6rjHrzmE2VU3ePvdgwHoNkqHydJXLmImjH0dxJCbB_6gkCLciMnd-piX7YZf3Vbt8PoFsUL-9eGZ9nD1v63Nu5RST32vyoUlyoYb60"/>
+<button aria-label="Play audiobook" class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-primary hover:bg-primary-hover text-on-primary flex items-center justify-center shadow-md opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-surface-secondary text-text-secondary">Fable</span>
+<span class="font-label-timecode text-xs text-text-tertiary">2h 10m</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary line-clamp-1 group-hover:text-primary transition-colors">The Little Prince</h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">Antoine de Saint-Exupéry</p>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between text-xs text-text-muted">
+<span>Acoustic soundscape</span>
+<span class="text-text-secondary">Unabridged</span>
+</div>
+</article>
+<!-- Book 4 -->
+<article class="bg-surface rounded-2xl p-4 shadow-sm hover:-translate-y-1 transition duration-200 flex flex-col justify-between group">
+<div>
+<div class="relative aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 shadow-sm">
+<img alt="1984" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy6mjpL0yPNbhdMf-hD0BvUrk3WxZrwwz53NrXsz__6C9dZ9_ZP0n5IfhceB0Xx9dERDFi6LhtPDqWIT1vxs644cqwneCwqaF4WdrxSqclcWyVOwwwHiyjnv9yJCEWyJ36_WtWKj-j8GPdFKhE-WFZiuGJNy9TREHyzhQP9aynoi59qA-mK65t0ShPX56IsDmoiE7-VZzUlssSD6CBeyCjC6rfa-qLCwCRpsaCc3BJVRKWsdt9-x5zuDSUTzLnnxZ1z2fqeu5OrUI"/>
+<button aria-label="Play audiobook" class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-primary hover:bg-primary-hover text-on-primary flex items-center justify-center shadow-md opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-surface-secondary text-text-secondary">Dystopian</span>
+<span class="font-label-timecode text-xs text-text-tertiary">11h 15m</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary line-clamp-1 group-hover:text-primary transition-colors">1984</h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">George Orwell</p>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between text-xs text-text-muted">
+<span>Atmospheric mix</span>
+<span class="text-text-secondary">Master series</span>
+</div>
+</article>
+</div>
+</section>
+<!-- Sanctuary Values / Feature Bento Row -->
+<section class="mb-space-xxl" id="sanctuary">
+<div class="text-center max-w-2xl mx-auto mb-10">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">SANCTUARY ARCHITECTURE</span>
+<h2 class="font-display-hero text-title-player font-semibold text-text-primary mt-1">Designed for unhurried immersion</h2>
+<p class="font-body-standard text-body-standard text-text-secondary mt-2">
+          No subscriptions, algorithmic popups, or review noise. A pure, quiet digital temple honoring literature and human attention.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Feature 1 -->
+<div class="bg-surface rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-secondary flex items-center justify-center text-primary mb-5">
+<span class="material-symbols-outlined text-2xl" data-icon="spa">spa</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Listening Sanctuary</h3>
+<p class="font-body-standard text-sm text-text-secondary">
+              Zero commercial popups, algorithmic banners, or aggressive upsells. Pure literary stillness for focused contemplation.
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-black/[0.04] text-xs font-label-timecode text-text-tertiary">
+            STILLNESS PROTOCOL
+          </div>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-secondary flex items-center justify-center text-primary mb-5">
+<span class="material-symbols-outlined text-2xl" data-icon="folder_zip">folder_zip</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Private Offline Shelf</h3>
+<p class="font-body-standard text-sm text-text-secondary">
+              Audiobooks and progress cached locally in your browser OPFS without mandatory sign-ups or tracking beacons.
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-black/[0.04] text-xs font-label-timecode text-text-tertiary">
+            OPFS ENCRYPTED
+          </div>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-secondary flex items-center justify-center text-primary mb-5">
+<span class="material-symbols-outlined text-2xl" data-icon="bookmark_manager">bookmark_manager</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Saved Moments</h3>
+<p class="font-body-standard text-sm text-text-secondary">
+              Instant timestamped bookmarks and quote clippings with precise audio scrub retention down to the quarter second.
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-black/[0.04] text-xs font-label-timecode text-text-tertiary">
+            MILLISEC SCRUB
+          </div>
+</div>
+<!-- Feature 4 -->
+<div class="bg-surface rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-secondary flex items-center justify-center text-primary mb-5">
+<span class="material-symbols-outlined text-2xl" data-icon="sync_saved_locally">sync_saved_locally</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Optional Cloud Sync</h3>
+<p class="font-body-standard text-sm text-text-secondary">
+              Connect seamlessly across devices only when you choose. Absolute privacy and independence by default.
+            </p>
+</div>
+<div class="mt-6 pt-4 border-t border-black/[0.04] text-xs font-label-timecode text-text-tertiary">
+            END-TO-END ZERO KNOWLEDGE
+          </div>
+</div>
+</div>
+</section>
+<!-- Literary Journal / Editorial Quote Banner -->
+<section class="bg-surface rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden" id="journal">
+<div class="max-w-3xl">
+<span class="font-label-kicker text-label-kicker text-primary uppercase">EDITORIAL JOURNAL · ISSUE 42</span>
+<blockquote class="font-display-hero text-2xl sm:text-3xl text-text-primary mt-4 mb-6 leading-relaxed italic">
+          "A sanctuary is not merely an absence of noise, but the deliberate presence of acoustic room to let thoughts unfurl alongside the narrator's voice."
+        </blockquote>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">VA</div>
+<div>
+<p class="font-title-card text-sm text-text-primary">Sanctuary Curator Note</p>
+<p class="font-label-author text-xs text-text-secondary">Acoustic Architecture and Sound Design Team</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Mini-Player Dock (Docked sheet bottom bar) -->
+<aside class="fixed bottom-4 inset-x-4 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[740px] z-50 bg-surface/90 backdrop-blur-xl rounded-[24px] shadow-lg border border-black/5 p-3 px-5 flex items-center justify-between transition-all duration-300" id="player">
+<!-- Mini Player: Story Info -->
+<div class="flex items-center gap-3.5 min-w-0 pr-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-surface-secondary shadow-sm">
+<img alt="Harry Potter and the Philosopher's Stone thumbnail" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXg41At5NLOcFWFgSk3ThJo1YaPX8ryq2mf39oXDmW6CqfG16PqIT4x_QNSrsE8JclF9Nh_5xT0f5BXSkeBOzqVV3PliqjvX1_Yx5RWUH3jvBVFPwvoHW0hNMyyys2KkGr0CRbH65d5Dbjpekuq_IULLqAAwIsUdPjJTm9chis6DjAPldJvgTkhoLu2IgCuvonzYU94t_krHi07SQlEEbSDlB9lV-RRiZJBZpTWDO4WiJdIjSmsf98olH7oAEPvymEuTjxFixV-0Y"/>
+</div>
+<div class="min-w-0">
+<h4 class="font-title-card text-sm text-text-primary truncate">Harry Potter and the Philosopher's Stone</h4>
+<p class="font-label-timecode text-xs text-text-secondary truncate">Stephen Fry · Chapter 1 (04:15)</p>
+</div>
+</div>
+<!-- Mini Player: Scrub & Controls -->
+<div class="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+<!-- Skip back 15s -->
+<button aria-label="Skip back 15 seconds" class="w-9 h-9 rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-secondary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="replay_10">replay_10</span>
+</button>
+<!-- Primary Play/Pause Toggle -->
+<button aria-label="Play or pause" class="w-11 h-11 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary flex items-center justify-center shadow-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-2xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<!-- Skip forward 30s -->
+<button aria-label="Skip forward 30 seconds" class="w-9 h-9 rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-secondary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="forward_30">forward_30</span>
+</button>
+<!-- Speed Selector & Bookmark -->
+<div class="hidden sm:flex items-center gap-1 pl-2 border-l border-black/10">
+<button class="px-2.5 py-1 rounded-full text-xs font-label-timecode text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors">
+          1.0×
+        </button>
+<button aria-label="Bookmark timestamp" class="w-9 h-9 rounded-full text-text-secondary hover:text-text-primary hover:bg-surface-secondary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Footer (Rendered strictly according to Shared Components JSON) -->
+<footer class="w-full bg-surface-secondary dark:bg-inverse-surface mt-20">
+<div class="w-full px-6 md:px-margin max-w-7xl mx-auto py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+<!-- Left Branding & Copyright -->
+<div class="text-center md:text-left">
+<span class="font-display-hero text-title-shelf font-semibold text-text-primary dark:text-inverse-on-surface block">
+          VibeAudio
+        </span>
+<p class="font-body-standard text-body-standard text-text-secondary dark:text-text-muted mt-1">
+          © 2025 VibeAudio Sanctuary Inc. All rights reserved.
+        </p>
+<p class="font-label-kicker text-label-kicker text-text-muted mt-1 tracking-widest uppercase">
+          BUILT FOR PRIVATE LISTENING
+        </p>
+</div>
+<!-- Footer Navigation Links -->
+<div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm">
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#privacy">
+          Privacy Policy
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#terms">
+          Terms of Sanctuary
+        </a>
+<a class="text-text-primary dark:text-inverse-on-surface font-medium hover:text-primary transition-colors duration-150 ease-in-out" href="#shelf">
+          Audiobook Catalog
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#journal">
+          Journal
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#standards">
+          Editorial Standards
+        </a>
+<a class="text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface transition-colors duration-150 ease-in-out" href="#concierge">
+          Contact Concierge
+        </a>
+</div>
+</div>
+</footer>
+<!-- Subtle Micro-interactions script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const playButtons = document.querySelectorAll('button[aria-label="Play or pause"], button[aria-label="Play audiobook"]');
+      playButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const icon = btn.querySelector('.material-symbols-outlined');
+          if (icon) {
+            if (icon.textContent === 'play_arrow') {
+              icon.textContent = 'pause';
+            } else {
+              icon.textContent = 'play_arrow';
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body></html>

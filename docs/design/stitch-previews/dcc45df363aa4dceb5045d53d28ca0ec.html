@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeAudio — The Personal Audiobook Sanctuary</title>
+<!-- Google Fonts: Newsreader (Editorial Display) & Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-tint": "#a23f00",
+            "on-surface-variant": "#584238",
+            "secondary-fixed-dim": "#c7c6cb",
+            "on-secondary-fixed": "#1a1b1f",
+            "on-error": "#ffffff",
+            "surface-tertiary": "#E5E5EA",
+            "on-secondary-fixed-variant": "#46464b",
+            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#adc6ff",
+            "primary-fixed-dim": "#ffb595",
+            "error": "#D70015",
+            "warning": "#C96E00",
+            "tertiary-fixed": "#d8e2ff",
+            "canvas": "#F5F5F7",
+            "surface-container-highest": "#f5ded5",
+            "primary-active": "#8F3900",
+            "tertiary-container": "#006feb",
+            "outline": "#8c7166",
+            "text-muted": "#AEAEB2",
+            "surface-secondary": "#F2F2F7",
+            "surface": "#FFFFFF",
+            "error-container": "#ffdad6",
+            "text-secondary": "#6E6E73",
+            "on-primary-container": "#fffaff",
+            "surface-variant": "#f5ded5",
+            "background": "#fff8f6",
+            "secondary-fixed": "#e3e2e7",
+            "primary": "#C64E00",
+            "surface-dim": "#edd5cc",
+            "surface-container": "#ffe9e1",
+            "on-background": "#251913",
+            "text-primary": "#1D1D1F",
+            "primary-hover": "#A84200",
+            "on-secondary-container": "#626267",
+            "surface-container-lowest": "#ffffff",
+            "secondary-container": "#e0dfe4",
+            "secondary": "#5e5e63",
+            "surface-bright": "#fff8f6",
+            "primary-fixed": "#ffdbcd",
+            "on-primary-fixed": "#360f00",
+            "tertiary": "#0057bc",
+            "on-error-container": "#93000a",
+            "primary-container": "#c64e00",
+            "inverse-on-surface": "#ffede7",
+            "inverse-primary": "#ffb595",
+            "surface-container-low": "#fff1ec",
+            "success": "#248A3D",
+            "on-tertiary-fixed": "#001a41",
+            "on-tertiary-container": "#fcfbff",
+            "outline-variant": "#e0c0b3",
+            "on-tertiary-fixed-variant": "#004494",
+            "on-primary-fixed-variant": "#7c2e00",
+            "on-surface": "#251913",
+            "on-secondary": "#ffffff",
+            "text-tertiary": "#86868B",
+            "surface-container-high": "#fbe3da",
+            "on-tertiary": "#ffffff",
+            "inverse-surface": "#3b2d27"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "8px",
+            "space-xxl": "48px",
+            "margin": "24px",
+            "space-xl": "32px",
+            "space-md": "16px",
+            "space-xs": "4px",
+            "gutter": "16px",
+            "space-lg": "24px"
+          },
+          "fontFamily": {
+            "display-hero": ["Newsreader", "serif"],
+            "label-kicker": ["Inter", "sans-serif"],
+            "title-shelf": ["Inter", "sans-serif"],
+            "body-standard": ["Inter", "sans-serif"],
+            "body-medium": ["Inter", "sans-serif"],
+            "title-player": ["Newsreader", "serif"],
+            "label-timecode": ["JetBrains Mono", "monospace"],
+            "title-card": ["Inter", "sans-serif"],
+            "label-author": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "display-hero": ["48px", { "lineHeight": "1.06", "letterSpacing": "-0.035em", "fontWeight": "600" }],
+            "label-kicker": ["11px", { "lineHeight": "1.10", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "title-shelf": ["22px", { "lineHeight": "1.18", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-standard": ["15px", { "lineHeight": "1.60", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "body-medium": ["15px", { "lineHeight": "1.50", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "title-player": ["36px", { "lineHeight": "1.10", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "label-timecode": ["13px", { "lineHeight": "1.20", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "title-card": ["18px", { "lineHeight": "1.20", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-author": ["14px", { "lineHeight": "1.40", "letterSpacing": "0", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #C64E00;
+      cursor: pointer;
+      margin-top: -5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      background: #E5E5EA;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-text-primary antialiased selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar (Derived from JSON) -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 backdrop-blur-md dark:bg-inverse-surface/80 shadow-sm dark:shadow-none transition-colors duration-200">
+<div class="flex justify-between items-center w-full px-6 md:px-margin max-w-7xl mx-auto h-20">
+<!-- Brandmark -->
+<a class="flex items-center gap-2 group" href="#">
+<span class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">headphones</span>
+</span>
+<span class="font-display-hero text-title-shelf font-semibold text-text-primary dark:text-inverse-on-surface tracking-tight group-hover:text-primary transition-colors">VibeAudio</span>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-inverse-primary font-medium border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-author text-label-author transition-colors" href="#experience">Experience</a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 font-label-author text-label-author transition-colors" href="#library">Library</a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 font-label-author text-label-author transition-colors" href="#sanctuary">Sound Sanctuary</a>
+<a class="text-text-secondary dark:text-text-muted font-medium hover:text-text-primary dark:hover:text-inverse-on-surface pb-1 font-label-author text-label-author transition-colors" href="#journal">Journal</a>
+</nav>
+<!-- Trailing Action -->
+<div class="flex items-center gap-4">
+<button class="bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary font-body-medium text-body-medium px-[22px] py-2.5 rounded-full transition-all duration-200 ease-out active:scale-95 shadow-sm flex items-center gap-2">
+<span>Begin Listening</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section: Editorial Asymmetry -->
+<section class="w-full px-6 md:px-margin max-w-7xl mx-auto pt-16 md:pt-24 pb-20" id="experience">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+<!-- Left Column: Editorial Statement -->
+<div class="lg:col-span-7 flex flex-col items-start">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface text-primary border border-surface-tertiary mb-6">
+<span class="material-symbols-outlined text-[14px]">bedtime</span>
+<span class="font-label-kicker text-label-kicker tracking-widest text-primary uppercase">Sanctuary Architecture</span>
+</div>
+<h1 class="font-display-hero text-display-hero text-text-primary mb-6">
+            The luxury of listening without interruptions.
+          </h1>
+<p class="font-body-standard text-body-standard text-text-secondary max-w-xl mb-10 text-lg leading-relaxed">
+            Reclaim your attention in a tranquil literary haven designed purely for spoken literature. No social clamor, no gamified streaks, and no algorithmic interruption—only the spoken word mastered in exquisite acoustic stillness.
+          </p>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+<a class="bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary font-body-medium text-body-medium px-8 py-3.5 rounded-full text-center transition-all duration-200 shadow-sm active:scale-95" href="#invitation">
+              Begin 30-Day Sanctuary Pass
+            </a>
+<button class="bg-surface-secondary hover:bg-surface-tertiary text-text-primary font-body-medium text-body-medium px-6 py-3.5 rounded-full flex items-center justify-center gap-2 transition-colors active:scale-95" id="hero-play-toggle" onclick="toggleAudioPreview()">
+<span class="material-symbols-outlined text-[20px] text-primary" data-weight="fill" id="play-icon">play_circle</span>
+<span id="play-label">Preview Acoustic Chamber</span>
+</button>
+</div>
+<!-- Proof Badges -->
+<div class="mt-12 pt-8 border-t border-surface-tertiary w-full flex flex-wrap gap-8 text-text-tertiary font-body-standard text-[13px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">graphic_eq</span>
+<span>24-bit / 96kHz Spatial Audio</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">sync_saved_locally</span>
+<span>Whisper Sync Hardware Hand-off</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">block</span>
+<span>Completely Ad-Free &amp; Quiet</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Interactive Audiobook Preview Card -->
+<div class="lg:col-span-5">
+<div class="bg-surface rounded-[20px] p-6 shadow-sm border border-surface-secondary relative overflow-hidden transition-all duration-300 hover:shadow-md">
+<!-- Book Artwork & Status Header -->
+<div class="flex gap-5 mb-6">
+<div class="w-28 h-40 flex-shrink-0 rounded-xl overflow-hidden shadow-sm bg-surface-secondary relative">
+<img class="w-full h-full object-cover" data-alt="An artistic, minimalist editorial book cover titled The Silent Horizon with soft terracotta gradients, subtle mist over ocean water, matte fine-art paper texture, and clean typography, evoking profound stillness in a modern light-filled gallery style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7NRnbd1Aep-tzD9m7ZUzG49PTBQb3yBQ6_aZXRd0gYqwrLObIiGbqFQEqfhrhrKRFGqNHz-6uh4cAxNZVjbSzx1S60zFVJh7_XyN21Jzakrgtm2H2KKt1bB3G1U-Lu3-HuL29ix2xX-GYHtpeCII7uGgW9soOiKMpbm7dtnMAZS-0PfNlpjkS511xRiLgfcVgCpqezj7oacBFC7d18os3rpiYnUCmgJRRP6vSpl2XghcBrN4nIeJjCAKBafFMw2zmnsjPt4Yl2zQ"/>
+<div class="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-surface/90 backdrop-blur-sm font-label-kicker text-[9px] text-text-primary tracking-wider uppercase">Lossless</div>
+</div>
+<div class="flex flex-col justify-between py-1">
+<div>
+<div class="flex items-center gap-1.5 mb-1.5">
+<span class="inline-block w-2 h-2 rounded-full bg-success animate-pulse"></span>
+<span class="font-label-kicker text-label-kicker text-text-tertiary uppercase">Sanctuary Stream 01</span>
+</div>
+<h3 class="font-display-hero text-[22px] font-semibold text-text-primary leading-snug">The Silent Horizon</h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">Clara Vance</p>
+</div>
+<div class="text-text-tertiary font-body-standard text-[13px] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">record_voice_over</span>
+<span>Rosalind Ayers (Narrator)</span>
+</div>
+</div>
+</div>
+<!-- Interactive Scrubber -->
+<div class="space-y-2 bg-surface-secondary/70 p-4 rounded-xl mb-5">
+<div class="flex justify-between items-center text-text-secondary font-label-timecode text-label-timecode">
+<span id="player-current-time">18:42</span>
+<span class="text-[11px] font-body-medium text-text-tertiary uppercase tracking-wider">Chapter IV: The Granite Shore</span>
+<span>-32:15</span>
+</div>
+<div class="relative w-full h-2 bg-surface-tertiary rounded-full overflow-hidden cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 bg-primary rounded-full transition-all duration-300" id="player-progress-bar" style="width: 36%;"></div>
+</div>
+</div>
+<!-- Controller Dock -->
+<div class="flex items-center justify-between px-2 pt-1">
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Bookmark Cadence">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Acoustic Tone">
+<span class="material-symbols-outlined text-[20px]">equalizer</span>
+</button>
+</div>
+<!-- Primary Playback Cluster -->
+<div class="flex items-center gap-3">
+<button class="text-text-secondary hover:text-text-primary transition-colors p-2" onclick="adjustTime(-15)" title="Rewind 15 seconds">
+<span class="material-symbols-outlined text-[24px]">replay_10</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary flex items-center justify-center shadow-md transition-all duration-150 active:scale-95" id="card-play-btn" onclick="toggleCardPlayback()">
+<span class="material-symbols-outlined text-[28px]" data-weight="fill">play_arrow</span>
+</button>
+<button class="text-text-secondary hover:text-text-primary transition-colors p-2" onclick="adjustTime(30)" title="Forward 30 seconds">
+<span class="material-symbols-outlined text-[24px]">forward_30</span>
+</button>
+</div>
+<!-- Speed Pill -->
+<button class="px-2.5 py-1 rounded-full bg-surface-secondary hover:bg-surface-tertiary text-text-secondary text-[12px] font-label-timecode transition-colors">
+                1.0×
+              </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sanctuary Philosophy / Core Tenets Bento -->
+<section class="w-full bg-surface py-20 border-y border-surface-secondary">
+<div class="px-6 md:px-margin max-w-7xl mx-auto">
+<div class="max-w-2xl mb-14">
+<p class="font-label-kicker text-label-kicker text-primary uppercase tracking-widest mb-3">Our Core Tenets</p>
+<h2 class="font-display-hero text-[34px] font-semibold text-text-primary leading-tight">
+            Engineered for restorative comprehension, not endless consumption.
+          </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Tenet 1 -->
+<div class="bg-canvas rounded-[18px] p-8 flex flex-col justify-between transition-all hover:translate-y-[-2px] duration-200">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface flex items-center justify-center text-primary mb-6 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">center_focus_strong</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-3">Uncluttered Focus</h3>
+<p class="font-body-standard text-body-standard text-text-secondary leading-relaxed">
+                Zero push notifications, badges, commercial popups, or reading streak gamification. We respect your contemplative quiet above platform engagement metrics.
+              </p>
+</div>
+<div class="mt-8 pt-4 border-t border-surface-tertiary/60 flex items-center text-[12px] text-text-tertiary font-label-kicker uppercase tracking-wider">
+<span>Pure Typography &amp; Quiet Canvas</span>
+</div>
+</div>
+<!-- Tenet 2 -->
+<div class="bg-canvas rounded-[18px] p-8 flex flex-col justify-between transition-all hover:translate-y-[-2px] duration-200">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface flex items-center justify-center text-primary mb-6 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">waves</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-3">Acoustic Clarity</h3>
+<p class="font-body-standard text-body-standard text-text-secondary leading-relaxed">
+                Lossless spatial recordings engineered exclusively for the micro-nuance of human vocal timbres. Feel every intake of breath, cadence shift, and silence.
+              </p>
+</div>
+<div class="mt-8 pt-4 border-t border-surface-tertiary/60 flex items-center text-[12px] text-text-tertiary font-label-kicker uppercase tracking-wider">
+<span>Mastered In High-Fidelity Lossless</span>
+</div>
+</div>
+<!-- Tenet 3 -->
+<div class="bg-canvas rounded-[18px] p-8 flex flex-col justify-between transition-all hover:translate-y-[-2px] duration-200">
+<div>
+<div class="w-12 h-12 rounded-xl bg-surface flex items-center justify-center text-primary mb-6 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">devices_wearables</span>
+</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-3">Effortless Resonance</h3>
+<p class="font-body-standard text-body-standard text-text-secondary leading-relaxed">
+                Seamless Whisper Sync preserves your position across desk amplifiers, phone, and tablet without audible stutter or latency. True tactile presence anywhere.
+              </p>
+</div>
+<div class="mt-8 pt-4 border-t border-surface-tertiary/60 flex items-center text-[12px] text-text-tertiary font-label-kicker uppercase tracking-wider">
+<span>Zero Friction Transition</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Hand-Selected Mindful Catalog Grid -->
+<section class="w-full px-6 md:px-margin max-w-7xl mx-auto py-24" id="library">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+<div>
+<p class="font-label-kicker text-label-kicker text-primary uppercase tracking-widest mb-2">Curated Folio</p>
+<h2 class="font-display-hero text-display-hero text-text-primary">Mindful Sanctuary Catalog</h2>
+</div>
+<p class="font-body-standard text-body-standard text-text-secondary max-w-md">
+          Restricted to titles chosen for literary weight, thoughtful pacing, and extraordinary narrator tone.
+        </p>
+</div>
+<!-- 4-Column Asymmetric Book Cover Grid (Strict 2:3 Aspect Ratio) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="group bg-surface p-4 rounded-[16px] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="w-full aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" data-alt="A serene modern book cover for Solitude and Mist with Japanese minimalist photography, fog-laden mountain ridgeline, subtle terracotta and stone gray tones, high paper grain texture, and graceful typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2HkTBR6ja-33Nhn1blXARlchs4AbGDJ8vG0RMLmQBrTxV3yLD0gGW9P6HIknPTXb93qnsh3kINnoeOfnp_E9WVfSeCn-yscKw6jYhxPshnOFgk4Bke76OZ996CIBFmRlhQ5Ev_mWn8bBPlQ8mUuxCLmIxL4QU103nxcZNlr3qRHRAU_IeL9PbQ5zdsWhc4yyCudDuX8UQbQlY8bbNFE4v8iY0Snxx1AWq7hlmdYzIMH1mW0y7XMVdI_eyVHZpGVEMLWD9me6Y0J4"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-surface/90 hover:bg-surface text-primary flex items-center justify-center backdrop-blur-sm shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200" onclick="playBook('Solitude and Mist', 'Elias Thorne', 'Julianne Mercer')">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">play_arrow</span>
+</button>
+<div class="absolute top-3 left-3 bg-surface/85 backdrop-blur-sm text-[11px] font-label-kicker px-2 py-0.5 rounded text-text-primary tracking-wider uppercase">Philosophy</div>
+</div>
+<h4 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">Solitude and Mist</h4>
+<p class="font-label-author text-label-author text-text-secondary mt-1">Elias Thorne</p>
+<div class="mt-auto pt-4 flex items-center justify-between text-text-tertiary text-[12px] font-label-timecode">
+<span>Narrated by Julianne Mercer</span>
+<span>7h 14m</span>
+</div>
+</div>
+<!-- Book 2 -->
+<div class="group bg-surface p-4 rounded-[16px] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="w-full aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" data-alt="A sophisticated architectural book cover for The Architecture of Quiet featuring clean brutalist concrete arches with soft sunlight, muted warm earth tones, fine editorial linen texture, and understated elegant serif title." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUsNX8e1cjzVgkioxFlPBadK1OMSuSYRvrZGko2NwpIAApeQULB2UHkvEZ7T95YyVT0oKGx8d2rJHM215x2sDd3t0e8gmuLtj7NRQSe3kc_-of_3Ad8DukxX7oUjtIRovSWZT3JHhcw0qEN1Dk6kUDuawY7sscRk6u8gIrGXRf0P7c2N5MbO4L7qhl_YiTkjJCPlWtp30VYMM7xkvwcbxdcrup3cZqMTG8waJkjq6Gb1c0RCWuHu77yZKIi1a5hDl4jHuxS-T8koo"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-surface/90 hover:bg-surface text-primary flex items-center justify-center backdrop-blur-sm shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200" onclick="playBook('The Architecture of Quiet', 'Hélène Moreau', 'David Chen')">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">play_arrow</span>
+</button>
+<div class="absolute top-3 left-3 bg-surface/85 backdrop-blur-sm text-[11px] font-label-kicker px-2 py-0.5 rounded text-text-primary tracking-wider uppercase">Essays</div>
+</div>
+<h4 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">The Architecture of Quiet</h4>
+<p class="font-label-author text-label-author text-text-secondary mt-1">Hélène Moreau</p>
+<div class="mt-auto pt-4 flex items-center justify-between text-text-tertiary text-[12px] font-label-timecode">
+<span>Narrated by David Chen</span>
+<span>5h 48m</span>
+</div>
+</div>
+<!-- Book 3 -->
+<div class="group bg-surface p-4 rounded-[16px] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="w-full aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" data-alt="A poetic book cover titled Letters from the Dry Coast showing Mediterranean dunes under golden dusk sunlight, dry wild grasses, warm terracotta and dusty bone palette, fine grain paper texture, timeless editorial feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWhqQiqGPghpP9WZIZfSJEy1ynovd8K8zW46g5rM7RkgF0sp4y01BeQHgRjs_XQNgZ8AvQUgENJheuSmJtek93JsFt88_A801dUIpFakeaAUkGdGaHggzAWCzArIonQPzwobx-Y_1srTrCd5KZFVASBCdRsiCd1pCYvoDFn0aNx-LIEPiRcoqm69N0-9sFcOezi-hlNZAv0MIdos80HVRR18atbU29nUvmCf-FjECFLsJVeDuXca7PDNmtrwvR5Cqlbod3MOVuW30"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-surface/90 hover:bg-surface text-primary flex items-center justify-center backdrop-blur-sm shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200" onclick="playBook('Letters from the Dry Coast', 'Mateo Arcos', 'Siobhan Kelly')">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">play_arrow</span>
+</button>
+<div class="absolute top-3 left-3 bg-surface/85 backdrop-blur-sm text-[11px] font-label-kicker px-2 py-0.5 rounded text-text-primary tracking-wider uppercase">Memoir</div>
+</div>
+<h4 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">Letters from the Dry Coast</h4>
+<p class="font-label-author text-label-author text-text-secondary mt-1">Mateo Arcos</p>
+<div class="mt-auto pt-4 flex items-center justify-between text-text-tertiary text-[12px] font-label-timecode">
+<span>Narrated by Siobhan Kelly</span>
+<span>9h 02m</span>
+</div>
+</div>
+<!-- Book 4 -->
+<div class="group bg-surface p-4 rounded-[16px] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="w-full aspect-[2/3] rounded-xl overflow-hidden bg-surface-secondary mb-4 relative">
+<img class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" data-alt="A moody literary cover for Night Passage with deep graphite textures, solitary lantern glow, rich neutral canvas aesthetic, restrained warm highlights, and classic typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB89hSdzcQ_RHQTJCP0NHIrnZqqyBAiyTY0GX-pMIskpK1qzdk2QcchL7elbsGiN7TnN0g-SBLwJuCNS2z7CEpKA9wHpOr7dNStiLL_TJehHwvy1GyAh3vz5nU9Egc2BiOsz91PNSRBHDRmEL-huP88i39-u5sLBwDYOMQU0YNQuapxjZLb7yGQInLMa8yI2a4ftqE0F9ahMBGCIhTpTgUu9N0jsfoQ-SmdSdvrwdEMN9FsvnHTlYpIYSW4ACQU8nQBu4TjwYqSJ3Y"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-surface/90 hover:bg-surface text-primary flex items-center justify-center backdrop-blur-sm shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200" onclick="playBook('Night Passage', 'Astrid Lindholm', 'Arthur Vance')">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">play_arrow</span>
+</button>
+<div class="absolute top-3 left-3 bg-surface/85 backdrop-blur-sm text-[11px] font-label-kicker px-2 py-0.5 rounded text-text-primary tracking-wider uppercase">Fiction</div>
+</div>
+<h4 class="font-title-card text-title-card text-text-primary group-hover:text-primary transition-colors">Night Passage</h4>
+<p class="font-label-author text-label-author text-text-secondary mt-1">Astrid Lindholm</p>
+<div class="mt-auto pt-4 flex items-center justify-between text-text-tertiary text-[12px] font-label-timecode">
+<span>Narrated by Arthur Vance</span>
+<span>8h 31m</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Tactile Soundstage & Ambient Layering Feature -->
+<section class="w-full bg-surface py-20 border-t border-surface-secondary" id="sanctuary">
+<div class="px-6 md:px-margin max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-5">
+<p class="font-label-kicker text-label-kicker text-primary uppercase tracking-widest mb-3">Tactile Soundstage</p>
+<h2 class="font-display-hero text-[36px] font-semibold text-text-primary mb-4 leading-tight">
+              Acoustic layering tuned to your personal sanctuary.
+            </h2>
+<p class="font-body-standard text-body-standard text-text-secondary leading-relaxed mb-6">
+              VibeAudio allows you to blend high-definition organic atmospheric beds underneath the narrator's natural voice. Soften the room with cedar rain, embers in stone hearths, or historic library echoes.
+            </p>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-secondary flex items-center justify-center text-primary text-[14px]">✓</span>
+<span class="font-body-medium text-body-medium text-text-primary">Micro-frequency vocal ducking</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-secondary flex items-center justify-center text-primary text-[14px]">✓</span>
+<span class="font-body-medium text-body-medium text-text-primary">Independently calibrated faders</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-secondary flex items-center justify-center text-primary text-[14px]">✓</span>
+<span class="font-body-medium text-body-medium text-text-primary">Zero synthetic frequency distortion</span>
+</div>
+</div>
+</div>
+<!-- Interactive Sanctuary Mixer Board -->
+<div class="lg:col-span-7 bg-canvas rounded-[20px] p-6 sm:p-8 border border-surface-tertiary">
+<div class="flex justify-between items-center mb-6 pb-4 border-b border-surface-tertiary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">tune</span>
+<span class="font-title-card text-[16px] font-semibold text-text-primary">Acoustic Mixer Preview</span>
+</div>
+<span class="text-xs font-label-timecode text-text-secondary" id="mixer-status-indicator">Atmosphere Active (32%)</span>
+</div>
+<div class="space-y-6">
+<!-- Channel 1: Primary Narrator -->
+<div class="bg-surface p-4 rounded-xl shadow-xs">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-[18px]">record_voice_over</span>
+<span class="font-body-medium text-body-medium text-text-primary">Primary Voice (Rosalind Ayers)</span>
+</div>
+<span class="font-label-timecode text-label-timecode text-text-secondary" id="val-voice">85%</span>
+</div>
+<input class="w-full" max="100" min="0" oninput="updateMixer('voice', this.value)" type="range" value="85"/>
+</div>
+<!-- Channel 2: Gentle Cedar Rain -->
+<div class="bg-surface p-4 rounded-xl shadow-xs">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-text-secondary text-[18px]">rainy</span>
+<span class="font-body-medium text-body-medium text-text-primary">Gentle Cedar Rain</span>
+</div>
+<span class="font-label-timecode text-label-timecode text-text-secondary" id="val-rain">35%</span>
+</div>
+<input class="w-full" max="100" min="0" oninput="updateMixer('rain', this.value)" type="range" value="35"/>
+</div>
+<!-- Channel 3: Old Bodleian Reading Room -->
+<div class="bg-surface p-4 rounded-xl shadow-xs">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-text-secondary text-[18px]">local_library</span>
+<span class="font-body-medium text-body-medium text-text-primary">Old Bodleian Ambience</span>
+</div>
+<span class="font-label-timecode text-label-timecode text-text-secondary" id="val-room">15%</span>
+</div>
+<input class="w-full" max="100" min="0" oninput="updateMixer('room', this.value)" type="range" value="15"/>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between text-xs text-text-tertiary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock_reset</span>
+<span>Spatial Calibrated Preset</span>
+</span>
+<button class="text-primary hover:text-primary-hover font-medium hover:underline" onclick="resetMixer()">Reset to Default</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Private Invitation CTA Section -->
+<section class="w-full px-6 md:px-margin max-w-5xl mx-auto py-28 text-center" id="invitation">
+<div class="bg-surface rounded-[24px] p-8 sm:p-14 md:p-16 border border-surface-tertiary shadow-sm relative overflow-hidden">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-secondary text-primary mb-6">
+<span class="material-symbols-outlined text-[14px]">local_activity</span>
+<span class="font-label-kicker text-label-kicker tracking-widest text-primary uppercase">Private Member Invitation</span>
+</div>
+<h2 class="font-display-hero text-[38px] md:text-[46px] font-semibold text-text-primary max-w-2xl mx-auto mb-6 leading-tight">
+          Enter the sanctuary of uninterrupted prose.
+        </h2>
+<p class="font-body-standard text-body-standard text-text-secondary max-w-xl mx-auto mb-8 text-base">
+          Experience our entire curated catalog in full lossless spatial clarity for thirty days. Transparent, peaceful membership at $14.99/month thereafter. Cancel anytime with a single click.
+        </p>
+<div class="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-md mx-auto mb-8">
+<button class="w-full sm:w-auto bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary font-body-medium text-body-medium px-8 py-3.5 rounded-full transition-all duration-200 active:scale-95 shadow-sm">
+            Begin 30-Day Sanctuary Pass
+          </button>
+<a class="w-full sm:w-auto bg-surface-secondary hover:bg-surface-tertiary text-text-primary font-body-medium text-body-medium px-6 py-3.5 rounded-full transition-colors text-center" href="#journal">
+            Read Our Manifesto
+          </a>
+</div>
+<div class="flex items-center justify-center gap-6 text-text-tertiary text-[13px] font-body-standard">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-success">check</span>
+            Zero commitments
+          </span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-success">check</span>
+            No payment taken today
+          </span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-success">check</span>
+            Instant access
+          </span>
+</div>
+</div>
+</section>
+<!-- Mini-Player Floating Dock (Specialized Component) -->
+<div class="fixed bottom-6 inset-x-4 max-w-2xl mx-auto bg-surface/95 backdrop-blur-md rounded-[24px] px-5 py-3 shadow-lg border border-surface-tertiary z-40 flex items-center justify-between transition-all duration-300" id="mini-player">
+<div class="flex items-center gap-3.5 overflow-hidden">
+<div class="w-10 h-10 rounded-lg bg-surface-secondary flex-shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A tiny, perfectly squared minimalist book cover art featuring warm amber tone gradients and subtle editorial serif title, conveying literary sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC_nchiqdXiVu6BeeghCf4qWRuIYV36WomnEiZTI3C-aQNBoUBC3oJkyEdbW4yXPy7SM-JmynfYmsisFMyp5LY-ZrKv3b-Xpsu8wbAwteBwtsSPovKHSt1yrm9ubqQffeZJwdGG6mWF8qJgYyAta8YdG9URIutbxqHQ2zoiQcBOoIzNAADfQHziRmyTF3R81dLhsy5KgnglDmumwykqwWOP53ut6AuM7TEfVZqQ0PnYi_MrZADLZFDtBimCUHU45Dpm2C0nvUtOKs"/>
+</div>
+<div class="truncate">
+<p class="font-body-medium text-body-medium text-text-primary truncate" id="dock-title">The Silent Horizon</p>
+<p class="font-label-author text-[12px] text-text-secondary truncate" id="dock-author">Clara Vance · Rosalind Ayers</p>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-shrink-0">
+<div class="hidden sm:flex items-center gap-2 font-label-timecode text-[12px] text-text-secondary">
+<span id="dock-timer">18:42</span>
+<span>/</span>
+<span>50:57</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-primary hover:bg-primary-hover text-on-primary flex items-center justify-center transition-all active:scale-95 shadow-sm" id="dock-play-btn" onclick="toggleDockPlay()">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">pause</span>
+</button>
+<button class="text-text-muted hover:text-text-primary transition-colors p-1" onclick="dismissMiniPlayer()" title="Minimize Dock">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer (Derived from JSON) -->
+<footer class="docked full-width bottom bg-surface-secondary dark:bg-inverse-surface flat no shadows transition-colors duration-150 ease-in-out">
+<div class="w-full px-6 md:px-margin max-w-7xl mx-auto py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+<!-- Brand and Legal Statement -->
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">headphones</span>
+</span>
+<span class="font-display-hero text-title-shelf font-semibold text-text-primary dark:text-inverse-on-surface">VibeAudio</span>
+</div>
+<p class="font-body-standard text-body-standard text-text-secondary dark:text-text-muted text-sm">
+          © 2025 VibeAudio Sanctuary Inc. All rights reserved.
+        </p>
+</div>
+<!-- Footer Navigation Links -->
+<div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
+<a class="font-label-author text-label-author text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#privacy">Privacy Policy</a>
+<a class="font-label-author text-label-author text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#terms">Terms of Sanctuary</a>
+<a class="font-label-author text-label-author text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#catalog">Audiobook Catalog</a>
+<a class="font-label-author text-label-author text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#journal">Journal</a>
+<a class="font-label-author text-label-author text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#standards">Editorial Standards</a>
+<a class="font-label-author text-label-author text-text-secondary dark:text-text-muted font-normal hover:text-text-primary dark:hover:text-inverse-on-surface hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#concierge">Contact Concierge</a>
+</div>
+</div>
+</footer>
+<!-- Micro-Interactions Vanilla Script -->
+<script>
+    let isPlaying = false;
+    let currentSeconds = 1122; // 18:42
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = Math.floor(secs % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function toggleCardPlayback() {
+      isPlaying = !isPlaying;
+      updatePlayStates();
+    }
+
+    function toggleAudioPreview() {
+      isPlaying = !isPlaying;
+      updatePlayStates();
+    }
+
+    function toggleDockPlay() {
+      isPlaying = !isPlaying;
+      updatePlayStates();
+    }
+
+    function updatePlayStates() {
+      const cardPlayBtn = document.getElementById('card-play-btn');
+      const heroPlayIcon = document.getElementById('play-icon');
+      const heroPlayLabel = document.getElementById('play-label');
+      const dockPlayBtn = document.getElementById('dock-play-btn');
+
+      if (isPlaying) {
+        if (cardPlayBtn) cardPlayBtn.innerHTML = '<span class="material-symbols-outlined text-[28px]" data-weight="fill">pause</span>';
+        if (heroPlayIcon) heroPlayIcon.textContent = 'pause_circle';
+        if (heroPlayLabel) heroPlayLabel.textContent = 'Pause Chamber Audio';
+        if (dockPlayBtn) dockPlayBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]" data-weight="fill">pause</span>';
+      } else {
+        if (cardPlayBtn) cardPlayBtn.innerHTML = '<span class="material-symbols-outlined text-[28px]" data-weight="fill">play_arrow</span>';
+        if (heroPlayIcon) heroPlayIcon.textContent = 'play_circle';
+        if (heroPlayLabel) heroPlayLabel.textContent = 'Preview Acoustic Chamber';
+        if (dockPlayBtn) dockPlayBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]" data-weight="fill">play_arrow</span>';
+      }
+    }
+
+    function adjustTime(delta) {
+      currentSeconds = Math.max(0, currentSeconds + delta);
+      document.getElementById('player-current-time').textContent = formatTime(currentSeconds);
+      document.getElementById('dock-timer').textContent = formatTime(currentSeconds);
+      const pct = Math.min(100, Math.max(5, (currentSeconds / 3000) * 100));
+      document.getElementById('player-progress-bar').style.width = pct + '%';
+    }
+
+    function playBook(title, author, narrator) {
+      document.getElementById('dock-title').textContent = title;
+      document.getElementById('dock-author').textContent = `${author} · ${narrator}`;
+      const dock = document.getElementById('mini-player');
+      dock.classList.remove('hidden');
+      dock.classList.add('flex');
+      isPlaying = true;
+      updatePlayStates();
+    }
+
+    function dismissMiniPlayer() {
+      const dock = document.getElementById('mini-player');
+      dock.classList.add('hidden');
+      dock.classList.remove('flex');
+      isPlaying = false;
+      updatePlayStates();
+    }
+
+    function updateMixer(channel, val) {
+      document.getElementById(`val-${channel}`).textContent = val + '%';
+      const rain = parseInt(document.getElementById('val-rain').textContent);
+      const room = parseInt(document.getElementById('val-room').textContent);
+      const combined = Math.round((rain + room) / 2);
+      document.getElementById('mixer-status-indicator').textContent = `Atmosphere Active (${combined}%)`;
+    }
+
+    function resetMixer() {
+      updateMixer('voice', 85);
+      updateMixer('rain', 35);
+      updateMixer('room', 15);
+      document.querySelectorAll('#sanctuary input[type=range]')[0].value = 85;
+      document.querySelectorAll('#sanctuary input[type=range]')[1].value = 35;
+      document.querySelectorAll('#sanctuary input[type=range]')[2].value = 15;
+    }
+  </script>
+</body></html>

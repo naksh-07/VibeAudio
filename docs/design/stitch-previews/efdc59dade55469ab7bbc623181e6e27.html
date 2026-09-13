@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeAudio — On This Device</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "text-primary": "#1D1D1F",
+            "tertiary-fixed-dim": "#adc6ff",
+            "surface-variant": "#f5ded5",
+            "surface-tint": "#a23f00",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#46464b",
+            "surface-dim": "#edd5cc",
+            "on-primary": "#ffffff",
+            "on-secondary-container": "#626267",
+            "outline-variant": "#e0c0b3",
+            "secondary-fixed": "#e3e2e7",
+            "canvas": "#F5F5F7",
+            "tertiary": "#0057bc",
+            "primary": "#C64E00",
+            "on-tertiary-fixed-variant": "#004494",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#360f00",
+            "tertiary-container": "#006feb",
+            "outline": "#8c7166",
+            "surface-container-high": "#fbe3da",
+            "primary-container": "#c64e00",
+            "text-muted": "#AEAEB2",
+            "primary-fixed": "#ffdbcd",
+            "background": "#fff8f6",
+            "on-surface": "#251913",
+            "surface-container-lowest": "#ffffff",
+            "inverse-primary": "#ffb595",
+            "on-secondary-fixed": "#1a1b1f",
+            "inverse-surface": "#3b2d27",
+            "surface-secondary": "#F2F2F7",
+            "on-primary-container": "#fffaff",
+            "primary-active": "#8F3900",
+            "secondary-fixed-dim": "#c7c6cb",
+            "on-background": "#251913",
+            "primary-hover": "#A84200",
+            "on-surface-variant": "#584238",
+            "warning": "#C96E00",
+            "on-tertiary-container": "#fcfbff",
+            "error-container": "#ffdad6",
+            "secondary-container": "#e0dfe4",
+            "text-secondary": "#6E6E73",
+            "surface-container-low": "#fff1ec",
+            "primary-fixed-dim": "#ffb595",
+            "error": "#D70015",
+            "surface-tertiary": "#E5E5EA",
+            "surface": "#FFFFFF",
+            "surface-bright": "#fff8f6",
+            "on-secondary": "#ffffff",
+            "inverse-on-surface": "#ffede7",
+            "text-tertiary": "#86868B",
+            "success": "#248A3D",
+            "secondary": "#5e5e63",
+            "tertiary-fixed": "#d8e2ff",
+            "surface-container": "#ffe9e1",
+            "on-tertiary-fixed": "#001a41",
+            "on-primary-fixed-variant": "#7c2e00",
+            "surface-container-highest": "#f5ded5"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-lg": "24px",
+            "space-sm": "8px",
+            "space-xxl": "48px",
+            "space-xs": "4px",
+            "space-md": "16px",
+            "margin": "24px",
+            "space-xl": "32px",
+            "gutter": "16px"
+          },
+          fontFamily: {
+            "label-kicker": ["Inter", "sans-serif"],
+            "title-card": ["Inter", "sans-serif"],
+            "title-player": ["Newsreader", "serif"],
+            "body-standard": ["Inter", "sans-serif"],
+            "label-timecode": ["JetBrains Mono", "monospace"],
+            "title-shelf": ["Inter", "sans-serif"],
+            "label-author": ["Inter", "sans-serif"],
+            "display-hero": ["Newsreader", "serif"],
+            "body-medium": ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            "label-kicker": ["11px", { lineHeight: "1.10", letterSpacing: "0.12em", fontWeight: "700" }],
+            "title-card": ["18px", { lineHeight: "1.20", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "title-player": ["36px", { lineHeight: "1.10", letterSpacing: "-0.025em", fontWeight: "600" }],
+            "body-standard": ["15px", { lineHeight: "1.60", letterSpacing: "-0.01em", fontWeight: "400" }],
+            "label-timecode": ["13px", { lineHeight: "1.20", letterSpacing: "0.02em", fontWeight: "500" }],
+            "title-shelf": ["22px", { lineHeight: "1.18", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "label-author": ["14px", { lineHeight: "1.40", letterSpacing: "0", fontWeight: "500" }],
+            "display-hero": ["48px", { lineHeight: "1.06", letterSpacing: "-0.035em", fontWeight: "600" }],
+            "body-medium": ["15px", { lineHeight: "1.50", letterSpacing: "-0.01em", fontWeight: "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+    /* Subtle paper texture aesthetic */
+    body {
+      background-color: #F5F5F7;
+      color: #1D1D1F;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-text-primary min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-primary-active">
+<!-- 1. Floating Top Navigation Bar -->
+<header class="sticky top-0 z-50 pt-3 px-4 md:px-margin pointer-events-none">
+<div class="pointer-events-auto max-w-6xl mx-auto h-[62px] px-5 rounded-[24px] bg-surface/85 backdrop-blur-md shadow-sm border border-black/5 flex items-center justify-between transition-all duration-200">
+<!-- Brand Logo -->
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-primary text-[19px]">headphones</span>
+</div>
+<span class="font-display-hero text-title-shelf font-semibold tracking-tight text-text-primary">VibeAudio</span>
+</div>
+<!-- Segmented Navigation Pills -->
+<nav class="hidden md:flex items-center gap-1.5 p-1 bg-surface-secondary/70 rounded-full border border-black/[0.04]">
+<a class="px-4 py-1.5 rounded-full font-body-medium text-text-secondary hover:text-text-primary transition-colors text-[14px]" href="#experience">Home</a>
+<a class="px-4 py-1.5 rounded-full font-body-medium text-text-secondary hover:text-text-primary transition-colors text-[14px]" href="#library">Library</a>
+<a class="px-4 py-1.5 rounded-full font-body-medium bg-primary text-on-primary font-medium text-[14px] shadow-sm" href="#offline">On This Device</a>
+</nav>
+<!-- Trailing Cluster -->
+<div class="flex items-center gap-2.5">
+<button class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-secondary text-text-secondary hover:text-text-primary hover:bg-surface-tertiary transition-colors text-[13px] border border-black/[0.04]">
+<span class="material-symbols-outlined text-[17px]">search</span>
+<span class="font-body-standard text-[13px]">Search offline...</span>
+</button>
+<button class="w-9 h-9 rounded-full bg-surface-secondary hover:bg-surface-tertiary text-text-primary border border-black/5 flex items-center justify-center transition-transform active:scale-95" title="Account">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Offline Sanctuary Canvas -->
+<main class="flex-1 max-w-6xl w-full mx-auto px-6 md:px-margin pt-8 pb-36">
+<!-- 2. Header & Action Row -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8 pb-6 border-b border-black/[0.06]">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-kicker text-label-kicker uppercase text-primary tracking-wider">SAVED FOR OFFLINE</span>
+<span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+</div>
+<h1 class="font-display-hero text-[34px] md:text-[40px] leading-tight font-semibold tracking-tight text-text-primary">On This Device</h1>
+<p class="font-body-standard text-body-standard text-text-secondary mt-1">Audiobooks saved locally and ready to play anywhere without internet.</p>
+</div>
+<!-- Action Button -->
+<div class="flex items-center gap-3">
+<button class="h-10 px-5 rounded-full bg-surface-secondary hover:bg-surface-tertiary text-text-primary font-body-medium text-[14px] flex items-center gap-2 transition-all duration-150 border border-black/[0.07] active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">file_download</span>
+<span>Import Audio</span>
+</button>
+</div>
+</div>
+<!-- 3. Minimal Storage Metrics Grid -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-3.5 mb-10">
+<!-- Metric 1 -->
+<div class="bg-surface-secondary p-4 rounded-[10px] border border-black/[0.05] transition-all hover:border-black/[0.12]">
+<div class="font-display-hero text-[24px] font-semibold text-text-primary leading-tight">1.2 GB</div>
+<div class="font-label-timecode text-[11px] font-semibold uppercase text-text-tertiary tracking-wider mt-1">AUDIO SAVED</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-secondary p-4 rounded-[10px] border border-black/[0.05] transition-all hover:border-black/[0.12]">
+<div class="font-display-hero text-[24px] font-semibold text-text-primary leading-tight">48.6 GB</div>
+<div class="font-label-timecode text-[11px] font-semibold uppercase text-text-tertiary tracking-wider mt-1">AVAILABLE QUOTA</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-secondary p-4 rounded-[10px] border border-black/[0.05] transition-all hover:border-black/[0.12]">
+<div class="font-display-hero text-[24px] font-semibold text-text-primary leading-tight">4</div>
+<div class="font-label-timecode text-[11px] font-semibold uppercase text-text-tertiary tracking-wider mt-1">SAVED BOOKS</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-secondary p-4 rounded-[10px] border border-black/[0.05] transition-all hover:border-black/[0.12]">
+<div class="font-display-hero text-[24px] font-semibold text-text-primary leading-tight">76</div>
+<div class="font-label-timecode text-[11px] font-semibold uppercase text-text-tertiary tracking-wider mt-1">SAVED CHAPTERS</div>
+</div>
+</section>
+<!-- Shelf Section Header -->
+<div class="flex items-center justify-between mb-5">
+<div class="flex items-center gap-2">
+<h2 class="font-title-shelf text-title-shelf text-text-primary">Downloaded Works</h2>
+<span class="text-xs px-2 py-0.5 rounded-full bg-surface-secondary text-text-secondary font-label-timecode">4 Volumes</span>
+</div>
+<button class="font-label-author text-label-author text-text-secondary hover:text-text-primary flex items-center gap-1 transition-colors">
+<span>Sort by recent</span>
+<span class="material-symbols-outlined text-[16px]">unfold_more</span>
+</button>
+</div>
+<!-- 4. Downloaded Audiobooks Grid (4-Column Layout) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+<!-- Book 1: Harry Potter -->
+<article class="group bg-surface rounded-[14px] p-3.5 border border-black/[0.07] shadow-[0_4px_18px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+<div>
+<!-- Book Cover Container -->
+<div class="relative w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary border border-black/[0.05] shadow-inner">
+<img alt="Harry Potter and the Philosopher's Stone book cover" class="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+<!-- Ready Offline Badge -->
+<div class="absolute top-2.5 left-2.5 bg-[#248A3D]/10 backdrop-blur-sm border border-[#248A3D]/25 text-success font-label-timecode text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px] fill-icon font-bold">check_circle</span>
+<span>Ready Offline</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="mt-3.5">
+<h3 class="font-title-player text-[19px] leading-snug font-semibold text-text-primary group-hover:text-primary transition-colors line-clamp-1" title="Harry Potter and the Philosopher's Stone">
+              Harry Potter and the Philosopher's Stone
+            </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">J.K. Rowling</p>
+</div>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between">
+<span class="font-label-timecode text-[12px] text-text-tertiary">8h 22m · 450 MB</span>
+<button class="w-8 h-8 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-white transition-all flex items-center justify-center active:scale-95" title="Play audiobook">
+<span class="material-symbols-outlined text-[18px] fill-icon">play_arrow</span>
+</button>
+</div>
+</article>
+<!-- Book 2: The Great Gatsby -->
+<article class="group bg-surface rounded-[14px] p-3.5 border border-black/[0.07] shadow-[0_4px_18px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+<div>
+<!-- Book Cover Container -->
+<div class="relative w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary border border-black/[0.05] shadow-inner">
+<img alt="The Great Gatsby book cover" class="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1Vj7d6d5c8XWD_ntdhSZSX--BhgcM7QXXV6PwyO8KRoxhsHM0yDazWN1dCn-0IEpQz2CWrZmz5uNs3CK5Ar0jx3qH1w5etCdWfJd42ed2WXSLbrCly6cxEBDkBR0Xv6qgK4d7vhD5JRskhu4lQ7MEF9BnunxZs_hcUSMB3kwsarNJtwCZUgstIYZlXObmW7hVLEiwhMo8KEbLAr51tW8OTUcwvPCA1QZfYwxvYtL1VrOISKF6HiTO4yk7A"/>
+<!-- Ready Offline Badge -->
+<div class="absolute top-2.5 left-2.5 bg-[#248A3D]/10 backdrop-blur-sm border border-[#248A3D]/25 text-success font-label-timecode text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px] fill-icon font-bold">check_circle</span>
+<span>Ready Offline</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="mt-3.5">
+<h3 class="font-title-player text-[19px] leading-snug font-semibold text-text-primary group-hover:text-primary transition-colors line-clamp-1" title="The Great Gatsby">
+              The Great Gatsby
+            </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">F. Scott Fitzgerald</p>
+</div>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between">
+<span class="font-label-timecode text-[12px] text-text-tertiary">10h 15m · 510 MB</span>
+<button class="w-8 h-8 rounded-full bg-surface-secondary hover:bg-primary hover:text-white text-text-primary transition-all flex items-center justify-center active:scale-95" title="Play audiobook">
+<span class="material-symbols-outlined text-[18px] fill-icon">play_arrow</span>
+</button>
+</div>
+</article>
+<!-- Book 3: The Little Prince -->
+<article class="group bg-surface rounded-[14px] p-3.5 border border-black/[0.07] shadow-[0_4px_18px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+<div>
+<!-- Book Cover Container -->
+<div class="relative w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary border border-black/[0.05] shadow-inner">
+<img alt="The Little Prince book cover" class="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1Vn6Ko9J6J3csnZRaUIOE4VXnEBHk_lYMFT4mvkR8N7ejoSkUOSRLDB74fbESCjC0CisYvJdkQjUxGMxoNi6eDlkjv_FRK5cO6Ic_lPydbuADcL50p6eA2ZUn5SgZc7M2VlOEYZKQi76ufSbBAPl1t9DllW8YWuINVMFbMh6y7Fa68T_9pudFEx1Xv462VXmwgSn5l6iH-MXfXE7j_iOyVVszH1I-kaq_bxDbSPhxF9UaDtizYDuvyhpg"/>
+<!-- Ready Offline Badge -->
+<div class="absolute top-2.5 left-2.5 bg-[#248A3D]/10 backdrop-blur-sm border border-[#248A3D]/25 text-success font-label-timecode text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px] fill-icon font-bold">check_circle</span>
+<span>Ready Offline</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="mt-3.5">
+<h3 class="font-title-player text-[19px] leading-snug font-semibold text-text-primary group-hover:text-primary transition-colors line-clamp-1" title="The Little Prince">
+              The Little Prince
+            </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">Antoine de Saint-Exupéry</p>
+</div>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between">
+<span class="font-label-timecode text-[12px] text-text-tertiary">6h 12m · 120 MB</span>
+<button class="w-8 h-8 rounded-full bg-surface-secondary hover:bg-primary hover:text-white text-text-primary transition-all flex items-center justify-center active:scale-95" title="Play audiobook">
+<span class="material-symbols-outlined text-[18px] fill-icon">play_arrow</span>
+</button>
+</div>
+</article>
+<!-- Book 4: 1984 -->
+<article class="group bg-surface rounded-[14px] p-3.5 border border-black/[0.07] shadow-[0_4px_18px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+<div>
+<!-- Book Cover Container -->
+<div class="relative w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary border border-black/[0.05] shadow-inner">
+<img alt="1984 book cover" class="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1VlCuXA_eeU6w2QOW19Uk298_AyvjikM1rMm4ckrjXH7lhi6s8iHxCG6fN6GC0csMtTqC-nBlUYRFsnjjIdEn5QrrO7lTeKTUAD5ONQAieyzTD43jdjtRKiRJwRUxgsyYgYjetJ3R0LzcgGj9JLf6xLvIsoc1EIUgeTV87tB6gw1E2ZEqIeaSLeUpihP9r3HxPBZG1bbQMHPULIa7hsZlo9S0BaOCPB0C1EBYzqOC8bt8FnWp3YRGqEOVc"/>
+<!-- Ready Offline Badge -->
+<div class="absolute top-2.5 left-2.5 bg-[#248A3D]/10 backdrop-blur-sm border border-[#248A3D]/25 text-success font-label-timecode text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px] fill-icon font-bold">check_circle</span>
+<span>Ready Offline</span>
+</div>
+</div>
+<!-- Book Metadata -->
+<div class="mt-3.5">
+<h3 class="font-title-player text-[19px] leading-snug font-semibold text-text-primary group-hover:text-primary transition-colors line-clamp-1" title="1984">
+              1984
+            </h3>
+<p class="font-label-author text-label-author text-text-secondary mt-0.5">George Orwell</p>
+</div>
+</div>
+<div class="pt-3 mt-3 border-t border-black/[0.04] flex items-center justify-between">
+<span class="font-label-timecode text-[12px] text-text-tertiary">11h 05m · 240 MB</span>
+<button class="w-8 h-8 rounded-full bg-surface-secondary hover:bg-primary hover:text-white text-text-primary transition-all flex items-center justify-center active:scale-95" title="Play audiobook">
+<span class="material-symbols-outlined text-[18px] fill-icon">play_arrow</span>
+</button>
+</div>
+</article>
+</div>
+<!-- 5. Storage Management Sub-panel & Dignified Notice -->
+<div class="mt-12 p-5 bg-surface rounded-[14px] border border-black/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-secondary flex items-center justify-center text-text-secondary shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div>
+<p class="font-body-medium text-[14px] text-text-primary font-medium">Encrypted Local Origin Sandbox</p>
+<p class="font-body-standard text-[13px] text-text-secondary">Stored locally in browser Origin Private File System (OPFS). Zero cloud dependencies while offline.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="px-3.5 py-1.5 rounded-full text-text-secondary hover:text-error hover:bg-error/5 text-[13px] font-body-medium transition-colors">
+          Clear Local Cache
+        </button>
+</div>
+</div>
+</main>
+<!-- Shared Component Footer -->
+<footer class="bg-surface-secondary border-t border-black/[0.04] mt-auto">
+<div class="w-full px-6 md:px-margin max-w-7xl mx-auto py-16 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col items-center md:items-start gap-1">
+<span class="font-display-hero text-title-shelf font-semibold text-text-primary">VibeAudio</span>
+<p class="font-body-standard text-body-standard text-text-secondary text-sm">© 2025 VibeAudio Sanctuary Inc. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2">
+<a class="font-body-standard text-body-standard text-text-secondary hover:text-text-primary transition-colors text-sm" href="#privacy">Privacy Policy</a>
+<a class="font-body-standard text-body-standard text-text-secondary hover:text-text-primary transition-colors text-sm" href="#terms">Terms of Sanctuary</a>
+<a class="font-body-standard text-body-standard text-text-secondary hover:text-text-primary transition-colors text-sm" href="#catalog">Audiobook Catalog</a>
+<a class="font-body-standard text-body-standard text-text-secondary hover:text-text-primary transition-colors text-sm" href="#journal">Journal</a>
+<a class="font-body-standard text-body-standard text-text-secondary hover:text-text-primary transition-colors text-sm" href="#standards">Editorial Standards</a>
+<a class="font-body-standard text-body-standard text-text-secondary hover:text-text-primary transition-colors text-sm" href="#contact">Contact Concierge</a>
+</div>
+</div>
+</footer>
+<!-- 6. Floating Mini-Player Dock (Persistent, centered) -->
+<div class="fixed bottom-4 inset-x-0 z-50 px-4 pointer-events-none flex justify-center">
+<div class="pointer-events-auto w-full max-w-4xl h-[64px] bg-surface/85 backdrop-blur-md rounded-[24px] border border-black/[0.08] shadow-[0_16px_44px_rgba(0,0,0,0.12)] flex items-center justify-between px-4 relative overflow-hidden">
+<!-- Top 2px Micro-Progress Accent Line -->
+<div class="absolute top-0 left-0 right-0 h-[2px] bg-black/[0.06]">
+<div class="h-full bg-primary" style="width: 38.5%;"></div>
+</div>
+<!-- Current Track Info & Artwork -->
+<div class="flex items-center gap-3 min-w-0 pr-4">
+<div class="relative w-[42px] h-[42px] rounded-[8px] overflow-hidden bg-surface-secondary shrink-0 border border-black/10">
+<img alt="Current Playing Cover" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+</div>
+<div class="truncate">
+<p class="font-body-medium text-[14px] font-semibold text-text-primary truncate">Harry Potter and the Philosopher's Stone</p>
+<p class="font-label-timecode text-[12px] text-text-secondary truncate">
+            Chapter 14: Felix Felicis · <span class="text-primary font-medium">04:15</span> / 45:10
+          </p>
+</div>
+</div>
+<!-- Tactile Transport Controls -->
+<div class="flex items-center gap-1.5 md:gap-3 shrink-0">
+<!-- 15s Rewind -->
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Rewind 15 seconds">
+<span class="material-symbols-outlined text-[20px]">replay_10</span>
+</button>
+<!-- Primary Play/Pause Button -->
+<button class="w-[42px] h-[42px] rounded-full bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary flex items-center justify-center shadow-md transition-all active:scale-95" title="Play">
+<span class="material-symbols-outlined text-[22px] fill-icon">play_arrow</span>
+</button>
+<!-- 30s Forward -->
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Forward 30 seconds">
+<span class="material-symbols-outlined text-[20px]">forward_30</span>
+</button>
+<div class="hidden sm:block w-[1px] h-6 bg-black/[0.08] mx-1"></div>
+<!-- Playback Rate Selector -->
+<button class="hidden sm:flex items-center px-2.5 py-1 rounded-full bg-surface-secondary hover:bg-surface-tertiary text-text-primary font-label-timecode text-[12px] transition-colors border border-black/[0.04]">
+          1.0x
+        </button>
+<!-- Volume Control -->
+<button class="hidden md:flex w-8 h-8 rounded-full items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-secondary transition-colors" title="Volume">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,73 @@
+{
+  "projectId": "6063499620727826815",
+  "projectResourceName": "projects/6063499620727826815",
+  "title": "VibeAudio",
+  "projectType": "PROJECT_DESIGN",
+  "origin": "STITCH",
+  "visibility": "PRIVATE",
+  "createTime": "2026-09-13T13:22:03.966199Z",
+  "updateTime": "2026-09-13T13:28:38.081363Z",
+  "userRole": "OWNER",
+  "designSystem": {
+    "canonicalAssetId": "3782265180cc4ca5b6153874396ac6c9",
+    "themeAssetId": "1125355419726294768",
+    "sourceContract": ".stitch/DESIGN.md",
+    "status": "REGISTERED",
+    "colorMode": "LIGHT",
+    "primaryAccent": "#C64E00",
+    "canvasBackground": "#F5F5F7",
+    "cardSurface": "#FFFFFF",
+    "typography": {
+      "headline": "Newsreader",
+      "body": "Inter",
+      "tabular": "JetBrains Mono"
+    }
+  },
+  "siteContext": {
+    "source": ".stitch/SITE.md",
+    "status": "SYNCHRONIZED"
+  },
+  "screens": {
+    "STITCH-SCR-001": {
+      "screenNumber": 1,
+      "name": "Landing",
+      "stitchScreenId": "43880b99788e44ee85d425c691867e49",
+      "coverAssetId": "06a78d948113494d80968db7c959745a"
+    },
+    "STITCH-SCR-002": {
+      "screenNumber": 2,
+      "name": "Home",
+      "stitchScreenId": "3c0ee01ff3b74381b72580abd1ee9f7c"
+    },
+    "STITCH-SCR-003": {
+      "screenNumber": 3,
+      "name": "Library",
+      "stitchScreenId": "87c884062e9c4d74bcd75899b636e0c1"
+    },
+    "STITCH-SCR-004": {
+      "screenNumber": 4,
+      "name": "Offline",
+      "stitchScreenId": "efdc59dade55469ab7bbc623181e6e27"
+    },
+    "STITCH-SCR-005": {
+      "screenNumber": 5,
+      "name": "Full Player",
+      "stitchScreenId": "e28c09ed5e304f9d86b024ffeae2e64c"
+    },
+    "STITCH-SCR-006": {
+      "screenNumber": 6,
+      "name": "Profile",
+      "stitchScreenId": "dd25a986bc14446c9aca975a5a9b4d95"
+    },
+    "STITCH-SCR-007": {
+      "screenNumber": 7,
+      "name": "Mini Player",
+      "stitchScreenId": "dbb602604862485e90788ffcf7bc085b"
+    },
+    "STITCH-SCR-008": {
+      "screenNumber": 8,
+      "name": "Mobile Adaptations",
+      "stitchScreenId": "024f6870e9d8405282abd81ced239c66"
+    }
+  }
+}

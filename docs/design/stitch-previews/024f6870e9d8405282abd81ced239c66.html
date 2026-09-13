@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-canvas text-text-primary" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>VibeAudio — Sanctuary</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Script -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#f5ded5",
+            "surface-tint": "#a23f00",
+            "inverse-primary": "#ffb595",
+            "canvas": "#F5F5F7",
+            "surface-secondary": "#F2F2F7",
+            "on-error-container": "#93000a",
+            "on-secondary-container": "#626267",
+            "on-background": "#251913",
+            "tertiary": "#0057bc",
+            "tertiary-fixed": "#d8e2ff",
+            "error-container": "#ffdad6",
+            "error": "#D70015",
+            "on-secondary": "#ffffff",
+            "inverse-surface": "#3b2d27",
+            "surface-container-highest": "#f5ded5",
+            "secondary-fixed": "#e3e2e7",
+            "warning": "#C96E00",
+            "primary-fixed": "#ffdbcd",
+            "on-tertiary": "#ffffff",
+            "background": "#fff8f6",
+            "surface-container": "#ffe9e1",
+            "primary-hover": "#A84200",
+            "secondary-fixed-dim": "#c7c6cb",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#C64E00",
+            "primary-active": "#8F3900",
+            "on-error": "#ffffff",
+            "surface-bright": "#fff8f6",
+            "tertiary-fixed-dim": "#adc6ff",
+            "on-tertiary-fixed-variant": "#004494",
+            "text-secondary": "#6E6E73",
+            "text-muted": "#AEAEB2",
+            "surface": "#FFFFFF",
+            "text-tertiary": "#86868B",
+            "on-primary": "#ffffff",
+            "surface-container-high": "#fbe3da",
+            "on-tertiary-fixed": "#001a41",
+            "primary-fixed-dim": "#ffb595",
+            "on-primary-fixed-variant": "#7c2e00",
+            "primary-container": "#c64e00",
+            "surface-container-low": "#fff1ec",
+            "on-surface": "#251913",
+            "on-tertiary-container": "#fcfbff",
+            "text-primary": "#1D1D1F",
+            "on-primary-fixed": "#360f00",
+            "on-secondary-fixed": "#1a1b1f",
+            "tertiary-container": "#006feb",
+            "surface-dim": "#edd5cc",
+            "outline-variant": "#e0c0b3",
+            "on-primary-container": "#fffaff",
+            "secondary": "#5e5e63",
+            "success": "#248A3D",
+            "on-secondary-fixed-variant": "#46464b",
+            "outline": "#8c7166",
+            "on-surface-variant": "#584238",
+            "inverse-on-surface": "#ffede7",
+            "surface-tertiary": "#E5E5EA",
+            "secondary-container": "#e0dfe4"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "8px",
+            "space-xs": "4px",
+            "gutter": "16px",
+            "space-xl": "32px",
+            "space-md": "16px",
+            "space-lg": "24px",
+            "margin": "24px",
+            "space-xxl": "48px"
+          },
+          "fontFamily": {
+            "label-timecode": ["JetBrains Mono"],
+            "label-author": ["Inter"],
+            "title-player": ["Newsreader"],
+            "title-shelf": ["Inter"],
+            "title-card": ["Inter"],
+            "display-hero": ["Newsreader"],
+            "body-standard": ["Inter"],
+            "body-medium": ["Inter"],
+            "label-kicker": ["Inter"]
+          },
+          "fontSize": {
+            "label-timecode": ["13px", { "lineHeight": "1.20", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-author": ["14px", { "lineHeight": "1.40", "letterSpacing": "0", "fontWeight": "500" }],
+            "title-player": ["36px", { "lineHeight": "1.10", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "title-shelf": ["22px", { "lineHeight": "1.18", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "title-card": ["18px", { "lineHeight": "1.20", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display-hero": ["48px", { "lineHeight": "1.06", "letterSpacing": "-0.035em", "fontWeight": "600" }],
+            "body-standard": ["15px", { "lineHeight": "1.60", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "body-medium": ["15px", { "lineHeight": "1.50", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "label-kicker": ["11px", { "lineHeight": "1.10", "letterSpacing": "0.12em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom utility for clean mobile scrolling without visible bar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-text-primary antialiased selection:bg-surface-variant selection:text-primary min-h-screen flex justify-center">
+<!-- Mobile Viewport Container strictly constrained to 390px width -->
+<div class="w-full max-w-[390px] min-h-screen bg-canvas flex flex-col relative shadow-2xl pb-28">
+<!-- 1. TopAppBar (Shared Component adapted to Mobile Viewport) -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center w-full px-4 h-14">
+<!-- Leading cluster -->
+<div class="flex items-center gap-2">
+<button aria-label="Menu" class="w-11 h-11 flex items-center justify-center rounded-full text-text-primary hover:text-primary transition-colors duration-200 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<div class="flex items-center gap-1.5 pl-0.5">
+<span class="material-symbols-outlined text-primary text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">headphones</span>
+<span class="font-display-hero text-[21px] font-semibold text-text-primary tracking-tight flex items-center">
+              VibeAudio
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-primary ml-1 mb-0.5"></span>
+</span>
+</div>
+</div>
+<!-- Trailing cluster -->
+<div class="flex items-center gap-1">
+<button aria-label="Search Catalog" class="w-11 h-11 flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary transition-colors duration-200 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</button>
+<button aria-label="User Profile" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary font-label-kicker text-[11px] font-bold border border-primary/20 active:scale-95 transition-transform" type="button">
+            GL
+          </button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-4 pt-3 flex flex-col gap-6">
+<!-- 2. Hero Card — "Continue Listening" -->
+<section aria-labelledby="active-story-title" class="w-full bg-surface rounded-[18px] p-4 border border-black/[0.06] shadow-sm relative overflow-hidden">
+<!-- Kicker status badge -->
+<div class="flex items-center justify-between pb-3">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+<span class="font-label-kicker text-label-kicker text-text-secondary tracking-wider">ACTIVE STORY · SYNCED OPFS</span>
+</div>
+<span class="font-label-timecode text-[11px] text-success font-medium bg-success/10 px-2 py-0.5 rounded-full">Downloaded</span>
+</div>
+<!-- Book & Details Row -->
+<div class="flex gap-3.5 items-start">
+<div class="w-[86px] h-[126px] flex-shrink-0 rounded-[10px] overflow-hidden shadow-md relative bg-surface-secondary">
+<img alt="Harry Potter and the Philosopher's Stone book cover illustration" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+</div>
+<div class="flex-1 flex flex-col justify-between min-h-[126px] py-0.5">
+<div>
+<span class="font-label-kicker text-[10px] text-primary uppercase font-bold tracking-widest">Book 6</span>
+<h2 class="font-display-hero text-[19px] leading-[1.2] font-semibold text-text-primary line-clamp-2 mt-0.5" id="active-story-title">
+                Harry Potter &amp; The Half-Blood Prince
+              </h2>
+<p class="font-label-author text-[13px] text-text-secondary mt-1">
+                J.K. Rowling · Jim Dale
+              </p>
+</div>
+<div class="inline-flex items-center self-start bg-surface-secondary px-2 py-1 rounded-[6px] mt-2">
+<span class="material-symbols-outlined text-[14px] text-text-secondary mr-1">bookmark</span>
+<span class="font-label-timecode text-[12px] text-text-primary">Ch 14 · 54% complete</span>
+</div>
+</div>
+</div>
+<!-- Progress Tracker Bar -->
+<div class="mt-4 pt-1">
+<div class="w-full h-1.5 bg-surface-secondary rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-300" style="width: 54%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1.5">
+<span class="font-label-timecode text-[12px] text-text-tertiary">05:12:40</span>
+<span class="font-label-timecode text-[12px] text-primary font-medium">04:15:20 remaining</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="grid grid-cols-4 gap-2 mt-3.5">
+<button class="col-span-3 h-11 bg-primary hover:bg-primary-hover active:bg-primary-active text-on-primary rounded-full font-body-medium text-body-medium flex items-center justify-center gap-2 transition-all duration-200 active:scale-95 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>Resume Listening</span>
+</button>
+<button aria-label="Table of contents" class="col-span-1 h-11 bg-surface-secondary hover:bg-surface-tertiary text-text-primary rounded-full flex items-center justify-center transition-all duration-200 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[20px]">format_list_bulleted</span>
+</button>
+</div>
+</section>
+<!-- 3. "ON THIS DEVICE" Shelf -->
+<section aria-labelledby="shelf-downloaded">
+<div class="flex items-baseline justify-between mb-2.5 px-0.5">
+<div>
+<span class="font-label-kicker text-label-kicker text-text-secondary uppercase">Local Storage</span>
+<h3 class="font-title-shelf text-[18px] font-semibold text-text-primary" id="shelf-downloaded">ON THIS DEVICE</h3>
+</div>
+<a class="font-label-author text-[13px] text-primary font-medium hover:text-primary-hover transition-colors flex items-center" href="#">
+            View All (12)
+            <span class="material-symbols-outlined text-[16px] ml-0.5">chevron_right</span>
+</a>
+</div>
+<!-- Carousel -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-1 pt-0.5 -mx-4 px-4 snap-x snap-mandatory">
+<!-- Book 1 -->
+<article class="snap-start flex-shrink-0 w-[112px] flex flex-col group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-[12px] overflow-hidden bg-surface-secondary relative shadow-sm transition-transform duration-200 group-active:scale-95">
+<img alt="Harry Potter audio book cover" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+<div class="absolute top-1.5 left-1.5 bg-surface/90 backdrop-blur-sm px-1.5 py-0.5 rounded-[4px] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[11px] text-success" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-kicker text-[9px] text-text-primary">OPFS</span>
+</div>
+</div>
+<h4 class="font-body-medium text-[13px] font-semibold text-text-primary mt-2 truncate">Harry Potter</h4>
+<p class="font-label-timecode text-[11px] text-text-tertiary">100% Downloaded</p>
+</article>
+<!-- Book 2 -->
+<article class="snap-start flex-shrink-0 w-[112px] flex flex-col group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-[12px] overflow-hidden bg-surface-secondary relative shadow-sm transition-transform duration-200 group-active:scale-95">
+<img alt="The Great Gatsby audio book cover" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Vj7d6d5c8XWD_ntdhSZSX--BhgcM7QXXV6PwyO8KRoxhsHM0yDazWN1dCn-0IEpQz2CWrZmz5uNs3CK5Ar0jx3qH1w5etCdWfJd42ed2WXSLbrCly6cxEBDkBR0Xv6qgK4d7vhD5JRskhu4lQ7MEF9BnunxZs_hcUSMB3kwsarNJtwCZUgstIYZlXObmW7hVLEiwhMo8KEbLAr51tW8OTUcwvPCA1QZfYwxvYtL1VrOISKF6HiTO4yk7A"/>
+<div class="absolute top-1.5 left-1.5 bg-surface/90 backdrop-blur-sm px-1.5 py-0.5 rounded-[4px] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[11px] text-success" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-kicker text-[9px] text-text-primary">OPFS</span>
+</div>
+</div>
+<h4 class="font-body-medium text-[13px] font-semibold text-text-primary mt-2 truncate">The Great Gatsby</h4>
+<p class="font-label-timecode text-[11px] text-text-tertiary">4h 45m Ready</p>
+</article>
+<!-- Book 3 -->
+<article class="snap-start flex-shrink-0 w-[112px] flex flex-col group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-[12px] overflow-hidden bg-surface-secondary relative shadow-sm transition-transform duration-200 group-active:scale-95">
+<img alt="The Little Prince audio book cover" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Vn6Ko9J6J3csnZRaUIOE4VXnEBHk_lYMFT4mvkR8N7ejoSkUOSRLDB74fbESCjC0CisYvJdkQjUxGMxoNi6eDlkjv_FRK5cO6Ic_lPydbuADcL50p6eA2ZUn5SgZc7M2VlOEYZKQi76ufSbBAPl1t9DllW8YWuINVMFbMh6y7Fa68T_9pudFEx1Xv462VXmwgSn5l6iH-MXfXE7j_iOyVVszH1I-kaq_bxDbSPhxF9UaDtizYDuvyhpg"/>
+<div class="absolute top-1.5 left-1.5 bg-surface/90 backdrop-blur-sm px-1.5 py-0.5 rounded-[4px] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[11px] text-success" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-kicker text-[9px] text-text-primary">OPFS</span>
+</div>
+</div>
+<h4 class="font-body-medium text-[13px] font-semibold text-text-primary mt-2 truncate">The Little Prince</h4>
+<p class="font-label-timecode text-[11px] text-text-tertiary">2h 10m Ready</p>
+</article>
+<!-- Book 4 -->
+<article class="snap-start flex-shrink-0 w-[112px] flex flex-col group cursor-pointer">
+<div class="w-full aspect-[2/3] rounded-[12px] overflow-hidden bg-surface-secondary relative shadow-sm transition-transform duration-200 group-active:scale-95">
+<img alt="1984 by George Orwell book cover" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VlCuXA_eeU6w2QOW19Uk298_AyvjikM1rMm4ckrjXH7lhi6s8iHxCG6fN6GC0csMtTqC-nBlUYRFsnjjIdEn5QrrO7lTeKTUAD5ONQAieyzTD43jdjtRKiRJwRUxgsyYgYjetJ3R0LzcgGj9JLf6xLvIsoc1EIUgeTV87tB6gw1E2ZEqIeaSLeUpihP9r3HxPBZG1bbQMHPULIa7hsZlo9S0BaOCPB0C1EBYzqOC8bt8FnWp3YRGqEOVc"/>
+<div class="absolute top-1.5 left-1.5 bg-surface/90 backdrop-blur-sm px-1.5 py-0.5 rounded-[4px] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[11px] text-success" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-kicker text-[9px] text-text-primary">OPFS</span>
+</div>
+</div>
+<h4 class="font-body-medium text-[13px] font-semibold text-text-primary mt-2 truncate">1984</h4>
+<p class="font-label-timecode text-[11px] text-text-tertiary">11h 15m Ready</p>
+</article>
+</div>
+</section>
+<!-- 4. Editorial Literary Sanctuary Quote Card -->
+<section class="w-full bg-surface-secondary/70 border border-black/[0.04] rounded-[14px] p-4 text-center">
+<span class="material-symbols-outlined text-primary text-[22px] opacity-80">format_quote</span>
+<blockquote class="font-display-hero italic text-[15px] leading-relaxed text-text-primary mt-1">
+          "A sanctuary is not merely an absence of noise, but the deliberate presence of acoustic room to let thoughts unfurl alongside the narrator's voice."
+        </blockquote>
+<cite class="not-italic block font-label-kicker text-[10px] text-text-secondary mt-2 tracking-widest uppercase">
+          — Antoine de Saint-Exupéry
+        </cite>
+</section>
+<!-- 5. "PICKED FOR YOU" Shelf (2-Column Bento Grid) -->
+<section aria-labelledby="shelf-curated" class="mb-4">
+<div class="flex items-baseline justify-between mb-3 px-0.5">
+<div>
+<span class="font-label-kicker text-label-kicker text-text-secondary uppercase">Sanctuary Library</span>
+<h3 class="font-title-shelf text-[18px] font-semibold text-text-primary" id="shelf-curated">PICKED FOR YOU</h3>
+<p class="font-label-author text-[12px] text-text-secondary">Curated quiet journeys</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Card 1: The Little Prince -->
+<article class="bg-surface rounded-[14px] p-2.5 border border-black/[0.05] shadow-sm flex flex-col justify-between group cursor-pointer transition-all active:scale-[0.98]">
+<div>
+<div class="w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary relative shadow-inner">
+<img alt="The Little Prince by Antoine de Saint-Exupéry" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Vn6Ko9J6J3csnZRaUIOE4VXnEBHk_lYMFT4mvkR8N7ejoSkUOSRLDB74fbESCjC0CisYvJdkQjUxGMxoNi6eDlkjv_FRK5cO6Ic_lPydbuADcL50p6eA2ZUn5SgZc7M2VlOEYZKQi76ufSbBAPl1t9DllW8YWuINVMFbMh6y7Fa68T_9pudFEx1Xv462VXmwgSn5l6iH-MXfXE7j_iOyVVszH1I-kaq_bxDbSPhxF9UaDtizYDuvyhpg"/>
+<span class="absolute bottom-2 left-2 bg-text-primary/75 backdrop-blur-sm text-white font-label-kicker text-[9px] px-1.5 py-0.5 rounded tracking-wider">
+                  PHILOSOPHY
+                </span>
+</div>
+<h4 class="font-title-card text-[14px] leading-snug font-semibold text-text-primary mt-2.5 line-clamp-1">The Little Prince</h4>
+<p class="font-label-author text-[12px] text-text-secondary truncate">Antoine de Saint-Exupéry</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-canvas">
+<span class="font-label-timecode text-[11px] text-text-tertiary">2h 10m</span>
+<span class="material-symbols-outlined text-primary text-[18px]">play_circle</span>
+</div>
+</article>
+<!-- Card 2: 1984 -->
+<article class="bg-surface rounded-[14px] p-2.5 border border-black/[0.05] shadow-sm flex flex-col justify-between group cursor-pointer transition-all active:scale-[0.98]">
+<div>
+<div class="w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary relative shadow-inner">
+<img alt="1984 by George Orwell" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VlCuXA_eeU6w2QOW19Uk298_AyvjikM1rMm4ckrjXH7lhi6s8iHxCG6fN6GC0csMtTqC-nBlUYRFsnjjIdEn5QrrO7lTeKTUAD5ONQAieyzTD43jdjtRKiRJwRUxgsyYgYjetJ3R0LzcgGj9JLf6xLvIsoc1EIUgeTV87tB6gw1E2ZEqIeaSLeUpihP9r3HxPBZG1bbQMHPULIa7hsZlo9S0BaOCPB0C1EBYzqOC8bt8FnWp3YRGqEOVc"/>
+<span class="absolute bottom-2 left-2 bg-text-primary/75 backdrop-blur-sm text-white font-label-kicker text-[9px] px-1.5 py-0.5 rounded tracking-wider">
+                  DYSTOPIAN
+                </span>
+</div>
+<h4 class="font-title-card text-[14px] leading-snug font-semibold text-text-primary mt-2.5 line-clamp-1">1984</h4>
+<p class="font-label-author text-[12px] text-text-secondary truncate">George Orwell</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-canvas">
+<span class="font-label-timecode text-[11px] text-text-tertiary">11h 15m</span>
+<span class="material-symbols-outlined text-primary text-[18px]">play_circle</span>
+</div>
+</article>
+<!-- Card 3: The Great Gatsby -->
+<article class="bg-surface rounded-[14px] p-2.5 border border-black/[0.05] shadow-sm flex flex-col justify-between group cursor-pointer transition-all active:scale-[0.98]">
+<div>
+<div class="w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary relative shadow-inner">
+<img alt="The Great Gatsby novel" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Vj7d6d5c8XWD_ntdhSZSX--BhgcM7QXXV6PwyO8KRoxhsHM0yDazWN1dCn-0IEpQz2CWrZmz5uNs3CK5Ar0jx3qH1w5etCdWfJd42ed2WXSLbrCly6cxEBDkBR0Xv6qgK4d7vhD5JRskhu4lQ7MEF9BnunxZs_hcUSMB3kwsarNJtwCZUgstIYZlXObmW7hVLEiwhMo8KEbLAr51tW8OTUcwvPCA1QZfYwxvYtL1VrOISKF6HiTO4yk7A"/>
+<span class="absolute bottom-2 left-2 bg-text-primary/75 backdrop-blur-sm text-white font-label-kicker text-[9px] px-1.5 py-0.5 rounded tracking-wider">
+                  CLASSIC
+                </span>
+</div>
+<h4 class="font-title-card text-[14px] leading-snug font-semibold text-text-primary mt-2.5 line-clamp-1">The Great Gatsby</h4>
+<p class="font-label-author text-[12px] text-text-secondary truncate">F. Scott Fitzgerald</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-canvas">
+<span class="font-label-timecode text-[11px] text-text-tertiary">4h 45m</span>
+<span class="material-symbols-outlined text-primary text-[18px]">play_circle</span>
+</div>
+</article>
+<!-- Card 4: Harry Potter & Philosopher's Stone -->
+<article class="bg-surface rounded-[14px] p-2.5 border border-black/[0.05] shadow-sm flex flex-col justify-between group cursor-pointer transition-all active:scale-[0.98]">
+<div>
+<div class="w-full aspect-[2/3] rounded-[10px] overflow-hidden bg-surface-secondary relative shadow-inner">
+<img alt="Harry Potter and the Philosopher's Stone" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+<span class="absolute bottom-2 left-2 bg-text-primary/75 backdrop-blur-sm text-white font-label-kicker text-[9px] px-1.5 py-0.5 rounded tracking-wider">
+                  FANTASY
+                </span>
+</div>
+<h4 class="font-title-card text-[14px] leading-snug font-semibold text-text-primary mt-2.5 line-clamp-1">Philosopher's Stone</h4>
+<p class="font-label-author text-[12px] text-text-secondary truncate">J.K. Rowling</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-canvas">
+<span class="font-label-timecode text-[11px] text-text-tertiary">8h 22m</span>
+<span class="material-symbols-outlined text-primary text-[18px]">play_circle</span>
+</div>
+</article>
+</div>
+</section>
+<!-- 6. Compact Mobile Footer Component (Conforms to Shared Component JSON) -->
+<footer class="pt-4 pb-6 border-t border-black/[0.06] text-center flex flex-col items-center gap-3">
+<div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] text-text-secondary">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Sanctuary</a>
+<a class="hover:text-primary transition-colors" href="#">Journal</a>
+<a class="hover:text-primary transition-colors" href="#">Contact Concierge</a>
+</div>
+<p class="text-[11px] text-text-muted">
+          © 2025 VibeAudio Sanctuary Inc. All rights reserved.
+        </p>
+</footer>
+</main>
+<!-- 7. Persistent Floating Mobile Mini Dock -->
+<aside aria-label="Audio playback controls" class="fixed bottom-3 inset-x-3 max-w-[366px] mx-auto z-40 bg-surface/90 backdrop-blur-xl border border-black/[0.08] rounded-[22px] shadow-lg shadow-black/10 overflow-hidden">
+<!-- Mini Progress Strip -->
+<div class="w-full h-[2.5px] bg-surface-secondary">
+<div class="h-full bg-primary" style="width: 54%;"></div>
+</div>
+<div class="h-14 px-3 flex items-center justify-between gap-2.5">
+<!-- Story Thumbnail & Metas -->
+<div class="flex items-center gap-2.5 min-w-0 flex-1">
+<div class="w-9 h-9 rounded-[8px] overflow-hidden flex-shrink-0 bg-surface-secondary shadow-sm">
+<img alt="Now playing album artwork" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W5yYo948brtXQwN4_gWkm1mRy65Uk8JLT-Qe6H43gud0HauLNoN7ayRpMWM1EH7bgQCjqxDEkqs7G8Oqa7xKg5HuSUyaYBHmSljSLLSkDDonQgrciwcWBSXpcJrY_5-AkRLDAVCi_LteYxxZFDnyLRYzBuxgXJNXzF2rpMrNZ7u-TY1zeJVmBshOPk_lY3pP1_zft0GLO0KNFJuD43HgsDWN_CqiziOHA5K89LDB3HPrfmtQI9Yr2GrA"/>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-body-medium text-[13px] font-semibold text-text-primary truncate">HP &amp; Half-Blood Prince</p>
+<p class="font-label-timecode text-[11px] text-text-secondary truncate">Ch 14 · Felix Felicis</p>
+</div>
+</div>
+<!-- Touch Controls (Compliant with 44x44px touch targets) -->
+<div class="flex items-center gap-0.5 flex-shrink-0">
+<!-- Rewind 15s -->
+<button aria-label="Rewind 15 seconds" class="w-11 h-11 flex items-center justify-center rounded-full text-text-secondary hover:text-text-primary active:scale-90 transition-transform" type="button">
+<span class="material-symbols-outlined text-[22px]">export_notes</span>
+</button>
+<!-- Play/Pause Pill Button -->
+<button aria-label="Toggle Playback" class="w-10 h-10 bg-primary hover:bg-primary-hover active:bg-primary-active rounded-full flex items-center justify-center text-on-primary shadow-sm active:scale-90 transition-all ml-0.5" type="button">
+<span class="material-symbols-outlined text-[22px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+<script>
+    // Lightweight atmospheric interaction for playback toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const playBtn = document.querySelector('aside button[aria-label="Toggle Playback"]');
+      if (playBtn) {
+        let isPlaying = false;
+        playBtn.addEventListener('click', () => {
+          isPlaying = !isPlaying;
+          const icon = playBtn.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = isPlaying ? 'pause' : 'play_arrow';
+          }
+        });
+      }
+    });
+  </script>
+</body></html>
