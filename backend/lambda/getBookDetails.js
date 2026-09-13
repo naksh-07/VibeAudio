@@ -2,6 +2,7 @@ const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, GetCommand } = require("@aws-sdk/lib-dynamodb");
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { getSafeCorsHeaders } = require("../shared/cors.js");
 
 // --- CLIENTS (Global Cache) ---
 const dbClient = new DynamoDBClient({ region: "ap-south-1" });
@@ -27,11 +28,14 @@ async function signUrl(path) {
 }
 
 exports.handler = async (event) => {
+    const origin = event.headers?.origin || event.headers?.Origin;
+    const corsHeaders = getSafeCorsHeaders(origin);
+
     // CORS Handling
     if (event.requestContext?.http?.method === "OPTIONS") {
         return {
             statusCode: 200,
-            headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type" }
+            headers: corsHeaders
         };
     }
 
@@ -41,7 +45,7 @@ exports.handler = async (event) => {
         const { bookId } = body;
 
         if (!bookId) {
-            return { statusCode: 400, body: JSON.stringify({ error: "Book ID required" }) };
+            return { statusCode: 400, headers: corsHeaders, body: JSON.stringify({ error: "Book ID required" }) };
         }
 
         console.log(`⚡ Fetching Details for: ${bookId}`);
@@ -54,7 +58,7 @@ exports.handler = async (event) => {
 
         const book = data.Item;
         if (!book) {
-            return { statusCode: 404, body: JSON.stringify({ error: "Book not found" }) };
+            return { statusCode: 404, headers: corsHeaders, body: JSON.stringify({ error: "Book not found" }) };
         }
 
         // 3. Sirf iske chapters sign karo (Super Fast)
@@ -65,12 +69,12 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", ...corsHeaders },
             body: JSON.stringify({ ...book, chapters: signedChapters })
         };
 
     } catch (err) {
         console.error("❌ Error:", err);
-        return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+        return { statusCode: 500, headers: corsHeaders, body: JSON.stringify({ error: err.message }) };
     }
 };
