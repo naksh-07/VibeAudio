@@ -1,8 +1,19 @@
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, QueryCommand } = require("@aws-sdk/lib-dynamodb");
+const { authenticateRequest } = require("../shared/auth-middleware.js");
 
-const client = new DynamoDBClient({ region: "ap-south-1" });
-const docClient = DynamoDBDocumentClient.from(client);
+const client = new DynamoDBClient({
+    region: process.env.AWS_REGION || "ap-south-1",
+    ...(process.env.NODE_ENV === "test" && {
+        endpoint: "http://localhost:8000",
+        credentials: { accessKeyId: "test", secretAccessKey: "test" }
+    })
+});
+let docClient = DynamoDBDocumentClient.from(client);
+
+exports.setDocClientForTest = (mockClient) => {
+    docClient = mockClient;
+};
 
 exports.handler = async (event) => {
     const headers = {
@@ -19,14 +30,19 @@ exports.handler = async (event) => {
         };
     }
 
-    const userId = String(event.queryStringParameters?.userId || "").trim();
-    if (!userId) {
+    let user;
+    try {
+        user = await authenticateRequest(event);
+    } catch (error) {
         return {
-            statusCode: 400,
+            statusCode: 401,
             headers,
-            body: JSON.stringify({ error: "userId is required" })
+            body: JSON.stringify({ error: "Unauthorized" })
         };
     }
+
+    // Ignore client-supplied userId and strictly use JWT sub
+    const userId = user.userId;
 
     try {
         const data = await docClient.send(new QueryCommand({

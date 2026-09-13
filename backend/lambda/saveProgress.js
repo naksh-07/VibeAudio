@@ -1,8 +1,20 @@
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
+const { authenticateRequest } = require("../shared/auth-middleware.js");
 
-const client = new DynamoDBClient({ region: "ap-south-1" });
-const docClient = DynamoDBDocumentClient.from(client);
+const client = new DynamoDBClient({
+    region: process.env.AWS_REGION || "ap-south-1",
+    ...(process.env.NODE_ENV === "test" && {
+        endpoint: "http://localhost:8000",
+        credentials: { accessKeyId: "test", secretAccessKey: "test" }
+    })
+});
+let docClient = DynamoDBDocumentClient.from(client);
+
+// For testing purposes, allow replacing the docClient
+exports.setDocClientForTest = (mockClient) => {
+    docClient = mockClient;
+};
 
 function toSafeNumber(value, fallback = 0) {
     const number = Number(value);
@@ -24,6 +36,17 @@ exports.handler = async (event) => {
         };
     }
 
+    let user;
+    try {
+        user = await authenticateRequest(event);
+    } catch (error) {
+        return {
+            statusCode: 401,
+            headers,
+            body: JSON.stringify({ error: "Unauthorized" })
+        };
+    }
+
     if (!event.body) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: "Empty Body" }) };
     }
@@ -35,14 +58,15 @@ exports.handler = async (event) => {
         return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid JSON" }) };
     }
 
-    const userId = String(body.userId || "").trim();
+    // Ignore client-supplied userId and strictly use JWT sub
+    const userId = user.userId;
     const bookId = String(body.bookId || "").trim();
 
-    if (!userId || !bookId) {
+    if (!bookId) {
         return {
             statusCode: 400,
             headers,
-            body: JSON.stringify({ error: "userId and bookId are required" })
+            body: JSON.stringify({ error: "bookId is required" })
         };
     }
 
