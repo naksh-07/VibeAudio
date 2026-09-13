@@ -3,6 +3,7 @@ const { DynamoDBDocumentClient, GetCommand } = require("@aws-sdk/lib-dynamodb");
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { getSafeCorsHeaders } = require("../shared/cors.js");
+const { handleLambdaError } = require("../shared/error-handler.js");
 
 // --- CLIENTS (Global Cache) ---
 const dbClient = new DynamoDBClient({ region: "ap-south-1" });
@@ -23,7 +24,7 @@ async function signUrl(path) {
     if (!path || path.startsWith("http")) return path;
     try {
         const command = new GetObjectCommand({ Bucket: process.env.R2_BUCKET_NAME, Key: path });
-        return await getSignedUrl(s3, command, { expiresIn: 3600 });
+        return await getSignedUrl(s3, command, { expiresIn: 900 });
     } catch (e) { return null; }
 }
 
@@ -74,7 +75,7 @@ exports.handler = async (event) => {
         };
 
     } catch (err) {
-        console.error("❌ Error:", err);
-        return { statusCode: 500, headers: corsHeaders, body: JSON.stringify({ error: err.message }) };
+        const requestId = event.requestContext?.requestId;
+        return handleLambdaError(err, requestId, corsHeaders);
     }
 };
