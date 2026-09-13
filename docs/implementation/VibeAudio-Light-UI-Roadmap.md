@@ -42,7 +42,7 @@ To ensure complete safety, zero regressions, and surgical execution, the impleme
 ---
 
 ### Phase 1 — Design Foundations & Token Migration
-* **Objectives:** Migrate CSS custom properties in `base.css` to the luminous Apple light canvas (`#F5F5F7`), pure white surfaces (`#FFFFFF`), warm amber accent (`#E65A00`), and dark text hierarchy (`#1D1D1F`). Adapt `ui-player-helpers.js` light theme calculations.
+* **Objectives:** Migrate CSS custom properties in `base.css` to the luminous Apple light canvas (`#F5F5F7`), pure white surfaces (`#FFFFFF`), warm amber accent (`#C64E00`), and dark text hierarchy (`#1D1D1F`). Adapt `ui-player-helpers.js` light theme calculations.
 * **Files Likely Affected:**
   * `frontend/src/css/base.css`
   * `frontend/src/js/ui-player-helpers.js`

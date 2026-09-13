@@ -49,7 +49,7 @@ Synthesize a clean, editorial, light-minimalist landing page that introduces Vib
 
 * **Canvas:** `#F5F5F7` background with very subtle ambient warm light glow in top left.
 * **Hero Section (2-Column Grid):**
-  * *Left Hero Card:* White `#FFFFFF` panel with 24px sheet radius. Eyebrow tag in uppercase warm amber (`#E65A00`). Display title *"A calmer way to listen."* set in `Newsreader` (italic accent on *"listen"*). Primary solid amber button with high-contrast white text, secondary ghost button.
+  * *Left Hero Card:* White `#FFFFFF` panel with 24px sheet radius. Eyebrow tag in uppercase warm amber (`#C64E00`). Display title *"A calmer way to listen."* set in `Newsreader` (italic accent on *"listen"*). Primary solid amber button with high-contrast white text (`#FFFFFF`, verified 4.67:1 WCAG AA contrast), secondary ghost button.
   * *Right Spotlight Card:* Elevated white card featuring a large 2:3 vertical book cover with soft ambient drop shadow, title in Newsreader, author, and quick play CTA.
 * **Curated Preview Grid:** 4-column card grid showing authentic book covers with 2:3 aspect ratio, subtle hairline borders, and category tags.
 * **Feature Row:** 4 minimalist feature tiles (Listening Sanctuary, Private Offline Shelf, Saved Moments, Optional Cloud Sync) with thin stroke line icons.
@@ -58,7 +58,7 @@ Synthesize a clean, editorial, light-minimalist landing page that introduces Vib
 
 ## 4. Components & Tokens
 * `Landing Topbar`: Sticky frosted glass (`background: rgba(255, 255, 255, 0.78); backdrop-filter: blur(20px); border-radius: 24px;`).
-* `Primary Button`: `#E65A00` background, `#FFFFFF` bold text, pill radius, subtle warm shadow.
+* `Primary Button`: `#C64E00` background, `#FFFFFF` bold text, pill radius, subtle warm shadow `0 4px 14px rgba(198, 78, 0, 0.24)`.
 * `Trust Badges`: Pill chips with `#248A3D` checkmark icon and `#F2F2F7` background.
 * `Book Cards`: Pure white `#FFFFFF` surface with hairline `rgba(0, 0, 0, 0.08)` border and `0 4px 18px rgba(0, 0, 0, 0.05)` shadow.
 
@@ -67,5 +67,5 @@ Synthesize a clean, editorial, light-minimalist landing page that introduces Vib
 ## 5. Visual Constraints & Avoid Rules
 * ❌ Avoid dark background colors (`#0C0D11` or `#16181F`).
 * ❌ Avoid pricing banners, fake discount percentages, or "Subscribe now" buttons.
-* ❌ Avoid loud multi-color gradients. Keep colors grounded in `#F5F5F7`, `#FFFFFF`, and `#E65A00`.
+* ❌ Avoid loud multi-color gradients. Keep colors grounded in `#F5F5F7`, `#FFFFFF`, and `#C64E00`.
 * ❌ Avoid heavy drop shadows that appear dirty on light backgrounds.

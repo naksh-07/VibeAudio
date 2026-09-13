@@ -27,21 +27,24 @@ docs/
 ├── product/
 │   └── VibeAudio-Light-UI-PRD.md              (DOC-PRD-001) — Requirements & Functional Preservation Contract
 ├── implementation/
-│   ├── VibeAudio-Light-UI-Implementation.md   (DOC-IMP-001) — Technical CSS/DOM Mapping & JS Coupling
+│   ├── VibeAudio-Light-UI-Implementation.md   (DOC-IMP-001) — Technical CSS/DOM Mapping & Phase 5 Requirements
 │   └── VibeAudio-Light-UI-Roadmap.md          (DOC-IMP-002) — Phased Execution Strategy (Phases 0 to 10)
 ├── qa/
 │   ├── VibeAudio-Light-UI-Acceptance.md       (DOC-QA-001)  — Cross-Viewport Acceptance Criteria
 │   └── VibeAudio-Light-UI-Visual-QA.md        (DOC-QA-002)  — Closed-Loop Playwright Screenshot Workflow
-└── stitch/
-    ├── VibeAudio-Stitch-Master-Brief.md       (DOC-STI-000) — Master Generation Prompt & Guardrails
-    ├── 01-landing.md                          (STITCH-SCR-001) — Landing Page Stitch Prompt
-    ├── 02-home.md                             (STITCH-SCR-002) — Home Shelf Stitch Prompt
-    ├── 03-library.md                          (STITCH-SCR-003) — Audiobook Library Stitch Prompt
-    ├── 04-offline.md                          (STITCH-SCR-004) — On This Device Storage Stitch Prompt
-    ├── 05-profile.md                          (STITCH-SCR-005) — Profile & Settings Stitch Prompt
-    ├── 06-mini-player.md                      (STITCH-SCR-006) — Floating Mini-Player Dock Stitch Prompt
-    ├── 07-full-player.md                      (STITCH-SCR-007) — Full Player & Transport Deck Stitch Prompt
-    └── 08-mobile.md                           (STITCH-SCR-008) — Mobile Ergonomics (390×844) Stitch Prompt
+├── stitch/
+│   ├── VibeAudio-Stitch-Master-Brief.md       (DOC-STI-000) — Master Generation Prompt & Guardrails
+│   ├── 01-landing.md                          (STITCH-SCR-001) — Landing Page Stitch Prompt
+│   ├── 02-home.md                             (STITCH-SCR-002) — Home Shelf Stitch Prompt
+│   ├── 03-library.md                          (STITCH-SCR-003) — Audiobook Library Stitch Prompt
+│   ├── 04-offline.md                          (STITCH-SCR-004) — On This Device Storage Stitch Prompt
+│   ├── 05-full-player.md                      (STITCH-SCR-005) — Full Player & Transport Deck Stitch Prompt
+│   ├── 06-profile.md                          (STITCH-SCR-006) — Profile & Settings Stitch Prompt
+│   ├── 07-mini-player.md                      (STITCH-SCR-007) — Floating Mini-Player Dock in App Shell Prompt
+│   └── 08-mobile.md                           (STITCH-SCR-008) — Mobile Home Ergonomics (390×844) Stitch Prompt
+└── .stitch/ (Root)
+    ├── DESIGN.md                              (STITCH-DS-001)  — Canonical Visual Design System
+    └── SITE.md                                (STITCH-SITE-001)— Canonical Product & Site Constitution
 ```
 
 ---
@@ -72,7 +75,7 @@ docs/
 3. **Light Palette & High-Contrast Typography:**
    * Global canvas anchored at `#F5F5F7` with `#FFFFFF` cards.
    * Text hierarchy enforced at `#1D1D1F` (primary, `>13:1` contrast) and `#6E6E73` (secondary, `>4.5:1` contrast).
-   * Brand accent tuned to high-contrast warm terracotta amber (`#E65A00` / `#FF9500`).
+   * Brand accent tuned to high-contrast warm terracotta amber (`#C64E00`, verified 4.67:1 WCAG AA contrast against pure white `#FFFFFF`).
 4. **Zero Build Step & Zero Dependency Policy Maintained:**
    * The redesign requires no bundlers, transpilers, or node packages. All CSS custom properties and ES modules work natively in modern evergreen browsers.
 

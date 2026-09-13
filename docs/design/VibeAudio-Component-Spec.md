@@ -94,10 +94,10 @@
 ### 4.1 Primary Solid Button (`.solid-btn`, `.action-btn`)
 * **Purpose:** High-priority actions ("Start Listening", "Listen Now", "Resume").
 * **Dimensions:** Min-height 44px, padding 10px 22px, border-radius 999px.
-* **Colors:** Background `var(--color-accent)` (`#E65A00`), text `#FFFFFF`, border none.
-* **Shadow:** `0 4px 14px rgba(230, 90, 0, 0.28)`.
-* **Hover:** Background `var(--color-accent-hover)` (`#CC4E00`), `transform: translateY(-1px)`, shadow `0 6px 20px rgba(230, 90, 0, 0.36)`.
-* **Active:** `transform: scale(0.97)`.
+* **Colors:** Background `var(--color-accent)` (`#C64E00`), text `#FFFFFF` (weight 600, verified 4.67:1 WCAG AA contrast), border none.
+* **Shadow:** `0 4px 14px rgba(198, 78, 0, 0.24)`.
+* **Hover:** Background `var(--color-accent-hover)` (`#A84200`), `transform: translateY(-1px)`, shadow `0 6px 20px rgba(198, 78, 0, 0.32)`.
+* **Active:** `transform: scale(0.97)`, background `var(--color-accent-active)` (`#8F3900`).
 
 ### 4.2 Secondary Button (`.btn-secondary`, `.ghost-btn`)
 * **Purpose:** Secondary actions ("Save for Offline", "Share", "Browse Library").
@@ -115,7 +115,7 @@
 * **Purpose:** Instant category/genre filtering in Library and Discovery views.
 * **Dimensions:** Min-height 38px, padding 8px 16px, border-radius 999px.
 * **Inactive State:** Background `var(--color-surface-1)`, text `var(--color-text-secondary)`, border `1px solid var(--color-border)`.
-* **Active State (`.active`):** Background `var(--color-accent)` (`#E65A00`), text `#FFFFFF`, font-weight 600, border none, shadow `var(--shadow-subtle)`.
+* **Active State (`.active`):** Background `var(--color-accent)` (`#C64E00`), text `#FFFFFF`, font-weight 600, border none, shadow `var(--shadow-subtle)`.
 * **Interaction:** Horizontal scroll without scrollbar clutter (`scrollbar-width: none`).
 
 ---
@@ -139,9 +139,9 @@
   * Radius: `var(--radius-sheet)` (24px)
   * Shadow: `var(--shadow-sheet)` (`0 16px 44px rgba(0, 0, 0, 0.10)`)
 * **Interactive Elements:**
-  * Top progress indicator (`.mini-progress-line`): 2px height, accent fill.
+  * Top progress indicator (`.mini-progress-line`): 2px height, accent fill in `var(--color-accent)` (`#C64E00`).
   * Track info trigger (`#mini-track-info`): Covers 42×42px thumbnail, title, chapter. Entire area clickable to open Full Player.
-  * Transport buttons: Back 15s (`#mini-seek-back-btn`), Play Circle (`#mini-play-btn`, 42px solid accent circle with white icon), Forward 30s (`#mini-seek-fwd-btn`).
+  * Transport buttons: Back 15s (`#mini-seek-back-btn`), Play Circle (`#mini-play-btn`, 42px solid accent circle in `#C64E00` with white icon), Forward 30s (`#mini-seek-fwd-btn`).
 * **Contract:** Must be completely hidden when `#view-player` is active.
 
 ---
@@ -152,13 +152,13 @@
 * **Anatomy:**
   1. Position Line: Chapter indicator (`#player-current-part`) and Time remaining countdown (`#player-time-remaining`).
   2. Scrubber Container:
-     * Current timecode (`#current-time`, tabular mono).
-     * Input Range Slider (`#progress-bar`): 6px height track, 18px circular white thumb with shadow.
+     * Current timecode (`#current-time`, tabular mono `JetBrains Mono`).
+     * Input Range Slider (`#progress-bar`): 6px height track with `#C64E00` active fill, 18px circular white thumb with shadow.
      * Total duration timecode (`#total-duration`, tabular mono).
   3. Control Deck:
      * Speed selector (`#speed-btn`): 40px rounded button.
      * Jump -15s (`#seek-back-btn`): Pill button with step icon and label.
-     * Main Play/Pause (`#play-btn`): 56×56px circular accent button with elevated drop shadow.
+     * Main Play/Pause (`#play-btn`): 56×56px circular accent button in `#C64E00` with elevated drop shadow and warm ambient glow.
      * Jump +30s (`#seek-fwd-btn`): Pill button with forward icon and label.
      * Sleep Timer (`#sleep-timer-btn`): 40px circular button.
 * **Background & Surface:** Solid white `var(--color-surface-1)` with `1px solid var(--color-border)` and `var(--radius-panel)` (18px).
@@ -178,9 +178,9 @@
   * Border: `1px solid var(--color-border)`
   * Radius: `var(--radius-md)` (10px)
 * **Active Playing State (`.active`):**
-  * Background: `var(--color-accent-soft)` (`rgba(230, 90, 0, 0.08)`)
-  * Border Color: `var(--color-accent-border)`
-  * Indicator: Inset 3px accent bar on left border; chapter title text turns `var(--color-accent)`.
+  * Background: `var(--color-accent-soft)` (`rgba(198, 78, 0, 0.08)`)
+  * Border Color: `var(--color-accent-border)` (`rgba(198, 78, 0, 0.24)`)
+  * Indicator: Inset 3px accent bar on left border; chapter title text turns `var(--color-accent)` (`#C64E00`).
 
 ---
 
@@ -192,9 +192,9 @@
   * Text: `var(--color-success)` (`#248A3D`), 11px uppercase bold.
   * Icon: `#icon-check-circle`.
 * **Activity Badge (`.card-activity-badge.continue`):**
-  * Background: `var(--color-accent-soft)`
-  * Border: `1px solid var(--color-accent-border)`
-  * Text: `var(--color-accent)`.
+  * Background: `var(--color-accent-soft)` (`rgba(198, 78, 0, 0.08)`)
+  * Border: `1px solid var(--color-accent-border)` (`rgba(198, 78, 0, 0.24)`)
+  * Text: `var(--color-accent)` (`#C64E00`).
 * **Source Badge (`.source-type-badge.yt-badge`):**
-  * Background: `rgba(230, 90, 0, 0.08)`
-  * Text: `var(--color-accent)`.
+  * Background: `rgba(198, 78, 0, 0.08)`
+  * Text: `var(--color-accent)` (`#C64E00`).

@@ -1,8 +1,6 @@
 /* Shared cover handling */
 :root {
-    --cover-surface:
-        linear-gradient(180deg, rgba(255, 250, 239, 0.05), rgba(255, 250, 239, 0.02)),
-        rgba(8, 12, 18, 0.92);
+    --cover-surface: linear-gradient(180deg, #F2F2F7, #E5E5EA);
 }
 
 .featured-cover,
@@ -19,7 +17,7 @@
 
 .book-card-media {
     aspect-ratio: 2 / 3;
-    background: rgba(8, 12, 18, 0.82);
+    background: var(--color-surface-2);
 }
 
 .book-card:hover img {

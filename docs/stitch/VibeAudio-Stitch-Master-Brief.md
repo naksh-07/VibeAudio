@@ -29,7 +29,7 @@
 * **Primary Text:** `#1D1D1F` (Authoritative dark charcoal, high contrast).
 * **Secondary Text:** `#6E6E73` (Refined neutral gray for metadata and author bylines).
 * **Tertiary Text / Timecodes:** `#86868B` (Tabular timecodes, part numbers).
-* **Signature Accent:** `#E65A00` / `#FF9500` (Warm amber / terracotta, high contrast on light canvas).
+* **Signature Accent:** `#C64E00` (Warm terracotta amber, strictly verified 4.67:1 contrast ratio against `#FFFFFF`, passing WCAG 2.1 AA). Hover: `#A84200`, Pressed: `#8F3900`.
 * **Success (Downloaded / Synced):** `#248A3D` (Crisp dark green on light green chip `rgba(52, 199, 89, 0.12)`).
 * **Hairline Borders:** `rgba(0, 0, 0, 0.08)`.
 
@@ -46,7 +46,24 @@
 
 ---
 
-## 3. Structural Layout Rules
+## 3. Canonical Screen Taxonomy & Prompt Standards
+
+All Stitch synthesis sessions must adhere to the standardized screen taxonomy:
+
+| Screen ID | File Name | Screen Target | Device Viewport | Key Feature / Focus |
+|---|---|---|---|---|
+| **01** | `01-landing.md` | Landing Page (`index.html`) | Desktop 1440×900 | Sanctuary hero, reassurance badges, preview grid |
+| **02** | `02-home.md` | Home Shelf (`#view-home`) | Desktop 1440×900 | Resume hero, offline shelf, fresh empty state |
+| **03** | `03-library.md` | Library (`#view-library`) | Desktop 1440×900 | Category pills, search, zero-search empty state |
+| **04** | `04-offline.md` | On This Device (`#view-offline`)| Desktop 1440×900 | OPFS storage metrics, zero-downloads empty state |
+| **05** | `05-full-player.md`| Full Player (`#view-player`) | Desktop 1440×900 | 2:3 cover, ambient bloom, hardware deck, chapters |
+| **06** | `06-profile.md` | Profile (`#view-profile`) | Desktop 1440×900 | Guest status / Clerk sync, OPFS storage manager |
+| **07** | `07-mini-player.md`| Mini Player Dock (`#mini-player`)| In Living App Shell | Persistent 62px dock hovering above page content |
+| **08** | `08-mobile.md` | Mobile Adaptations | Mobile 390×844 | Mobile Home baseline, 44px targets, safe areas |
+
+---
+
+## 4. Structural Layout Rules
 
 1. **Max Width & Spacing:** Max container width `1200px` centered with `24px` to `32px` gutter padding.
 2. **Floating App Topbar:** Sticky `62px` high frosted glass bar (`.app-topbar`) hovering 14px below viewport top with pill-segmented navigation (`Home`, `Library`, `On This Device`).

@@ -16,7 +16,7 @@ VibeAudio uses a dual-layer navigation model:
 
 ```
                               ┌─────────────────────────┐
-                              │      LANDING PAGE       │
+                              │   SCREEN 01: LANDING    │
                               │      (index.html)       │
                               └────────────┬────────────┘
                                            │ "Start Listening"
@@ -31,15 +31,17 @@ VibeAudio uses a dual-layer navigation model:
 │  └──────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                        │
 │   ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ ┌──────────┐ │
-│   │  SCREEN 01:   │ │  SCREEN 02:   │ │  SCREEN 03:   │ │  SCREEN 04:   │ │SCREEN 05:│ │
+│   │  SCREEN 02:   │ │  SCREEN 03:   │ │  SCREEN 04:   │ │  SCREEN 05:   │ │SCREEN 06:│ │
 │   │     HOME      │ │    LIBRARY    │ │   OFFLINE     │ │  FULL PLAYER  │ │ PROFILE  │ │
 │   │  #view-home   │ │ #view-library │ │ #view-offline │ │  #view-player │ │#view-prof│ │
 │   └───────────────┘ └───────────────┘ └───────────────┘ └───────────────┘ └──────────┘ │
 │                                                                                        │
 │  ┌──────────────────────────────────────────────────────────────────────────────────┐  │
-│  │                    FLOATING MINI-PLAYER DOCK (#mini-player)                      │  │
+│  │              SCREEN 07: PERSISTENT FLOATING MINI-PLAYER DOCK (#mini-player)      │  │
 │  │   [Cover] [Title - Chapter]                     [ 15s ]  [ ▶ / ❚❚ ]  [ 30s ]     │  │
 │  └──────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                        │
+│  SCREEN 08: MOBILE ADAPTATIONS (390×844 Portrait Sanctuary — Drawer, Touch, Insets)   │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -156,27 +158,58 @@ The heart of VibeAudio. Deep, immersive, uninterrupted listening with high-resol
 
 ---
 
-## 7. Screen 06: Persistent Mini-Player Dock (`#mini-player`)
+## 7. Screen 06: Profile, Storage & Sync (`#view-profile`)
 
 ### Purpose & User Goal
-Provides continuous listening context while the listener browses other views. Always accessible, zero obstruction.
+Personal identity, listening achievements, and on-device storage hygiene. Enables listeners to inspect guest listening continuity (or authenticate with Clerk), view milestones, inspect local OPFS storage quota, and safely purge device downloads without touching cloud progress.
 
 ### Information Hierarchy & Layout:
-1. **Micro Progress Line:** 2px high accent progress line along the top border (`#mini-progress-line-fill`).
-2. **Track Info Zone (`#mini-track-info`):** Square book cover thumbnail (`#mini-cover`), story title (`#mini-title`), chapter name (`#mini-chapter`), and expand chevron. Tapping this entire hit area smoothly transitions to the Full Player (`#view-player`).
-3. **Mini Transport Actions:**
-   * Jump Backward 15s (`#mini-seek-back-btn`).
-   * Circular Play/Pause button (`#mini-play-btn`).
-   * Jump Forward 30s (`#mini-seek-fwd-btn`).
-
-### Visibility & Interaction Rules:
-* Automatically hidden when on the Full Player view (`#view-player:not(.hidden)`).
-* Remains visible across Home, Library, Offline, History, and Profile views whenever a track is loaded.
+1. **User Identity Header:** 64×64px avatar with warm initial (`#profile-avatar`), display name (`#user-name-display`, "Guest Listener" or Clerk username), and status chip ("Guest Shelf Active" or "Synced").
+2. **Listening Milestones Grid:** 4-column metric strip (`#profile-stat-finished` Books Finished, `#profile-stat-hours` Hours Listened, `#profile-stat-active` Active Stories, `#profile-stat-bookmarks` Saved Moments).
+3. **OPFS Storage Management Panel:**
+   * Quota gauges: `#offline-storage-used` (e.g. "1.2 GB Saved Locally"), `#offline-storage-quota` (e.g. "48.6 GB Available"), `#offline-storage-books` (Saved Books count), `#offline-storage-chapters` (Saved Chapters count).
+   * Destructive action button: "Clear Offline Audio" (`#clear-offline-downloads-btn`) styled in subtle danger tokens (`rgba(255, 59, 48, 0.10)` background, `#D70015` text).
+4. **Session & Sync Controls:**
+   * "Sync Progress" button (`#sync-profile-btn`) to trigger on-demand sync with AWS DynamoDB (for signed-in users).
+   * "Sign Out / Reset Session" button (`window.app.logout()`).
 
 ---
 
-## 8. Secondary Views: History, About, Profile
+## 8. Screen 07: Persistent Mini-Player Dock (`#mini-player`)
 
-* **Listening History (`#view-history`):** Chronological timeline of listened books with last played timestamps and quick resume triggers.
-* **About (`#view-about`):** Philosophy statement, version tag ("Listening-First Edition"), and links.
-* **Profile & Storage Settings (`#view-profile`):** Listener avatar, listening metrics (Books Finished, Hours Listened, Active Stories), OPFS storage quota manager with "Clear Offline Audio" trigger, and Clerk auth controls.
+### Purpose & User Goal
+Provides continuous, uninterrupted listening context while the listener browses Home, Library, Offline, or Profile views. Positioned fixed at the bottom of the viewport directly above safe-area insets.
+
+### Information Hierarchy & Layout (Embedded in Living App Shell):
+1. **Micro Progress Line:** 2px high accent progress line along the top border (`#mini-progress-line-fill`) in `#C64E00`.
+2. **Track Info Zone (`#mini-track-info`):** Square book cover thumbnail (`#mini-cover`, 42×42px, 6px radius), story title in `Newsreader` (`#mini-title`), chapter name in `Inter` (`#mini-chapter`), and upward chevron indicator. Tapping anywhere in this hit area smoothly opens the Full Player (`#view-player`).
+3. **Mini Transport Deck:**
+   * Jump Backward 15s (`#mini-seek-back-btn`): 36px circular ghost button.
+   * Circular Play/Pause button (`#mini-play-btn`): 42px solid accent button (`#C64E00`) with pure white `#FFFFFF` play/pause glyph and subtle warm ambient glow.
+   * Jump Forward 30s (`#mini-seek-fwd-btn`): 36px circular ghost button.
+
+### Shell Relationship & Invariants:
+* **Clearance:** Content views maintain `padding-bottom: 120px` so that the mini dock never obstructs cards or interactive controls.
+* **Hiding Invariant:** Automatically hidden via CSS whenever the Full Player (`#view-player:not(.hidden)`) is active.
+
+---
+
+## 9. Screen 08: Mobile Adaptations (390×844 Portrait Sanctuary)
+
+### Purpose & User Goal
+Establishes the mobile adaptation strategy using the Home view (`#view-home`) as the canonical reference. Optimizes the entire listening experience for one-handed thumb ergonomics, iOS safe areas, and compact vertical rhythm.
+
+### Information Hierarchy & Layout (Mobile Portrait 390×844):
+1. **Compact Frosted Topbar:** 54px height, sticky at top with safe-area inset. Features hamburger button (`#menu-btn`, 44×44px hit area), brand lockup, catalog search trigger, and account profile icon. Center navigation tabs collapse into the slide drawer.
+2. **Slide Navigation Drawer (`#sidebar`):** 280px width, slides smoothly from the left over a dimmed backdrop (`#sidebar-overlay`). Hosts primary view links (`Home`, `Library`, `On This Device`, `Listening History`, `About`, `Install App`).
+3. **Mobile Continue Listening Hero:** Reconfigured into a vertical stack with a 120px 2:3 cover preview, chapter pill, progress track, and full-width "Resume Listening" touch target (48px height).
+4. **Mobile Catalog Grid:** 2-column grid (`repeat(2, 1fr)`) with 12px gap, 44px minimum tap targets, and clean two-line title clamping.
+5. **Safe-Area Dock Integration:** Mini-player dock expands to `calc(100% - 24px)` with `bottom: max(12px, env(safe-area-inset-bottom, 12px))` to ensure zero collision with the iOS home swipe indicator.
+
+---
+
+## 10. Secondary Utility Views
+
+* **Listening History (`#view-history`):** Chronological timeline of listened audiobooks with last played timestamps, progress percentages, and quick resume triggers.
+* **About Sanctuary (`#view-about`):** Manifesto on distraction-free listening, architecture highlights (zero build step, OPFS storage, privacy-first design), version tag ("Listening-First Edition"), and open source credits.
+

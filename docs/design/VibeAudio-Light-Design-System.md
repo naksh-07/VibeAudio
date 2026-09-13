@@ -54,16 +54,24 @@ The VibeAudio Light Design System replaces the monolithic Dark Obsidian palette 
 | `--color-text-muted` | `#AEAEB2` | **2.2:1** (Non-text / subtle)| Disabled elements, hairline decorative dividers. |
 
 ### 2.3 Brand Accent: Warm Amber & Coral (Audiobook Signature)
-In a light interface, standard yellow/amber washes out. VibeAudio uses an Apple Books-inspired warm terracotta/coral amber calibrated for crisp light-mode readability:
+In a light interface, standard yellow/amber washes out. VibeAudio uses an Apple Books-inspired warm terracotta/coral amber calibrated for crisp light-mode readability and strict WCAG 2.1 AA compliance:
 
 | Token Name | Value | Purpose |
 |---|---|---|
-| `--color-accent` | `#E65A00` | Primary action buttons, active play state, scrubber fill, active badge kicker. |
-| `--color-accent-hover` | `#CC4E00` | Hover state for primary buttons and interactive accents. |
-| `--color-accent-active` | `#B34400` | Pressed state for primary action buttons. |
-| `--color-accent-soft` | `rgba(230, 90, 0, 0.08)` | Background for active filter pills, active chapter rows, subtle badges. |
-| `--color-accent-border` | `rgba(230, 90, 0, 0.24)` | Border for active items, selected chips, and focus rings. |
-| `--color-accent-glow` | `rgba(230, 90, 0, 0.12)` | Subtle ambient aura around the full player play button. |
+| `--color-accent` | `#C64E00` | Primary action buttons, active play state, scrubber fill, active badge kicker. |
+| `--color-accent-hover` | `#A84200` | Hover state for primary buttons and interactive accents (deepens contrast to 5.6:1). |
+| `--color-accent-active` | `#8F3900` | Pressed state for primary action buttons (7.0:1 contrast). |
+| `--color-accent-soft` | `rgba(198, 78, 0, 0.08)` | Background for active filter pills, active chapter rows, subtle badges. |
+| `--color-accent-border` | `rgba(198, 78, 0, 0.24)` | Border for active items, selected chips, and focus rings. |
+| `--color-accent-glow` | `rgba(198, 78, 0, 0.12)` | Subtle ambient aura around the full player play button. |
+
+#### Contrast Verification (WCAG 2.1 AA):
+* **Text on Accent (Buttons):** Pure white text (`#FFFFFF`) on `#C64E00` yields **4.67:1** contrast ratio, strictly exceeding the minimum **4.5:1** requirement for normal text (< 18.66px bold / < 24px regular).
+* **Accent on Canvas:** `#C64E00` on `#F5F5F7` yields **4.28:1** contrast ratio, exceeding the 3.0:1 requirement for large text, icons, and UI components.
+* **Usage Rules:**
+  * **Allowed:** Primary CTA buttons (with white text), active tab indicators, scrubber fill line, active chapter highlight bars, focus indicator rings, and category kicker tags.
+  * **Prohibited:** Must **NEVER** be used as running body copy, author bylines, or lengthy descriptive paragraphs on white or canvas backgrounds.
+* **Disabled Treatment:** When an accent button is disabled, background becomes `rgba(0, 0, 0, 0.08)` with `--color-text-muted` (`#AEAEB2`) or `rgba(198, 78, 0, 0.35)` with `pointer-events: none; opacity: 0.5; box-shadow: none;`.
 
 ### 2.4 Semantic Status Tokens
 * **Success (Downloaded / Synced):**
@@ -171,7 +179,7 @@ In light theme, shadows must never be harsh, black, or blurry blobs. They are co
 --shadow-sheet: 0 16px 44px rgba(0, 0, 0, 0.10), 0 4px 12px rgba(0, 0, 0, 0.04);
 
 /* Keyboard Focus Ring */
---shadow-focus: 0 0 0 3px rgba(230, 90, 0, 0.25);
+--shadow-focus: 0 0 0 3px rgba(198, 78, 0, 0.28);
 ```
 
 ---
@@ -221,3 +229,36 @@ Frosted glass (`backdrop-filter`) is a signature Apple material, but it must be 
     }
 }
 ```
+
+---
+
+## 9. Design Source-of-Truth Hierarchy
+
+To guarantee architectural consistency across generative AI canvases and production code, all design and implementation artifacts adhere to a strict source-of-truth hierarchy:
+
+```text
+PRODUCT REQUIREMENTS (PRD)
+        ↓
+DESIGN PRINCIPLES (Redesign Brief)
+        ↓
+.stitch/DESIGN.md (Canonical Visual Language)
+        ↓
+.stitch/SITE.md (Canonical Product Context & Sitemap)
+        ↓
+COMPONENT SPEC (Reusable Component Library)
+        ↓
+SCREEN SPECS (Information Architecture)
+        ↓
+STITCH VISUAL DESIGN (Generative Exploration)
+        ↓
+SELECTED VISUAL REFERENCE (Approved Screens)
+        ↓
+ANTIGRAVITY IMPLEMENTATION (Codebase Styling)
+        ↓
+VISUAL QA (Playwright Regression Checks)
+```
+
+> [!IMPORTANT]
+> **Functional Invariant Rule:**
+> Existing functional and runtime contracts (DOM IDs, 12 test suites, OPFS storage, guest progress isolation, Media Session API) override visual design whenever there is an apparent conflict. Visual styling adapts to functional contracts—never the reverse.
+

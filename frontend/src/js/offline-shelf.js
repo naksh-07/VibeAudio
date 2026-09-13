@@ -1416,7 +1416,7 @@ export async function importAudiobookFile(file, options = {}) {
         bookId,
         title: cleanTitle,
         author: options.author || 'Local File',
-        cover: options.cover || './src/icons/favicon.png',
+        cover: options.cover || '/src/icons/favicon.png',
         description: options.description || `Locally imported audiobook (${file.name})`,
         genre: 'Local',
         moods: ['Local Audio'],

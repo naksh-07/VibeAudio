@@ -1,29 +1,29 @@
 const DEFAULT_PALETTE = [
-    [229, 169, 60],
-    [155, 161, 176],
-    [30, 35, 43],
-    [12, 13, 17]
+    [198, 78, 0],
+    [110, 110, 115],
+    [242, 242, 247],
+    [245, 245, 247]
 ];
 
 const SURFACES = ['library', 'history', 'player'];
 const SURFACE_BASE_PALETTES = {
     library: [
-        [229, 169, 60],
-        [155, 161, 176],
-        [30, 35, 43],
-        [12, 13, 17]
+        [198, 78, 0],
+        [110, 110, 115],
+        [242, 242, 247],
+        [245, 245, 247]
     ],
     history: [
-        [210, 155, 55],
-        [145, 152, 168],
-        [26, 30, 38],
-        [12, 13, 17]
+        [198, 78, 0],
+        [110, 110, 115],
+        [242, 242, 247],
+        [245, 245, 247]
     ],
     player: [
-        [229, 169, 60],
-        [175, 180, 195],
-        [35, 40, 50],
-        [12, 13, 17]
+        [198, 78, 0],
+        [110, 110, 115],
+        [242, 242, 247],
+        [245, 245, 247]
     ]
 };
 const SURFACE_DYNAMIC_THEME = {
@@ -83,6 +83,57 @@ function rgba(color, alpha) {
     return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alpha})`;
 }
 
+function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+        h = s = 0;
+    } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    return [h * 360, s * 100, l * 100];
+}
+
+function hslToRgb(h, s, l) {
+    h /= 360; s /= 100; l /= 100;
+    let r, g, b;
+
+    if (s === 0) {
+        r = g = b = l;
+    } else {
+        const hue2rgb = (p, q, t) => {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1 / 6) return p + (q - p) * 6 * t;
+            if (t < 1 / 2) return q;
+            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+            return p;
+        };
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1 / 3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1 / 3);
+    }
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+function clampLightBloom(color) {
+    const [h, s, l] = rgbToHsl(color[0], color[1], color[2]);
+    const clampedS = Math.min(s, 35);
+    const clampedL = Math.max(l, 85);
+    return hslToRgb(h, clampedS, clampedL);
+}
+
 function normalizeSurface(surface) {
     return SURFACES.includes(surface) ? surface : 'library';
 }
@@ -106,40 +157,36 @@ function buildSurfacePalette(palette, surface) {
 }
 
 function buildTheme(palette, surface = 'library') {
-    const [primaryBase, secondaryBase, tertiaryBase, depthBase] = buildSurfacePalette(palette, surface);
-    const primary = mixColor(primaryBase, [255, 238, 212], 0.12);
-    const secondary = mixColor(secondaryBase, [255, 245, 223], 0.12);
-    const tertiary = mixColor(tertiaryBase, [236, 228, 216], 0.06);
-    const depth = mixColor(depthBase, [0, 0, 0], 0.48);
-    const shell = mixColor(depth, [8, 12, 18], 0.6);
-    const titleAccent = mixColor(secondary, [255, 255, 255], 0.34);
+    const [primaryBase, secondaryBase] = buildSurfacePalette(palette, surface);
+    const bloomPrimary = clampLightBloom(primaryBase);
+    const bloomSecondary = clampLightBloom(secondaryBase);
 
     return {
-        '--primary': rgb(primary),
-        '--secondary': rgb(secondary),
-        '--accent-soft': rgba(primary, 0.18),
-        '--theme-bg-1': rgba(mixColor(primary, shell, 0.82), 0.72),
-        '--theme-bg-2': rgba(mixColor(secondary, shell, 0.8), 0.42),
-        '--theme-bg-3': rgba(mixColor(tertiary, shell, 0.74), 0.34),
-        '--theme-bg-4': rgba(mixColor(shell, [0, 0, 0], 0.3), 0.995),
-        '--theme-surface-1': rgba(mixColor(shell, primary, 0.08), 0.9),
-        '--theme-surface-2': rgba(mixColor(shell, secondary, 0.08), 0.58),
-        '--theme-surface-3': rgba(mixColor(shell, [255, 255, 255], 0.06), 0.14),
-        '--theme-border': rgba(mixColor(primary, [255, 255, 255], 0.22), 0.14),
-        '--theme-border-strong': rgba(mixColor(secondary, [255, 255, 255], 0.18), 0.26),
-        '--theme-glow': rgba(primary, 0.18),
-        '--theme-glow-soft': rgba(secondary, 0.12),
-        '--theme-shadow': rgba(mixColor(shell, [0, 0, 0], 0.28), 0.62),
-        '--theme-shadow-strong': rgba(mixColor(shell, [0, 0, 0], 0.44), 0.82),
-        '--theme-title': 'rgba(248, 244, 236, 0.98)',
-        '--theme-text': 'rgba(235, 229, 220, 0.96)',
-        '--theme-text-soft': 'rgba(214, 206, 194, 0.88)',
-        '--theme-text-dim': 'rgba(192, 186, 176, 0.84)',
-        '--theme-title-gradient-start': 'rgb(248, 243, 234)',
-        '--theme-title-gradient-end': rgb(titleAccent),
-        '--theme-progress-track': rgba(mixColor(shell, [255, 255, 255], 0.12), 0.24),
-        '--theme-progress-fill': `linear-gradient(90deg, ${rgb(primary)}, ${rgb(secondary)})`,
-        '--theme-player-overlay': `linear-gradient(135deg, ${rgba(primary, 0.16)}, ${rgba(secondary, 0.08)} 42%, ${rgba(shell, 0.82)})`
+        '--primary': '#C64E00',
+        '--secondary': '#6E6E73',
+        '--accent-soft': 'rgba(198, 78, 0, 0.08)',
+        '--theme-bg-1': rgba(bloomPrimary, 0.45),
+        '--theme-bg-2': rgba(bloomSecondary, 0.35),
+        '--theme-bg-3': 'rgba(242, 242, 247, 0.8)',
+        '--theme-bg-4': '#FFFFFF',
+        '--theme-surface-1': '#FFFFFF',
+        '--theme-surface-2': '#F2F2F7',
+        '--theme-surface-3': '#E5E5EA',
+        '--theme-border': 'rgba(0, 0, 0, 0.08)',
+        '--theme-border-strong': 'rgba(0, 0, 0, 0.14)',
+        '--theme-glow': 'rgba(198, 78, 0, 0.12)',
+        '--theme-glow-soft': 'rgba(198, 78, 0, 0.04)',
+        '--theme-shadow': 'var(--shadow-card)',
+        '--theme-shadow-strong': 'var(--shadow-elevated)',
+        '--theme-title': '#1D1D1F',
+        '--theme-text': '#1D1D1F',
+        '--theme-text-soft': '#48484A',
+        '--theme-text-dim': '#86868B',
+        '--theme-title-gradient-start': '#1D1D1F',
+        '--theme-title-gradient-end': '#6E6E73',
+        '--theme-progress-track': 'rgba(0, 0, 0, 0.06)',
+        '--theme-progress-fill': 'linear-gradient(90deg, #C64E00, #E65A00)',
+        '--theme-player-overlay': `linear-gradient(135deg, ${rgba(bloomPrimary, 0.35)}, ${rgba(bloomSecondary, 0.2)} 42%, #F5F5F7)`
     };
 }
 
@@ -163,8 +210,8 @@ function setCssVariables(theme) {
     });
 
     const themeMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeMeta && theme['--primary']) {
-        themeMeta.setAttribute('content', theme['--primary']);
+    if (themeMeta) {
+        themeMeta.setAttribute('content', '#F5F5F7');
     }
 }
 
@@ -213,7 +260,21 @@ function extractPaletteFromImage(imageUrl) {
             resolve(DEFAULT_PALETTE);
         };
 
-        img.src = `https://wsrv.nl/?url=${encodeURIComponent(resolvedUrl)}&w=480&fit=cover`;
+        if (resolvedUrl.startsWith('blob:') || resolvedUrl.startsWith('data:')) {
+            img.removeAttribute('crossOrigin');
+            img.src = resolvedUrl;
+        } else if (typeof navigator !== 'undefined' && !navigator.onLine) {
+            if (resolvedUrl.startsWith('http://') || resolvedUrl.startsWith('https://')) {
+                paletteCache.set(resolvedUrl, DEFAULT_PALETTE);
+                resolve(DEFAULT_PALETTE);
+                return;
+            }
+            img.src = resolvedUrl;
+        } else if (resolvedUrl.startsWith('http://') || resolvedUrl.startsWith('https://')) {
+            img.src = `https://wsrv.nl/?url=${encodeURIComponent(resolvedUrl)}&w=480&fit=cover`;
+        } else {
+            img.src = resolvedUrl;
+        }
     });
 }
 

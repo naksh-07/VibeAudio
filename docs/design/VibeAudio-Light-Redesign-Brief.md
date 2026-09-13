@@ -23,7 +23,7 @@ VibeAudio is transitioning from its foundational Dark Obsidian aesthetic to an *
 ### Visual Personality
 * **Luminous & Calming:** A clean, glare-free off-white canvas (`#F5F5F7`) reminiscent of premium archival paper and anodized aluminum, paired with pristine white surfaces (`#FFFFFF`).
 * **Editorial & Literary:** Book covers are honored as physical art objects. Editorial serif headlines (`Newsreader`) introduce literary gravity, balanced against ultra-clean modern sans-serif UI typography (`Inter` / system-ui).
-* **Restrained Warmth:** Accent tones draw from the warm amber/terracotta palette (`#E65A00` / `#FF9500`), radiating focus and reading warmth rather than synthetic tech neon.
+* **Restrained Warmth:** Accent tones draw from the warm amber/terracotta palette (`#C64E00`), radiating focus and reading warmth while satisfying WCAG 2.1 AA accessibility (4.67:1 contrast on white) rather than synthetic tech neon.
 * **Architectural & Breathable:** Generous margins, deliberate whitespace, and structured asymmetric grids give the interface room to breathe, inviting slow, deliberate listening sessions.
 
 ### Emotional Tone
@@ -101,3 +101,32 @@ The listening experience must feel native whether docked on a 27-inch 4K desktop
 * **No Excessive Glassmorphism:** Never render raw content over noisy blurred backgrounds. Only floating navigation bars, floating docks, and modal overlays may use frosted glass. Content cards and panels must use crisp, opaque surfaces.
 * **No Low-Contrast Gray-on-Gray:** Avoid the pitfall of modern minimalist design where light gray text is rendered on white surfaces. Primary text must remain authoritative `#1D1D1F`.
 * **No E-Commerce Creep:** Do not introduce "Buy now", price tags, ratings stars, or recommendation algorithms. VibeAudio is a sanctuary for listening to audiobooks you already own or access.
+
+---
+
+## 6. Design Source-of-Truth Hierarchy
+
+```text
+PRODUCT REQUIREMENTS (PRD)
+        ↓
+DESIGN PRINCIPLES (Redesign Brief)
+        ↓
+.stitch/DESIGN.md (Canonical Visual Language)
+        ↓
+.stitch/SITE.md (Canonical Product Context & Sitemap)
+        ↓
+COMPONENT SPEC (Reusable Component Library)
+        ↓
+SCREEN SPECS (Information Architecture)
+        ↓
+STITCH VISUAL DESIGN (Generative Exploration)
+        ↓
+SELECTED VISUAL REFERENCE (Approved Screens)
+        ↓
+ANTIGRAVITY IMPLEMENTATION (Codebase Styling)
+        ↓
+VISUAL QA (Playwright Regression Checks)
+```
+
+Existing functional/runtime contracts override visual design whenever there is a conflict.
+

@@ -304,101 +304,147 @@ async function syncOfflineExperienceUI(book, chapter, state) {
     const statusSummary = document.getElementById('player-offline-summary');
     const statusMeta = document.getElementById('player-offline-meta');
 
-    if (!chapterButton || !statusChip || !statusSummary || !statusMeta) return;
+    if (!chapterButton && !bookButton && !removeBookButton && !statusChip && !statusSummary && !statusMeta) return;
 
     const isYouTubeSource = state.sourceType === 'youtube';
     const offlineState = await getCurrentChapterOfflineState();
     const offlineBook = book ? await getOfflineBook(book.bookId, getCurrentLang()) : null;
     const savedCount = Number(offlineBook?.totalDownloadedChapters || 0);
-    chapterButton.disabled = false;
-    chapterButton.style.opacity = '';
-    chapterButton.style.cursor = '';
-    chapterButton.style.color = '';
+    const queueCount = Number((offlineBook?.statusCounts?.queued || 0) + (offlineBook?.statusCounts?.downloading || 0));
+    const totalParts = Number(offlineBook?.totalChapters || book?.chapters?.length || 0);
+    const sizeLabel = formatStorageSize(offlineBook?.totalSizeBytes || 0);
+    const validatedLabel = formatRelativeLabel(offlineBook?.lastValidatedAt || offlineBook?.latestActivityAt || 0);
 
-    statusChip.dataset.state = offlineState.status;
+    if (chapterButton) {
+        chapterButton.disabled = false;
+        chapterButton.style.opacity = '';
+        chapterButton.style.cursor = '';
+        chapterButton.style.color = '';
+    }
+
+    if (statusChip) {
+        statusChip.dataset.state = offlineState.status;
+    }
 
     if (isYouTubeSource || offlineState.status === 'not_available') {
-        chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-ban"></use></svg>`;
-        chapterButton.disabled = true;
-        chapterButton.title = offlineState.reason || 'This chapter is not available for offline use.';
-        chapterButton.style.opacity = '0.55';
-        chapterButton.style.cursor = 'not-allowed';
+        if (chapterButton) {
+            chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-ban"></use></svg>`;
+            chapterButton.disabled = true;
+            chapterButton.title = offlineState.reason || 'This chapter is not available for offline use.';
+            chapterButton.style.opacity = '0.55';
+            chapterButton.style.cursor = 'not-allowed';
+        }
 
-        statusChip.textContent = 'Streaming Only';
-        statusSummary.textContent = 'YouTube-backed chapters stay streaming-only in browser. Playback still works, but VibeAudio will not save this source offline.';
-        statusMeta.textContent = 'Direct audio sources can be saved inside your browser for offline playback.';
+        if (statusChip) {
+            statusChip.dataset.state = 'streaming_only';
+            statusChip.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-ban"></use></svg> Streaming Only`;
+        }
+        if (statusSummary) {
+            statusSummary.textContent = 'YouTube-backed chapters stay streaming-only in browser. Playback still works, but VibeAudio will not save this source offline.';
+        }
+        if (statusMeta) {
+            statusMeta.textContent = 'Direct audio sources can be saved inside your browser for offline playback.';
+        }
         if (bookButton) bookButton.disabled = true;
-        if (removeBookButton) removeBookButton.disabled = savedCount === 0 && queueCount === 0;
+        if (removeBookButton) {
+            removeBookButton.disabled = savedCount === 0 && queueCount === 0;
+            removeBookButton.classList.toggle('hidden', savedCount === 0 && queueCount === 0);
+        }
         return;
     }
 
-    if (offlineState.status === OFFLINE_STATES.downloaded) {
-        chapterButton.innerHTML = `<svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check"></use></svg>`;
-        chapterButton.title = 'Remove this offline chapter';
-        chapterButton.style.color = '#77d28c';
-    } else if (offlineState.status === OFFLINE_STATES.updateAvailable) {
-        chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-sync"></use></svg>`;
-        chapterButton.title = 'Refresh this offline chapter';
-        chapterButton.style.color = '#ffd37b';
-    } else if (offlineState.status === OFFLINE_STATES.downloading) {
-        const progressPercent = Math.max(0, Math.round(Number(offlineState.record?.progressPercent || 0)));
-        chapterButton.innerHTML = `<span>${progressPercent || 0}%</span>`;
-        chapterButton.title = 'Chapter download in progress';
-        chapterButton.disabled = true;
-    } else if (offlineState.status === OFFLINE_STATES.queued) {
-        chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-chapters"></use></svg>`;
-        chapterButton.title = 'Chapter is queued for download';
-        chapterButton.disabled = true;
-    } else if (offlineState.status === OFFLINE_STATES.failed) {
-        chapterButton.innerHTML = `<svg class="vibe-icon vibe-icon-accent" aria-hidden="true"><use href="#icon-warning"></use></svg>`;
-        chapterButton.title = offlineState.reason || 'Retry offline download';
-    } else {
-        chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-download"></use></svg>`;
-        chapterButton.title = 'Save this chapter for offline use';
+    if (chapterButton) {
+        if (offlineState.status === OFFLINE_STATES.downloaded) {
+            chapterButton.innerHTML = `<svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check"></use></svg>`;
+            chapterButton.title = 'Remove this offline chapter';
+            chapterButton.style.color = '#248a3d';
+        } else if (offlineState.status === OFFLINE_STATES.updateAvailable) {
+            chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-sync"></use></svg>`;
+            chapterButton.title = 'Refresh this offline chapter';
+            chapterButton.style.color = '#c96e00';
+        } else if (offlineState.status === OFFLINE_STATES.downloading) {
+            const progressPercent = Math.max(0, Math.round(Number(offlineState.record?.progressPercent || 0)));
+            chapterButton.innerHTML = `<span>${progressPercent || 0}%</span>`;
+            chapterButton.title = 'Chapter download in progress';
+            chapterButton.disabled = true;
+        } else if (offlineState.status === OFFLINE_STATES.queued) {
+            chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-chapters"></use></svg>`;
+            chapterButton.title = 'Chapter is queued for download';
+            chapterButton.disabled = true;
+        } else if (offlineState.status === OFFLINE_STATES.failed) {
+            chapterButton.innerHTML = `<svg class="vibe-icon vibe-icon-accent" aria-hidden="true"><use href="#icon-warning"></use></svg>`;
+            chapterButton.title = offlineState.reason || 'Retry offline download';
+        } else {
+            chapterButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-download"></use></svg>`;
+            chapterButton.title = 'Save this chapter for offline use';
+        }
     }
 
+    let chipLabel = 'Save Offline';
+    let chipIcon = '#icon-cloud-download';
+    let summaryText = 'Save chapters or the full book inside your browser to listen anywhere without a connection.';
+
     if (state.playbackOrigin === 'offline') {
-        statusChip.textContent = 'Playing Offline';
-        statusSummary.textContent = 'This chapter is saved on this device. VibeAudio is playing the local copy seamlessly.';
+        chipLabel = 'Playing Offline';
+        chipIcon = '#icon-check-circle';
+        summaryText = 'This chapter is saved on this device. VibeAudio is playing the local copy seamlessly.';
     } else if (offlineState.status === OFFLINE_STATES.downloaded) {
-        statusChip.textContent = 'Ready Offline';
-        statusSummary.textContent = 'Saved to this browser shelf. Ready for instant offline playback anytime.';
+        chipLabel = 'Ready Offline';
+        chipIcon = '#icon-check-circle';
+        summaryText = 'Saved to this browser shelf. Ready for instant offline playback anytime.';
     } else if (offlineState.status === OFFLINE_STATES.updateAvailable) {
-        statusChip.textContent = 'Update Available';
-        statusSummary.textContent = 'A saved copy exists, but the source was updated. Refresh once to keep it current.';
+        chipLabel = 'Update Available';
+        chipIcon = '#icon-sync';
+        summaryText = 'A saved copy exists, but the source was updated. Refresh once to keep it current.';
     } else if (offlineState.status === OFFLINE_STATES.downloading) {
         const progressPercent = Math.max(0, Math.round(Number(offlineState.record?.progressPercent || 0)));
-        statusChip.textContent = 'Saving to Device…';
-        statusSummary.textContent = progressPercent > 0
+        chipLabel = progressPercent > 0 ? `Saving (${progressPercent}%)` : 'Saving…';
+        chipIcon = '#icon-spinner';
+        summaryText = progressPercent > 0
             ? `Saving this chapter locally. ${progressPercent}% complete.`
             : 'Saving this chapter locally.';
     } else if (offlineState.status === OFFLINE_STATES.queued) {
-        statusChip.textContent = 'Queued';
-        statusSummary.textContent = 'This chapter is in your offline queue and will continue automatically.';
+        chipLabel = 'Queued';
+        chipIcon = '#icon-chapters';
+        summaryText = 'This chapter is in your offline queue and will continue automatically.';
     } else if (offlineState.status === OFFLINE_STATES.failed) {
-        statusChip.textContent = 'Retry Needed';
-        statusSummary.textContent = offlineState.reason || 'Download was interrupted. Tap retry to continue.';
-    } else {
-        statusChip.textContent = 'Save Offline';
-        statusSummary.textContent = 'Save chapters or the full book inside your browser to listen anywhere without a connection.';
+        chipLabel = 'Retry Needed';
+        chipIcon = '#icon-warning';
+        summaryText = offlineState.reason || 'Download was interrupted. Tap retry to continue.';
     }
 
-    const metaParts = [];
-    if (savedCount > 0 && totalParts > 0) metaParts.push(`${savedCount}/${totalParts} parts saved`);
-    if (queueCount > 0) metaParts.push(`${queueCount} in queue`);
-    if (offlineBook?.totalSizeBytes > 0) metaParts.push(sizeLabel);
-    metaParts.push(`Validated ${validatedLabel}`);
-    statusMeta.textContent = metaParts.join(' - ');
+    if (statusChip) {
+        const iconClass = chipIcon === '#icon-check-circle' ? 'vibe-icon vibe-icon-success' : (chipIcon === '#icon-spinner' ? 'vibe-icon spin' : 'vibe-icon');
+        statusChip.innerHTML = `<svg class="${iconClass}" aria-hidden="true"><use href="${chipIcon}"></use></svg> <span>${chipLabel}</span>`;
+    }
+
+    if (statusSummary) {
+        statusSummary.textContent = summaryText;
+    }
+
+    if (statusMeta) {
+        const metaParts = [];
+        if (savedCount > 0 && totalParts > 0) metaParts.push(`${savedCount}/${totalParts} parts saved`);
+        if (queueCount > 0) metaParts.push(`${queueCount} in queue`);
+        if (offlineBook?.totalSizeBytes > 0) metaParts.push(sizeLabel);
+        metaParts.push(`Validated ${validatedLabel}`);
+        statusMeta.textContent = metaParts.join(' - ');
+    }
 
     if (bookButton) {
         bookButton.disabled = false;
-        bookButton.innerHTML = queueCount > 0
-            ? `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-chapters"></use></svg> Queue running`
-            : `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud-download"></use></svg> Download Book`;
+        if (queueCount > 0) {
+            bookButton.innerHTML = `<svg class="vibe-icon spin" aria-hidden="true"><use href="#icon-spinner"></use></svg> <span>Queue Running</span>`;
+        } else if (savedCount > 0 && totalParts > 0 && savedCount >= totalParts) {
+            bookButton.innerHTML = `<svg class="vibe-icon vibe-icon-success" aria-hidden="true"><use href="#icon-check-circle"></use></svg> <span>Saved Offline</span>`;
+        } else {
+            bookButton.innerHTML = `<svg class="vibe-icon" aria-hidden="true"><use href="#icon-cloud-download"></use></svg> <span>Save for Offline</span>`;
+        }
     }
 
     if (removeBookButton) {
         removeBookButton.disabled = savedCount === 0 && queueCount === 0;
+        removeBookButton.classList.toggle('hidden', savedCount === 0 && queueCount === 0);
     }
 }
 

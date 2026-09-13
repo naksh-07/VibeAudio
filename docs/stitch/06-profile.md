@@ -1,6 +1,6 @@
-# Stitch Screen Prompt 05 — Profile & Storage Settings (`#view-profile`)
+# Stitch Screen Prompt 06 — Profile & Storage Settings (`#view-profile`)
 
-**Prompt ID:** `STITCH-SCR-005`  
+**Prompt ID:** `STITCH-SCR-006`  
 **Screen Target:** Profile & Settings View (`#view-profile` in `src/pages/app.html`)  
 **Viewport:** Desktop 1440×900 & Mobile 390×844  
 **Design Reference:** Apple ID Settings / macOS Account Preferences  
@@ -57,21 +57,22 @@ Synthesize the profile, listening statistics, and storage management view of Vib
 
 * **Card Surface:** Large white `#FFFFFF` card (`.profile-card`), `24px` sheet radius, `0 10px 28px rgba(0, 0, 0, 0.05)` shadow, centered at `800px` max-width.
 * **Listener Header:**
-  * 64px round avatar with warm amber background and bold initial.
-  * Username in `Newsreader` (24px bold).
-  * Status chip: `#F2F2F7` pill badge with green status dot.
+  * 64px round avatar with warm amber background (`rgba(198, 78, 0, 0.12)`) and bold initial in `#C64E00`.
+  * Username in `Newsreader` (24px bold, `#1D1D1F`).
+  * Status chip: `#F2F2F7` pill badge with green `#248A3D` status dot.
 * **Metrics Grids:**
-  * Two 4-column statistical card rows with pure white background, subtle border, and large numeral figures.
+  * Two 4-column statistical card rows with pure white background, subtle border, and large numeral figures (`JetBrains Mono` / `Newsreader`).
 * **Storage Actions:**
-  * Destructive action button `[ 🗑 Clear Offline Audio ]` styled in subtle danger tokens (`rgba(255, 59, 48, 0.1)` background with `#D70015` red text).
-  * Primary sync button in secondary pill style.
+  * Destructive action button `[ 🗑 Clear Offline Audio ]` styled in subtle danger tokens (`rgba(255, 59, 48, 0.10)` background with `#D70015` red text).
+  * Primary sync button in secondary pill style (`#F2F2F7` background, `#1D1D1F` text).
 
 ---
 
 ## 4. Components & Tokens
-* `Profile Card`: `max-width: 800px`, centered, `var(--color-surface-1)` with `var(--radius-sheet)`.
-* `Stat Box`: `var(--color-surface-2)`, `10px` radius, tabular numerals.
-* `Subtle Danger Button`: 40px height, pill radius, `#D70015` text.
+* `Profile Card`: `max-width: 800px`, centered, `var(--color-surface-1)` (`#FFFFFF`) with `var(--radius-sheet)` (24px).
+* `Stat Box`: `var(--color-surface-2)` (`#F2F2F7`), `10px` radius, tabular numerals.
+* `Subtle Danger Button`: 40px height, pill radius, `#D70015` text, border `1px solid rgba(255, 59, 48, 0.24)`.
+* `Accent Tint`: `#C64E00` (WCAG AA 4.67:1 compliant).
 
 ---
 

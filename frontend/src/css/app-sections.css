@@ -207,9 +207,9 @@
 .solid-btn,
 .action-btn {
     background: var(--color-accent);
-    color: #0C0D11;
+    color: #FFFFFF;
     border: 1px solid var(--color-accent);
-    box-shadow: var(--shadow-subtle);
+    box-shadow: 0 4px 14px rgba(198, 78, 0, 0.24);
 }
 
 .solid-btn:hover,
@@ -217,7 +217,7 @@
     background: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 6px 20px rgba(198, 78, 0, 0.32);
 }
 
 .solid-btn:active,
@@ -329,7 +329,7 @@
     height: 36px;
     border-radius: 50%;
     cursor: pointer;
-    color: #0C0D11;
+    color: #FFFFFF;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -412,7 +412,7 @@
 
 #reload-btn {
     background: var(--color-accent);
-    color: #0C0D11;
+    color: #FFFFFF;
     border: none;
     padding: 8px 16px;
     border-radius: var(--radius-pill);
@@ -466,14 +466,14 @@
 
 #streak-popup button {
     background: var(--color-accent);
-    color: #0C0D11;
+    color: #FFFFFF;
     border: none;
     padding: 12px 32px;
     font-size: 1rem;
     border-radius: var(--radius-pill);
     cursor: pointer;
     font-weight: 600;
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 4px 14px rgba(198, 78, 0, 0.24);
     transition: background var(--transition-fast);
 }
 

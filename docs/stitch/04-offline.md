@@ -60,14 +60,40 @@ Synthesize the dedicated offline storage view of VibeAudio. This screen gives li
 
 ---
 
-## 4. Components & Tokens
+## 4. Zero Downloaded Books Empty State Specification
+
+When a listener visits "On This Device" but has zero audiobooks saved to OPFS:
+* **Trigger Condition:** `#offline-grid` is empty (no local audio handles in OPFS).
+* **Visual Hierarchy & Layout:**
+  * Centered card container placed directly below the storage insights bar (`max-width: 600px`, margin: `40px auto 60px`).
+  * Surface: Solid white `#FFFFFF`, `24px` sheet radius, `1px solid rgba(0, 0, 0, 0.08)` hairline border, soft ambient shadow `0 6px 20px rgba(0, 0, 0, 0.05)`.
+  * Padding: `48px 32px`.
+* **Icon Treatment:**
+  * 56×56px circular background in `var(--color-surface-2)` (`#F2F2F7`).
+  * Custom stroke icon: `#icon-download-cloud` or `#icon-device` in `1.85px` stroke with `#C64E00` accent color.
+* **Concise Copy:**
+  * Headline: *"No audiobooks saved for offline"* in `Newsreader` (24px bold, `#1D1D1F`).
+  * Subtitle: *"Stories you download are preserved directly in your browser's private storage (OPFS) for distraction-free listening on flights, commutes, or off the grid."* in `Inter` (14.5px, `#6E6E73`, line-height 1.6).
+* **Dual Action Cluster:**
+  * Primary Action: Solid pill button *"Browse Library to Download"* (`#C64E00` background, pure white `#FFFFFF` text, min-height 44px, padding `10px 22px`).
+  * Secondary Action: Ghost outline button *"Import Local Audio"* (`#F2F2F7` background, `#1D1D1F` text, 44px height).
+* **Relationship to Surrounding UI:**
+  * The storage insights metrics strip remains visible above, showing `0 MB Used` and `Available Quota` (e.g. 50 GB) to assure the user their device has ample space.
+* **What Should NOT Be Shown:**
+  * ❌ No warning triangles, red exclamation marks, or error dialogs.
+  * ❌ No cloud storage upsell alerts or subscription offers.
+
+---
+
+## 5. Components & Tokens
 * `Storage Stat Card`: White `#FFFFFF` surface, `10px` radius, `1px solid rgba(0, 0, 0, 0.06)` border.
+* `Primary Download Button`: `#C64E00` solid, pure white `#FFFFFF` text (4.67:1 AA contrast).
 * `Import Button`: 44px min-height, pill radius, secondary surface token (`--color-surface-2`).
 * `Offline Readiness Chip`: Green `#248A3D` with `#icon-check-circle` icon.
 
 ---
 
-## 5. Things Stitch Must Avoid
+## 6. Things Stitch Must Avoid
 * ❌ Avoid complicated partition graphs or technical disk utility diagrams.
 * ❌ Avoid warning or red error states unless storage is genuinely full.
 * ❌ Avoid dark surfaces; maintain the luminous `#F5F5F7` canvas.
