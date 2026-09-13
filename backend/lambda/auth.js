@@ -16,8 +16,6 @@ exports.handler = async (event) => {
         return { statusCode: 200, headers, body: '' };
     }
 
-    const validCodes = ["VIBE2026", "ADMIN_GOD", "BETA_TEST"];
-
     try {
         const body = event.body ? JSON.parse(event.body) : {};
 
@@ -54,40 +52,10 @@ exports.handler = async (event) => {
             };
         }
 
-        // --- 🔒 SCENARIO 2: MANUAL LOGIN ---
-        const enteredCode = body.code ? body.code.toUpperCase().trim() : "";
-        const enteredName = body.name ? body.name.trim() : "Unknown";
-
-        if (validCodes.includes(enteredCode)) {
-            const safeName = enteredName.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
-            const manualUserId = `${enteredCode}_${safeName}`;
-
-            await dynamo.send(new PutCommand({
-                TableName: TABLE_NAME,
-                Item: {
-                    userId: manualUserId,
-                    name: enteredName,
-                    tier: 'manual',
-                    lastLogin: new Date().toISOString()
-                }
-            }));
-
-            return {
-                statusCode: 200,
-                headers,
-                body: JSON.stringify({ 
-                    success: true, 
-                    userId: manualUserId, 
-                    name: enteredName, 
-                    message: "Welcome to Vibe!" 
-                })
-            };
-        }
-
         return {
             statusCode: 401,
             headers,
-            body: JSON.stringify({ success: false, error: "Invalid Access Code" })
+            body: JSON.stringify({ success: false, error: "Unauthorized" })
         };
 
     } catch (e) {
