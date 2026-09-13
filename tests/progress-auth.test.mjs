@@ -1,8 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generateKeyPair, exportJWK, SignJWT } from 'jose';
-import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { generateKeyPair, exportJWK, SignJWT, createLocalJWKSet } from '../backend/node_modules/jose/dist/webapi/index.js';
 import { setJWKSForTest } from '../backend/shared/auth-middleware.js';
 
 process.env.AWS_REGION = 'us-east-1';
@@ -10,7 +8,6 @@ process.env.AWS_ACCESS_KEY_ID = 'test';
 process.env.AWS_SECRET_ACCESS_KEY = 'test';
 import { handler as saveProgressHandler, setDocClientForTest as setSaveDocClient } from '../backend/lambda/saveProgress.js';
 import { handler as getProgressHandler, setDocClientForTest as setGetDocClient } from '../backend/lambda/getProgress.js';
-import { createLocalJWKSet } from 'jose';
 
 test('Progress Endpoints Auth & BOLA Tests', async (t) => {
     // 1. Setup Test Keys
