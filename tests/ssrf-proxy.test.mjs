@@ -1,15 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import fs from 'node:fs';
-import path from 'node:path';
-
-// Read the worker code and create a data URL for dynamic import
-const workerPath = path.resolve('backend/workers/proxymanager.js');
-const workerCode = fs.readFileSync(workerPath, 'utf8');
-const dataUrl = 'data:text/javascript;base64,' + Buffer.from(workerCode).toString('base64');
-
-// We will load the worker in before() to make sure it loads correctly
-let worker;
+import worker from '../backend/workers/proxymanager.js';
 
 // Mock Response class if not in environment
 class MockResponse {
@@ -72,10 +63,6 @@ global.fetch = async (url, init) => {
 };
 
 test('ProxyManager SSRF and Security tests', async (t) => {
-  // Load the worker
-  const module = await import(dataUrl);
-  worker = module.default;
-
   t.beforeEach(() => {
     fetchCalls = [];
   });
